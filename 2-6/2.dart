@@ -1,7 +1,7 @@
 void main() {
-  // List myArray = [2,2,4,4,4,2];
-
-  void calcMiddle([List array = const [1, 1.5, 1.74, 2, 8, 101, 4]]) {
+  List myArray = const [1, 1.5, 1.74, 2, 8, 101, 4];
+  
+  void calcMiddle(array) {
     double result = 0;
 
     for (int i = 0; i < array.length; i++) {
@@ -11,6 +11,5 @@ void main() {
     print(result);
   }
 
-  calcMiddle();
-  // calcMiddle(myArray);
+  calcMiddle(myArray);
 }
