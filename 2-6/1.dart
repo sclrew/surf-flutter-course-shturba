@@ -3,9 +3,9 @@ void main() {
 
   void reverse(String text) {
 
-    
-
-    print(text);
+    List<String> myTextList = text.split(' ');
+  
+    print(myTextList.reversed.join(' '));
   }
 
   reverse(a);
