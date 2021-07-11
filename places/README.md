@@ -1,16 +1,10 @@
-# places
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. После переименования - запустил проект командой
+flutter run lib/start.dart 
+проект запустился - разница в том, что всё управление из командной строки
+2. Не увидел - в документации прочитал, 
+On Android the titles appear above the task manager's app snapshots which are displayed when the user presses the "recent apps" button.
+давил на квадратную кнопку - видел task manager app snapshot - но title не увидел
+5. можно, внутри build - там где есть context
+6. context доступен по всему классу описывающему состояние 
+- в моём случае _App2State
+а не только внутри build

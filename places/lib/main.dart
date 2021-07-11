@@ -13,19 +13,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         // fontFamily: 'Roboto',
         primarySwatch: Colors.blue,
       ),
-      home: const MySecondWidget(),
+      home: App2(),
+      // home: App(),
+      // home: const MySecondWidget(),
       // home: const MyFirstWidget(),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -55,11 +48,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       _counter++;
     });
   }
@@ -121,7 +109,7 @@ class MyFirstWidget extends StatelessWidget {
   const MyFirstWidget({Key? key}) : super(key: key);
 
 // MyFirstWidget
-// stateless не хранит состояние - 
+// stateless не хранит состояние -
 // потому значение переменной да и сама переменная каждый раз создаётся заново
 // Значение счётчика равно 1
 
@@ -153,7 +141,7 @@ class _MySecondWidgetState extends State<MySecondWidget> {
 // тут мне не понятно, почему при старте он сразу в консоле выводит
 // flutter: 1  - это ожидаемо
 // flutter: 2  - вот это откуда прилетает ???
-// 
+//
 // -------------------------------------
 // далее жму hot reload - добавляет по 1 в _counter и выводит - тоже как и ожидал
 
@@ -166,6 +154,47 @@ class _MySecondWidgetState extends State<MySecondWidget> {
       child: Center(
         child: Text('Hello'),
       ),
+    );
+  }
+}
+
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    String _myMethod() {
+      return context.runtimeType.toString();
+    }
+
+    print(_myMethod());
+
+    return MaterialApp(
+      title: 'My Title',
+      home: MyFirstWidget(),
+    );
+  }
+}
+
+class App2 extends StatefulWidget {
+  const App2({Key? key}) : super(key: key);
+
+  @override
+  State<App2> createState() => _App2State();
+}
+
+class _App2State extends State<App2> {
+  String _myMethod() {
+    return context.runtimeType.toString();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print(_myMethod());
+
+    return MaterialApp(
+      title: 'My Title',
+      home: MyFirstWidget(),
     );
   }
 }
