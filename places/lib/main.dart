@@ -25,7 +25,9 @@ class MyApp extends StatelessWidget {
         // fontFamily: 'Roboto',
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MySecondWidget(),
+      // home: const MyFirstWidget(),
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -111,6 +113,59 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class MyFirstWidget extends StatelessWidget {
+  const MyFirstWidget({Key? key}) : super(key: key);
+
+// MyFirstWidget
+// stateless не хранит состояние - 
+// потому значение переменной да и сама переменная каждый раз создаётся заново
+// Значение счётчика равно 1
+
+  @override
+  Widget build(BuildContext context) {
+    int _counter = 0;
+    _counter++;
+    print(_counter);
+    return Container(
+      child: Center(
+        child: Text('Hello'),
+      ),
+    );
+  }
+}
+
+class MySecondWidget extends StatefulWidget {
+  const MySecondWidget({Key? key}) : super(key: key);
+
+  @override
+  _MySecondWidgetState createState() => _MySecondWidgetState();
+}
+
+class _MySecondWidgetState extends State<MySecondWidget> {
+  int _counter = 0;
+// при hot reload flutter запоминает значение переменных
+// и перерисовывает только изменившиеся части приложения
+
+// тут мне не понятно, почему при старте он сразу в консоле выводит
+// flutter: 1  - это ожидаемо
+// flutter: 2  - вот это откуда прилетает ???
+// 
+// -------------------------------------
+// далее жму hot reload - добавляет по 1 в _counter и выводит - тоже как и ожидал
+
+  @override
+  Widget build(BuildContext context) {
+    _counter++;
+    print(_counter);
+
+    return Container(
+      child: Center(
+        child: Text('Hello'),
+      ),
     );
   }
 }
