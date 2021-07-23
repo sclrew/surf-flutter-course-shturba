@@ -11,17 +11,36 @@ class _SightListScreenState extends State<SightListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: appBar,
-      body: Container(
-          height:
-              MediaQuery.of(context).size.height - // высота всего экрана минус
-                  appBar.preferredSize.height // высота appBar и
-                  -
-                  MediaQuery.of(context).padding.top, // минус высота статусбар
-          // ну и потенциально bottomNavBar тоже минусуем
-          child: const Center(child: Text("Hello!"))),
+      body: const Center(child: Text("Hello!")),
     );
   }
 
-  AppBar appBar = AppBar();
+  AppBar appBar = AppBar(
+    brightness: Brightness.light,
+    backgroundColor: Colors.white,
+    elevation: 0,
+    toolbarHeight: 100,
+    title: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        RichText(
+          text: const TextSpan(
+            style: TextStyle(
+              fontSize: 30,
+              color: Color(0xff262847),
+              fontWeight: FontWeight.w700,
+            ),
+            children: <TextSpan>[
+              TextSpan(text: 'C', style: TextStyle(color: Color(0xff67ad5b))),
+              TextSpan(text: 'писок\n'),
+              TextSpan(text: 'и', style: TextStyle(color: Color(0xfff7de5e))),
+              TextSpan(text: 'нтересных мест'),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
 }
