@@ -1,4 +1,4 @@
-enum MyTypes { nature, history, interes }
+// enum MyTypes { nature, history, interes }
 
 class Sight {
   String name;
@@ -6,7 +6,7 @@ class Sight {
   double lon;
   String url;
   String details;
-  MyTypes type;
+  String type;
 
   Sight(this.name, this.lat, this.lon, this.url, this.details, this.type);
 }
