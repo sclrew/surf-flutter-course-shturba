@@ -39,11 +39,15 @@ class _SightListScreenState extends State<SightListScreen> {
     brightness: Brightness.light,
     backgroundColor: Colors.white,
     elevation: 0,
+    toolbarHeight: 0,
     bottom: PreferredSize(
       preferredSize: Size.fromHeight(100),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          SizedBox(
+            width: 16,
+          ),
           RichText(
             text: const TextSpan(
               style: TextStyle(
