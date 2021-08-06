@@ -43,18 +43,27 @@ class _SightDetailsState extends State<SightDetails> {
               ],
             ),
           ),
+          SizedBox(
+            height: 0,
+          ),
           Container(
             margin: EdgeInsets.only(left: 16, top: 24, right: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Пряности и радости',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xff3B3E5B),
-                    height: 1.2,
+                ConstrainedBox(
+                  constraints: BoxConstraints.tightFor(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    // height: MediaQuery.of(context).size.height * 0.5,
+                  ),
+                  child: Text(
+                    'Пряности и радости',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xff3B3E5B),
+                      height: 1.2,
+                    ),
                   ),
                 ),
                 Row(
