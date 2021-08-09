@@ -21,35 +21,53 @@ class SightCard extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              // здесь будет моя картинка
-              child: Container(
-                child: Row(
+              // child: Container(
+              child: Stack(children: [
+                Image.network(
+                  sight.url,
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  alignment: Alignment.topLeft,
+                  fit: BoxFit.fitWidth,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child;
+                    }
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
+                ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 16, left: 16),
+                      margin: const EdgeInsets.only(top: 16, left: 16),
                       child: Text(
                         sight.type.toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 16,
                         ),
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 19, right: 18),
+                      margin: const EdgeInsets.only(top: 19, right: 18),
                       color: Colors.orange,
                       width: 20,
                       height: 18,
                     ),
                   ],
                 ),
-              ),
+              ]),
+              // ),
             ),
-            // отступ между картинкой и описанием
-            SizedBox(),
-            // описание
             Container(
               height: 92,
               width: MediaQuery.of(context).size.width * 0.90,
@@ -61,22 +79,21 @@ class SightCard extends StatelessWidget {
                 ),
               ),
               child: Container(
-                margin: EdgeInsets.only(left: 16, top: 16, right: 16),
+                margin: const EdgeInsets.only(left: 16, top: 16, right: 16),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       sight.name,
-                      style: TextStyle(
+                      style: const TextStyle(
                         height: 1.25,
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
                         color: Color(0xFF3B3E5B),
                       ),
                     ),
-                    // SizedBox(height: 8),
-                    Text(
+                    const Text(
                       'краткое описание',
                       style: TextStyle(
                           height: 1.35, fontSize: 14, color: Color(0xff7C7E92)),
