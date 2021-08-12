@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/mocks.dart';
 
 class SightDetails extends StatefulWidget {
   const SightDetails({Key? key}) : super(key: key);
@@ -15,36 +16,58 @@ class _SightDetailsState extends State<SightDetails> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Container(
-            padding: EdgeInsets.only(top: 36, left: 16),
+          SizedBox(
             height: 360,
-            color: Colors.blue,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Stack(
               children: [
-                Container(
-                  constraints: BoxConstraints(maxHeight: 32, maxWidth: 32),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
-                  child: Center(
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.arrow_back_ios_new_rounded,
-                        size: 16,
+                Image.network(
+                  mocks[2].url,
+                  fit: BoxFit.fill,
+                  height: 360,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child;
+                    }
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                            : null,
                       ),
-                    ),
+                    );
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 36, left: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        constraints:
+                            const BoxConstraints(maxHeight: 32, maxWidth: 32),
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                        ),
+                        child: Center(
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.arrow_back_ios_new_rounded,
+                              size: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
-          ),
-          SizedBox(
-            height: 0,
           ),
           Container(
             margin: EdgeInsets.only(left: 16, top: 24, right: 16),
