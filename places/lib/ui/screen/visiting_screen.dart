@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:places/ui/screen/sight_card.dart';
-import 'package:places/ui/screen/sight_card_empty.dart';
+import 'package:places/ui/screen/sight_card_visited_empty.dart';
 import 'package:places/ui/screen/sight_card_visited.dart';
+import 'package:places/ui/screen/sight_card_wish.dart';
+import 'package:places/ui/screen/sight_card_wish_empty.dart';
 
 import '../../mocks.dart';
 
@@ -13,6 +16,8 @@ class VisitingScreen extends StatefulWidget {
 }
 
 class _VisitingScreenState extends State<VisitingScreen> {
+  int _bottomNavIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -22,11 +27,10 @@ class _VisitingScreenState extends State<VisitingScreen> {
           elevation: 0,
           toolbarHeight: 108,
           backgroundColor: Colors.white,
-          title: const Text(
+          title: Text(
             'Избранное',
-            style: TextStyle(
-                color: Color(0xff252849),
-                fontFamily: 'Roboto',
+            style: GoogleFonts.roboto(
+                color: const Color(0xff252849),
                 fontWeight: FontWeight.w500,
                 height: 1.33,
                 fontSize: 18),
@@ -66,7 +70,29 @@ class _VisitingScreenState extends State<VisitingScreen> {
           padding: EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 16),
           child: TabBarView(
             children: [
-              SightEmpty(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        WishSightCard(sight: wishSights[0]),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        WishSightCard(sight: wishSights[1]),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        WishSightCard(sight: wishSights[2]),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              // VisitedSightEmpty(),
+              // WishSightEmpty(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,11 +101,11 @@ class _VisitingScreenState extends State<VisitingScreen> {
                     child: Column(
                       children: [
                         VisitedSightCard(sight: visitedSights[0]),
-                        SizedBox(
+                        const SizedBox(
                           height: 16,
                         ),
                         VisitedSightCard(sight: visitedSights[1]),
-                        SizedBox(
+                        const SizedBox(
                           height: 16,
                         ),
                         VisitedSightCard(sight: visitedSights[2]),
@@ -91,6 +117,46 @@ class _VisitingScreenState extends State<VisitingScreen> {
             ],
           ),
         ),
+        bottomNavigationBar: BottomNavigationBar(
+            currentIndex: _bottomNavIndex,
+            selectedItemColor: Colors.black,
+            unselectedItemColor: Colors.grey,
+            type: BottomNavigationBarType.fixed,
+            selectedFontSize: 0,
+            unselectedFontSize: 0,
+            elevation: 10,
+            iconSize: 26,
+            onTap: (int index) {
+              setState(() {
+                _bottomNavIndex = index;
+              });
+            },
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.article_outlined,
+                ),
+                label: '',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.map_outlined,
+                ),
+                label: '',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.favorite,
+                ),
+                label: '',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.settings,
+                ),
+                label: '',
+              ),
+            ]),
       ),
     );
   }

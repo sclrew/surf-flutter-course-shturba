@@ -12,11 +12,11 @@ class Sight {
 }
 
 // Хочу посетить
-class WantToSeeSight extends Sight {
+class WishSight extends Sight {
   String visitTime;
 
-  WantToSeeSight(this.visitTime, String name, double lat, double lon,
-      String url, String details, String type)
+  WishSight(this.visitTime, String name, double lat, double lon, String url,
+      String details, String type)
       : super(name, lat, lon, url, details, type);
 }
 
