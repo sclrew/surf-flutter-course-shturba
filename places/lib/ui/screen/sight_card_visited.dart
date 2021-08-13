@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 
-class SightCard extends StatelessWidget {
-  final Sight sight;
-  const SightCard({Key? key, required this.sight}) : super(key: key);
+class VisitedSightCard extends StatelessWidget {
+  final CheckedSight sight;
+  const VisitedSightCard({Key? key, required this.sight}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 30),
       width: MediaQuery.of(context).size.width * 0.9,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -58,9 +57,23 @@ class SightCard extends StatelessWidget {
                     ),
                     Container(
                       margin: const EdgeInsets.only(top: 19, right: 18),
-                      color: Colors.orange,
-                      width: 20,
-                      height: 18,
+                      child: Row(
+                        children: const [
+                          Icon(
+                            Icons.share,
+                            size: 16,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 25,
+                          ),
+                          Icon(
+                            Icons.close,
+                            size: 20,
+                            color: Colors.white,
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -86,17 +99,34 @@ class SightCard extends StatelessWidget {
                     Text(
                       sight.name,
                       style: const TextStyle(
+                        fontFamily: 'Roboto',
                         height: 1.25,
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
                         color: Color(0xFF3B3E5B),
                       ),
                     ),
-                    Text(
-                      sight.details,
-                      style: const TextStyle(
-                          height: 1.35, fontSize: 14, color: Color(0xff7C7E92)),
+                    RichText(
+                      text: TextSpan(
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Color(0xff7C7E92),
+                        ),
+                        children: <TextSpan>[
+                          const TextSpan(
+                            text: 'Цель достигнута ',
+                          ),
+                          TextSpan(
+                            text: sight.visitTime,
+                          ),
+                        ],
+                      ),
                     ),
+                    // Text(
+                    //   sight.details,
+                    //   style: const TextStyle(
+                    //       height: 1.35, fontSize: 14, color: Color(0xff7C7E92)),
+                    // ),
                   ],
                 ),
               ),

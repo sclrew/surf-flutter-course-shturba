@@ -66,25 +66,5 @@ class _SightListScreenState extends State<SightListScreen> {
         ],
       ),
     ),
-    // title: Row(
-    //   mainAxisAlignment: MainAxisAlignment.start,
-    //   children: [
-    //     RichText(
-    //       text: const TextSpan(
-    //         style: TextStyle(
-    //           fontSize: 30,
-    //           color: Color(0xff262847),
-    //           fontWeight: FontWeight.w700,
-    //         ),
-    //         children: <TextSpan>[
-    //           TextSpan(text: 'C', style: TextStyle(color: Color(0xff67ad5b))),
-    //           TextSpan(text: 'писок\n'),
-    //           TextSpan(text: 'и', style: TextStyle(color: Color(0xfff7de5e))),
-    //           TextSpan(text: 'нтересных мест'),
-    //         ],
-    //       ),
-    //     ),
-    //   ],
-    // ),
   );
 }
