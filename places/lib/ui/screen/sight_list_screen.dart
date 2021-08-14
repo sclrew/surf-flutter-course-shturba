@@ -35,45 +35,46 @@ class _SightListScreenState extends State<SightListScreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _bottomNavIndex,
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.grey,
-          type: BottomNavigationBarType.fixed,
-          selectedFontSize: 0,
-          unselectedFontSize: 0,
-          elevation: 10,
-          iconSize: 26,
-          onTap: (int index) {
-            setState(() {
-              _bottomNavIndex = index;
-            });
-          },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.article_outlined,
-              ),
-              label: '',
+        currentIndex: _bottomNavIndex,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey,
+        type: BottomNavigationBarType.fixed,
+        selectedFontSize: 0,
+        unselectedFontSize: 0,
+        elevation: 10,
+        iconSize: 26,
+        onTap: (index) {
+          setState(() {
+            _bottomNavIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.article_outlined,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.map_outlined,
-              ),
-              label: '',
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.map_outlined,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.favorite,
-              ),
-              label: '',
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.favorite,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.settings,
-              ),
-              label: '',
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.settings,
             ),
-          ]),
+            label: '',
+          ),
+        ],
+      ),
     );
   }
 

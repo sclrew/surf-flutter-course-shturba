@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:places/mocks.dart';
 import 'package:places/ui/screen/sight_card.dart';
 import 'package:places/ui/screen/sight_card_visited_empty.dart';
 import 'package:places/ui/screen/sight_card_visited.dart';
 import 'package:places/ui/screen/sight_card_wish.dart';
 import 'package:places/ui/screen/sight_card_wish_empty.dart';
-
-import '../../mocks.dart';
 
 class VisitingScreen extends StatefulWidget {
   const VisitingScreen({Key? key}) : super(key: key);
@@ -30,41 +29,52 @@ class _VisitingScreenState extends State<VisitingScreen> {
           title: Text(
             'Избранное',
             style: GoogleFonts.roboto(
-                color: const Color(0xff252849),
-                fontWeight: FontWeight.w500,
-                height: 1.33,
-                fontSize: 18),
+              color: const Color(0xff252849),
+              fontWeight: FontWeight.w500,
+              height: 1.33,
+              fontSize: 18,
+            ),
           ),
           bottom: PreferredSize(
-              child: Container(
-                margin:
-                    EdgeInsets.only(top: 6.0, right: 15, bottom: 6, left: 16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  color: Color(0xffF5F5F5),
-                ),
-                child: TabBar(
-                  indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: Color(0xff3B3E5B),
-                  ),
-                  // indicatorColor: Color(0xff3B3E5B),
-                  unselectedLabelColor: Color(0xff7C7E928F),
-                  unselectedLabelStyle: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w500,
-                      height: 1.28,
-                      fontSize: 14),
-                  labelColor: Colors.white,
-                  labelStyle: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w500,
-                      height: 1.33,
-                      fontSize: 18),
-                  tabs: [Tab(text: 'Хочу посетить'), Tab(text: 'Посетил')],
-                ),
+            child: Container(
+              margin: const EdgeInsets.only(
+                top: 6.0,
+                right: 15,
+                bottom: 6,
+                left: 16,
               ),
-              preferredSize: Size.fromHeight(52)),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(40),
+                color: const Color(0xffF5F5F5),
+              ),
+              child: TabBar(
+                indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40),
+                  color: const Color(0xFF3B3E5B),
+                ),
+                // indicatorColor: Color(0xff3B3E5B),
+                unselectedLabelColor: const Color(0xff7c7e928f),
+                unselectedLabelStyle: const TextStyle(
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w500,
+                  height: 1.28,
+                  fontSize: 14,
+                ),
+                labelColor: Colors.white,
+                labelStyle: const TextStyle(
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w500,
+                  height: 1.33,
+                  fontSize: 18,
+                ),
+                tabs: [
+                  Tab(text: 'Хочу посетить'),
+                  Tab(text: 'Посетил'),
+                ],
+              ),
+            ),
+            preferredSize: const Size.fromHeight(52),
+          ),
         ),
         body: Padding(
           padding: EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 16),
@@ -118,45 +128,46 @@ class _VisitingScreenState extends State<VisitingScreen> {
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
-            currentIndex: _bottomNavIndex,
-            selectedItemColor: Colors.black,
-            unselectedItemColor: Colors.grey,
-            type: BottomNavigationBarType.fixed,
-            selectedFontSize: 0,
-            unselectedFontSize: 0,
-            elevation: 10,
-            iconSize: 26,
-            onTap: (int index) {
-              setState(() {
-                _bottomNavIndex = index;
-              });
-            },
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.article_outlined,
-                ),
-                label: '',
+          currentIndex: _bottomNavIndex,
+          selectedItemColor: Colors.black,
+          unselectedItemColor: Colors.grey,
+          type: BottomNavigationBarType.fixed,
+          selectedFontSize: 0,
+          unselectedFontSize: 0,
+          elevation: 10,
+          iconSize: 26,
+          onTap: (int index) {
+            setState(() {
+              _bottomNavIndex = index;
+            });
+          },
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.article_outlined,
               ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.map_outlined,
-                ),
-                label: '',
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.map_outlined,
               ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.favorite,
-                ),
-                label: '',
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.favorite,
               ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.settings,
-                ),
-                label: '',
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.settings,
               ),
-            ]),
+              label: '',
+            ),
+          ],
+        ),
       ),
     );
   }
