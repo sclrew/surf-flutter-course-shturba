@@ -26,8 +26,11 @@ class WishSightCard extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.9,
                   alignment: Alignment.topLeft,
                   fit: BoxFit.fitWidth,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
+                  loadingBuilder: (
+                    BuildContext context,
+                    Widget child,
+                    ImageChunkEvent? loadingProgress,
+                  ) {
                     if (loadingProgress == null) {
                       return child;
                     }

@@ -27,8 +27,11 @@ class SightCard extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.9,
                   alignment: Alignment.topLeft,
                   fit: BoxFit.fitWidth,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
+                  loadingBuilder: (
+                    BuildContext context,
+                    Widget child,
+                    ImageChunkEvent? loadingProgress,
+                  ) {
                     if (loadingProgress == null) {
                       return child;
                     }
@@ -95,7 +98,10 @@ class SightCard extends StatelessWidget {
                     Text(
                       sight.details,
                       style: const TextStyle(
-                          height: 1.35, fontSize: 14, color: Color(0xff7C7E92)),
+                        height: 1.35,
+                        fontSize: 14,
+                        color: Color(0xff7C7E92),
+                      ),
                     ),
                   ],
                 ),

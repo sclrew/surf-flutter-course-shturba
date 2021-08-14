@@ -24,8 +24,11 @@ class _SightDetailsState extends State<SightDetails> {
                   mocks[2].url,
                   fit: BoxFit.fill,
                   height: 360,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
+                  loadingBuilder: (
+                    BuildContext context,
+                    Widget child,
+                    ImageChunkEvent? loadingProgress,
+                  ) {
                     if (loadingProgress == null) {
                       return child;
                     }
@@ -111,13 +114,13 @@ class _SightDetailsState extends State<SightDetails> {
                         color: Color(0xff7C7E92),
                         height: 1.3,
                       ),
-                    )
+                    ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 24,
                 ),
-                Text(
+                const Text(
                   'Пряный вкус радостной жизни вместе с шеф-поваром Изо Дзандзава, благодаря которой у гостей ресторана есть возможность выбирать из двух направлений: европейского и восточного',
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
@@ -148,17 +151,18 @@ class _SightDetailsState extends State<SightDetails> {
                             width: 20,
                             height: 18,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Text(
                             'Постройте маршрут'.toUpperCase(),
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                                height: 1.3,
-                                color: Colors.white),
-                          )
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              height: 1.3,
+                              color: Colors.white,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -192,17 +196,18 @@ class _SightDetailsState extends State<SightDetails> {
                                     color: Color(0xff7C7E92).withOpacity(0.56),
                                     size: 20,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 9,
                                   ),
                                   Text(
                                     'Запланировать',
                                     style: TextStyle(
-                                        fontSize: 14,
-                                        height: 1.3,
-                                        color: Color(0xff7C7E92)
-                                            .withOpacity(0.56)),
-                                  )
+                                      fontSize: 14,
+                                      height: 1.3,
+                                      color: const Color(0xff7C7E92)
+                                          .withOpacity(0.56),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -217,7 +222,7 @@ class _SightDetailsState extends State<SightDetails> {
                               onTap: () {},
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
+                                children: const [
                                   Icon(
                                     Icons.favorite,
                                     color: Color(0xff3B3E5B),
@@ -234,7 +239,7 @@ class _SightDetailsState extends State<SightDetails> {
                                       height: 1.3,
                                       color: Color(0xff3B3E5B),
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
