@@ -3,7 +3,10 @@ import 'package:places/domain/sight.dart';
 
 class WishSightCard extends StatelessWidget {
   final WishSight sight;
-  const WishSightCard({Key? key, required this.sight}) : super(key: key);
+  const WishSightCard({
+    required this.sight,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
