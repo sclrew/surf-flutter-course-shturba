@@ -23,13 +23,13 @@ class _VisitingScreenState extends State<VisitingScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          elevation: 0,
+          // elevation: 0,
           toolbarHeight: 108,
-          backgroundColor: Colors.white,
+          // backgroundColor: Colors.white,
           title: Text(
             'Избранное',
             style: GoogleFonts.roboto(
-              color: const Color(0xff252849),
+              color: Theme.of(context).canvasColor,
               fontWeight: FontWeight.w500,
               height: 1.33,
               fontSize: 18,
@@ -45,29 +45,29 @@ class _VisitingScreenState extends State<VisitingScreen> {
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(40),
-                color: const Color(0xffF5F5F5),
+                color: Theme.of(context).primaryColorLight,
               ),
               child: TabBar(
                 indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(40),
-                  color: const Color(0xFF3B3E5B),
+                  color: Theme.of(context).primaryColorDark,
                 ),
                 // indicatorColor: Color(0xff3B3E5B),
-                unselectedLabelColor: const Color(0xff7c7e928f),
+                unselectedLabelColor: const Color(0xff7c7e92),
                 unselectedLabelStyle: const TextStyle(
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.w500,
-                  height: 1.28,
-                  fontSize: 14,
+                  height: 1.33,
+                  fontSize: 16,
                 ),
-                labelColor: Colors.white,
+                labelColor: Theme.of(context).focusColor,
                 labelStyle: const TextStyle(
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.w500,
                   height: 1.33,
-                  fontSize: 18,
+                  fontSize: 16,
                 ),
-                tabs: [
+                tabs: const [
                   Tab(text: 'Хочу посетить'),
                   Tab(text: 'Посетил'),
                 ],
@@ -129,14 +129,8 @@ class _VisitingScreenState extends State<VisitingScreen> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _bottomNavIndex,
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.grey,
           type: BottomNavigationBarType.fixed,
-          selectedFontSize: 0,
-          unselectedFontSize: 0,
-          elevation: 10,
-          iconSize: 26,
-          onTap: (int index) {
+          onTap: (index) {
             setState(() {
               _bottomNavIndex = index;
             });

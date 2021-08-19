@@ -61,9 +61,13 @@ class SightCard extends StatelessWidget {
                     ),
                     Container(
                       margin: const EdgeInsets.only(top: 19, right: 18),
-                      color: Colors.orange,
-                      width: 20,
-                      height: 18,
+                      // color: Colors.orange,
+
+                      child: const Icon(
+                        Icons.favorite,
+                        size: 24,
+                        color: Colors.white,
+                      ),
                     ),
                   ],
                 ),
@@ -73,9 +77,9 @@ class SightCard extends StatelessWidget {
             Container(
               height: 92,
               width: MediaQuery.of(context).size.width * 0.90,
-              decoration: const BoxDecoration(
-                color: Color(0xFFF5F5F5),
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColorLight,
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(20),
                   bottomRight: Radius.circular(20),
                 ),
@@ -83,25 +87,15 @@ class SightCard extends StatelessWidget {
               child: Container(
                 margin: const EdgeInsets.only(left: 16, top: 16, right: 16),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       sight.name,
-                      style: const TextStyle(
-                        height: 1.25,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                        color: Color(0xFF3B3E5B),
-                      ),
+                      style: Theme.of(context).textTheme.headline1,
                     ),
                     Text(
                       sight.details,
-                      style: const TextStyle(
-                        height: 1.35,
-                        fontSize: 14,
-                        color: Color(0xff7C7E92),
-                      ),
+                      style: Theme.of(context).textTheme.headline2,
                     ),
                   ],
                 ),
