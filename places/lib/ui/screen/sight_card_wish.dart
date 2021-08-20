@@ -3,7 +3,10 @@ import 'package:places/domain/sight.dart';
 
 class WishSightCard extends StatelessWidget {
   final WishSight sight;
-  const WishSightCard({Key? key, required this.sight}) : super(key: key);
+  const WishSightCard({
+    required this.sight,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +29,11 @@ class WishSightCard extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.9,
                   alignment: Alignment.topLeft,
                   fit: BoxFit.fitWidth,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
+                  loadingBuilder: (
+                    BuildContext context,
+                    Widget child,
+                    ImageChunkEvent? loadingProgress,
+                  ) {
                     if (loadingProgress == null) {
                       return child;
                     }
@@ -83,9 +89,9 @@ class WishSightCard extends StatelessWidget {
             Container(
               height: 92,
               width: MediaQuery.of(context).size.width * 0.90,
-              decoration: const BoxDecoration(
-                color: Color(0xFFF5F5F5),
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColorLight,
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(20),
                   bottomRight: Radius.circular(20),
                 ),
@@ -98,20 +104,17 @@ class WishSightCard extends StatelessWidget {
                   children: [
                     Text(
                       sight.name,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Roboto',
                         height: 1.25,
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
-                        color: Color(0xFF3B3E5B),
+                        color: Theme.of(context).primaryColorDark,
                       ),
                     ),
                     RichText(
                       text: TextSpan(
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Color(0xff4CAF50),
-                        ),
+                        style: Theme.of(context).textTheme.headline6,
                         children: <TextSpan>[
                           const TextSpan(
                             text: 'Запланировано на ',

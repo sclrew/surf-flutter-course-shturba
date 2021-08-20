@@ -12,7 +12,7 @@ class _SightDetailsState extends State<SightDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffffffff),
+      // backgroundColor: Color(0xffffffff),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -24,8 +24,11 @@ class _SightDetailsState extends State<SightDetails> {
                   mocks[2].url,
                   fit: BoxFit.fill,
                   height: 360,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
+                  loadingBuilder: (
+                    BuildContext context,
+                    Widget child,
+                    ImageChunkEvent? loadingProgress,
+                  ) {
                     if (loadingProgress == null) {
                       return child;
                     }
@@ -47,18 +50,19 @@ class _SightDetailsState extends State<SightDetails> {
                       Container(
                         constraints:
                             const BoxConstraints(maxHeight: 32, maxWidth: 32),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: const BorderRadius.all(
                             Radius.circular(10),
                           ),
                         ),
                         child: Center(
                           child: IconButton(
                             onPressed: () {},
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.arrow_back_ios_new_rounded,
                               size: 16,
+                              color: Theme.of(context).secondaryHeaderColor,
                             ),
                           ),
                         ),
@@ -81,26 +85,16 @@ class _SightDetailsState extends State<SightDetails> {
                   ),
                   child: Text(
                     'Пряности и радости',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xff3B3E5B),
-                      height: 1.2,
-                    ),
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
                 ),
                 Row(
                   children: [
                     Text(
                       'ресторан',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14,
-                        color: Color(0xff3B3E5B),
-                        height: 1.3,
-                      ),
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 16,
                     ),
                     Text(
@@ -108,25 +102,20 @@ class _SightDetailsState extends State<SightDetails> {
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
-                        color: Color(0xff7C7E92),
+                        color: const Color(0xff7C7E92).withOpacity(0.56),
                         height: 1.3,
                       ),
-                    )
+                    ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 24,
                 ),
                 Text(
                   'Пряный вкус радостной жизни вместе с шеф-поваром Изо Дзандзава, благодаря которой у гостей ресторана есть возможность выбирать из двух направлений: европейского и восточного',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14,
-                    color: Color(0xff3B3E5B),
-                    height: 1.3,
-                  ),
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 24,
                 ),
                 Container(
@@ -148,30 +137,31 @@ class _SightDetailsState extends State<SightDetails> {
                             width: 20,
                             height: 18,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Text(
                             'Постройте маршрут'.toUpperCase(),
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                                height: 1.3,
-                                color: Colors.white),
-                          )
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              height: 1.3,
+                              color: Colors.white,
+                            ),
+                          ),
                         ],
                       ),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 24,
                 ),
                 Container(
                   height: 0.8,
-                  color: Color(0xFF7C7E92).withOpacity(0.56),
+                  color: const Color(0xFF7C7E92).withOpacity(0.24),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Container(
@@ -189,20 +179,22 @@ class _SightDetailsState extends State<SightDetails> {
                                 children: [
                                   Icon(
                                     Icons.calendar_today,
-                                    color: Color(0xff7C7E92).withOpacity(0.56),
+                                    color: const Color(0xff7C7E92)
+                                        .withOpacity(0.56),
                                     size: 20,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 9,
                                   ),
                                   Text(
                                     'Запланировать',
                                     style: TextStyle(
-                                        fontSize: 14,
-                                        height: 1.3,
-                                        color: Color(0xff7C7E92)
-                                            .withOpacity(0.56)),
-                                  )
+                                      fontSize: 14,
+                                      height: 1.3,
+                                      color: const Color(0xff7C7E92)
+                                          .withOpacity(0.56),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -220,10 +212,10 @@ class _SightDetailsState extends State<SightDetails> {
                                 children: [
                                   Icon(
                                     Icons.favorite,
-                                    color: Color(0xff3B3E5B),
+                                    color: Theme.of(context).primaryColorDark,
                                     size: 20,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
                                   Text(
@@ -232,9 +224,9 @@ class _SightDetailsState extends State<SightDetails> {
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
                                       height: 1.3,
-                                      color: Color(0xff3B3E5B),
+                                      color: Theme.of(context).primaryColorDark,
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
