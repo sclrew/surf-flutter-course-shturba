@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/mocks.dart';
+import 'package:places/ui/res/parts.dart';
 
 class SightDetails extends StatefulWidget {
   const SightDetails({Key? key}) : super(key: key);
@@ -44,30 +45,53 @@ class _SightDetailsState extends State<SightDetails> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 36, left: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        constraints:
-                            const BoxConstraints(maxHeight: 32, maxWidth: 32),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                        ),
-                        child: Center(
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.arrow_back_ios_new_rounded,
-                              size: 16,
-                              color: Theme.of(context).secondaryHeaderColor,
-                            ),
-                          ),
+                  child: SizedBox(
+                    height: 32,
+                    width: 32,
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
                       ),
-                    ],
+                      onPressed: () {
+                        // ignore: avoid_print
+                        print('Назад');
+                      },
+                      child: Center(
+                        child: Icon(
+                          Icons.arrow_back_ios_new_rounded,
+                          size: 16,
+                          color: Theme.of(context).secondaryHeaderColor,
+                        ),
+                      ),
+                      // child: Column(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     Container(
+                      //       constraints:
+                      //           const BoxConstraints(maxHeight: 32, maxWidth: 32),
+                      //       decoration: BoxDecoration(
+                      //         color: Theme.of(context).primaryColor,
+                      //         borderRadius: const BorderRadius.all(
+                      //           Radius.circular(10),
+                      //         ),
+                      //       ),
+                      //       child: Center(
+                      //         child: IconButton(
+                      //           onPressed: () {},
+                      //           icon: Icon(
+                      //             Icons.arrow_back_ios_new_rounded,
+                      //             size: 16,
+                      //             color: Theme.of(context).secondaryHeaderColor,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                    ),
                   ),
                 ),
               ],
@@ -118,39 +142,36 @@ class _SightDetailsState extends State<SightDetails> {
                 const SizedBox(
                   height: 24,
                 ),
-                Container(
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: Color(0xff4CAF50),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(12),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(328, 48),
+                    backgroundColor: const Color(0xff4CAF50),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
                   ),
+                  onPressed: () {
+                    // ignore: avoid_print
+                    print('Постройте маршрут');
+                  },
                   child: Center(
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        unionImg,
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'Постройте маршрут'.toUpperCase(),
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            height: 1.3,
                             color: Colors.white,
-                            width: 20,
-                            height: 18,
                           ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Постройте маршрут'.toUpperCase(),
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                              height: 1.3,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

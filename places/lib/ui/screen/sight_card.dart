@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/ui/res/parts.dart';
 
 class SightCard extends StatelessWidget {
   final Sight sight;
@@ -63,11 +64,7 @@ class SightCard extends StatelessWidget {
                       margin: const EdgeInsets.only(top: 19, right: 18),
                       // color: Colors.orange,
 
-                      child: const Icon(
-                        Icons.favorite,
-                        size: 24,
-                        color: Colors.white,
-                      ),
+                      child: heartImg,
                     ),
                   ],
                 ),

@@ -80,6 +80,11 @@ final sLightTheme = ThemeData(
       color: Colors.grey,
     ),
   ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      padding: EdgeInsets.zero,
+    ),
+  ),
 );
 
 final sDarkTheme = ThemeData(
@@ -159,6 +164,11 @@ final sDarkTheme = ThemeData(
     unselectedIconTheme: IconThemeData(
       size: 26,
       color: Colors.white70,
+    ),
+  ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      padding: EdgeInsets.zero,
     ),
   ),
 );

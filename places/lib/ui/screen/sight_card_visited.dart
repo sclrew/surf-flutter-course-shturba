@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/ui/res/parts.dart';
 
 class VisitedSightCard extends StatelessWidget {
   final CheckedSight sight;
@@ -61,19 +62,21 @@ class VisitedSightCard extends StatelessWidget {
                     Container(
                       margin: const EdgeInsets.only(top: 19, right: 18),
                       child: Row(
-                        children: const [
-                          Icon(
-                            Icons.share,
-                            size: 16,
-                            color: Colors.white,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              // ignore: avoid_print
+                              print('Поделиться нажато');
+                            },
+                            child: shareImg24,
                           ),
-                          SizedBox(
-                            width: 25,
-                          ),
-                          Icon(
-                            Icons.close,
-                            size: 20,
-                            color: Colors.white,
+                          otstup25,
+                          InkWell(
+                            onTap: () {
+                              // ignore: avoid_print
+                              print('Крестик2 нажат');
+                            },
+                            child: closeIcon22,
                           ),
                         ],
                       ),

@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
       theme: sDarkTheme,
       // theme: sLightTheme,
       debugShowCheckedModeBanner: false,
-      // home: SightDetails(),
-      // home: const SightListScreen(),
-      home: VisitingScreen(),
+      // home: SightDetails(), // Детализация места
+      // home: const SightListScreen(), //Список интересных мест
+      home: const VisitingScreen(), // посетил - хочу посетить
     );
   }
 }

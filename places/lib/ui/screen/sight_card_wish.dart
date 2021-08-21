@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/ui/res/parts.dart';
 
 class WishSightCard extends StatelessWidget {
   final WishSight sight;
@@ -64,19 +65,21 @@ class WishSightCard extends StatelessWidget {
                     Container(
                       margin: const EdgeInsets.only(top: 19, right: 18),
                       child: Row(
-                        children: const [
-                          Icon(
-                            Icons.calendar_today,
-                            size: 16,
-                            color: Colors.white,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              // ignore: avoid_print
+                              print('Календарик');
+                            },
+                            child: calendarImg24,
                           ),
-                          SizedBox(
-                            width: 25,
-                          ),
-                          Icon(
-                            Icons.close,
-                            size: 20,
-                            color: Colors.white,
+                          otstup25,
+                          InkWell(
+                            onTap: () {
+                              // ignore: avoid_print
+                              print('Крестик нажат');
+                            },
+                            child: closeIcon22,
                           ),
                         ],
                       ),
