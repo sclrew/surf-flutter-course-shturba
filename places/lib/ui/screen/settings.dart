@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
+import 'package:places/main.dart';
 import 'package:places/ui/res/parts.dart';
 import 'package:places/ui/res/text_styles.dart';
 
@@ -41,12 +42,12 @@ class _SettingsState extends State<Settings> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                if (isChecked == false)
+                if (isChecked)
                   SRichText(
                     sText: 'Светлая тема',
                     sTextStyle: roboto16x400,
                   ),
-                if (isChecked)
+                if (isChecked == false)
                   SRichText(
                     sText: 'Тёмная тема',
                     sTextStyle: roboto16x400,
@@ -56,6 +57,12 @@ class _SettingsState extends State<Settings> {
                   onChanged: (value) {
                     setState(() {
                       isChecked = !isChecked;
+                      if (isChecked) {
+                        isLightTheme.add(true);
+                      }
+                      if (isChecked == false) {
+                        isLightTheme.add(false);
+                      }
                     });
                   },
                 ),
