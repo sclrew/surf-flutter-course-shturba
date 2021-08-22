@@ -1,7 +1,6 @@
 // import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:places/test.dart';
 import 'package:places/ui/res/themes.dart';
 import 'package:places/ui/screen/filter_screen.dart';
 import 'package:places/ui/screen/settings.dart';
@@ -33,9 +32,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // home: SightDetails(), // Детализация места
       // home: const VisitingScreen(), // посетил - хочу посетить
-      // home: SightListScreen(),
-      // home: Test(),
-      home: FilterScreen(),
+      home: SightListScreen(),
+      // home: FilterScreen(),
       // home: const Settings(),
     );
   }

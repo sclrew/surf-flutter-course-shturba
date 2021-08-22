@@ -67,13 +67,13 @@ class MenuElement extends StatelessWidget {
   final String imgUrl;
   final Function() onTap;
 
-  const MenuElement(
-      {required this.isActive,
-      required this.nazvanie,
-      required this.imgUrl,
-      required this.onTap,
-      Key? key})
-      : super(key: key);
+  const MenuElement({
+    required this.isActive,
+    required this.nazvanie,
+    required this.imgUrl,
+    required this.onTap,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
