@@ -4,7 +4,7 @@ import 'package:places/ui/res/parts.dart';
 
 class VisitedSightCard extends StatelessWidget {
   final CheckedSight sight;
-  const VisitedSightCard({Key? key, required this.sight}) : super(key: key);
+  const VisitedSightCard({required this.sight, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class VisitedSightCard extends StatelessWidget {
                             },
                             child: shareImg24,
                           ),
-                          otstup25,
+                          otstupW25,
                           InkWell(
                             onTap: () {
                               // ignore: avoid_print
@@ -99,7 +99,7 @@ class VisitedSightCard extends StatelessWidget {
               child: Container(
                 margin: const EdgeInsets.only(left: 16, top: 16, right: 16),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  // mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(

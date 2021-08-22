@@ -4,7 +4,7 @@ import 'package:places/ui/res/parts.dart';
 
 class SightCard extends StatelessWidget {
   final Sight sight;
-  const SightCard({Key? key, required this.sight}) : super(key: key);
+  const SightCard({required this.sight, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

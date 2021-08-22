@@ -73,7 +73,7 @@ class WishSightCard extends StatelessWidget {
                             },
                             child: calendarImg24,
                           ),
-                          otstup25,
+                          otstupW25,
                           InkWell(
                             onTap: () {
                               // ignore: avoid_print

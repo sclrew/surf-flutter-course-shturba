@@ -48,8 +48,8 @@ class _SightDetailsState extends State<SightDetails> {
                   child: SizedBox(
                     height: 32,
                     width: 32,
-                    child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
+                    child: TextButton(
+                      style: TextButton.styleFrom(
                         backgroundColor: Theme.of(context).primaryColor,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -66,31 +66,6 @@ class _SightDetailsState extends State<SightDetails> {
                           color: Theme.of(context).secondaryHeaderColor,
                         ),
                       ),
-                      // child: Column(
-                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //   children: [
-                      //     Container(
-                      //       constraints:
-                      //           const BoxConstraints(maxHeight: 32, maxWidth: 32),
-                      //       decoration: BoxDecoration(
-                      //         color: Theme.of(context).primaryColor,
-                      //         borderRadius: const BorderRadius.all(
-                      //           Radius.circular(10),
-                      //         ),
-                      //       ),
-                      //       child: Center(
-                      //         child: IconButton(
-                      //           onPressed: () {},
-                      //           icon: Icon(
-                      //             Icons.arrow_back_ios_new_rounded,
-                      //             size: 16,
-                      //             color: Theme.of(context).secondaryHeaderColor,
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
                     ),
                   ),
                 ),
