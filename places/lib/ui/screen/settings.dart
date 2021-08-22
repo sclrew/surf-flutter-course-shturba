@@ -5,6 +5,7 @@ import 'package:flutter/semantics.dart';
 import 'package:places/main.dart';
 import 'package:places/ui/res/parts.dart';
 import 'package:places/ui/res/text_styles.dart';
+import 'package:provider/provider.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -57,12 +58,8 @@ class _SettingsState extends State<Settings> {
                   onChanged: (value) {
                     setState(() {
                       isChecked = !isChecked;
-                      if (isChecked) {
-                        isLightTheme.add(true);
-                      }
-                      if (isChecked == false) {
-                        isLightTheme.add(false);
-                      }
+                      Provider.of<SThemes>(context, listen: false)
+                          .changeTheme(isChecked);
                     });
                   },
                 ),
