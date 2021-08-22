@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
 // }
 
 class SThemes extends ChangeNotifier {
-  bool isLightTheme = true;
+  bool isLightTheme = false;
 
   void changeTheme(bool isNewBool) {
     isLightTheme = isNewBool;
