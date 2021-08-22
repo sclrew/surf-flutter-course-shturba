@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:places/ui/res/parts.dart';
 import 'package:places/ui/res/text_styles.dart';
 
@@ -217,13 +218,9 @@ class _FilterScreenState extends State<FilterScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          unionImg,
-                          const SizedBox(
-                            width: 10,
-                          ),
                           Text(
-                            'Постройте маршрут'.toUpperCase(),
-                            style: const TextStyle(
+                            'Показать (190)'.toUpperCase(),
+                            style: GoogleFonts.roboto(
                               fontSize: 14,
                               fontWeight: FontWeight.w700,
                               height: 1.3,
