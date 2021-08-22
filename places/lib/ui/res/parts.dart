@@ -25,6 +25,10 @@ Widget otstupH36 = const SizedBox(
   height: 36,
 );
 
+Widget otstupH30 = const SizedBox(
+  height: 30,
+);
+
 Widget otstupH24 = const SizedBox(
   height: 24,
 );

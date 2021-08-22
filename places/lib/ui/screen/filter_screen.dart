@@ -216,14 +216,10 @@ class _FilterScreenState extends State<FilterScreen> {
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          unionImg,
-                          const SizedBox(
-                            width: 10,
-                          ),
+                        children: const [
                           Text(
-                            'Постройте маршрут'.toUpperCase(),
-                            style: const TextStyle(
+                            'ПОКАЗАТЬ (190)',
+                            style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w700,
                               height: 1.3,

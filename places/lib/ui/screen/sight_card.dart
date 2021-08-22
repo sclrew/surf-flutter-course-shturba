@@ -8,48 +8,46 @@ class SightCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 30),
-      width: MediaQuery.of(context).size.width * 0.9,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(
-          Radius.circular(20),
-        ),
-        color: Colors.amber,
-      ),
-      child: AspectRatio(
-        aspectRatio: 3 / 2,
-        child: Column(
-          children: [
-            Expanded(
-              child: Stack(children: [
-                Image.network(
-                  sight.url,
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  alignment: Alignment.topLeft,
-                  fit: BoxFit.fitWidth,
-                  loadingBuilder: (
-                    BuildContext context,
-                    Widget child,
-                    ImageChunkEvent? loadingProgress,
-                  ) {
-                    if (loadingProgress == null) {
-                      return child;
-                    }
-                    return Center(
-                      child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
-                            : null,
-                      ),
-                    );
-                  },
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+    return Stack(
+      // alignment: Alignment.topRight,
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width * 0.9,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(20),
+            ),
+            color: Colors.amber,
+          ),
+          child: AspectRatio(
+            aspectRatio: 3 / 2,
+            child: Column(
+              children: [
+                Expanded(
+                  child: Stack(children: [
+                    Image.network(
+                      sight.url,
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      alignment: Alignment.topLeft,
+                      fit: BoxFit.fitWidth,
+                      loadingBuilder: (
+                        BuildContext context,
+                        Widget child,
+                        ImageChunkEvent? loadingProgress,
+                      ) {
+                        if (loadingProgress == null) {
+                          return child;
+                        }
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      },
+                    ),
                     Container(
                       margin: const EdgeInsets.only(top: 16, left: 16),
                       child: Text(
@@ -60,47 +58,65 @@ class SightCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 19, right: 18),
-                      // color: Colors.orange,
-
-                      child: heartImg,
-                    ),
-                  ],
+                  ]),
+                  // ),
                 ),
-              ]),
-              // ),
+                Container(
+                  height: 92,
+                  width: MediaQuery.of(context).size.width * 0.90,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColorLight,
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    ),
+                  ),
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 16, top: 16, right: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          sight.name,
+                          style: Theme.of(context).textTheme.headline1,
+                        ),
+                        Text(
+                          sight.details,
+                          style: Theme.of(context).textTheme.headline2,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Container(
-              height: 92,
-              width: MediaQuery.of(context).size.width * 0.90,
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColorLight,
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                ),
-              ),
-              child: Container(
-                margin: const EdgeInsets.only(left: 16, top: 16, right: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      sight.name,
-                      style: Theme.of(context).textTheme.headline1,
-                    ),
-                    Text(
-                      sight.details,
-                      style: Theme.of(context).textTheme.headline2,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
+        Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: () {},
+            splashColor: Color(0xffC4C4C480).withOpacity(0.5),
+            // highlightColor: Colors.red,
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: MediaQuery.of(context).size.width * 0.6,
+              // color: Colors.red,
+            ),
+          ),
+        ),
+        Positioned(
+          top: 19,
+          right: 18,
+          child: InkWell(
+            child: heartImg,
+            onTap: () {
+              // ignore: avoid_print
+              print('Сердце нажато');
+            },
+          ),
+        ),
+      ],
     );
   }
 }
