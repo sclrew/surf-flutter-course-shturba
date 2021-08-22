@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/res/themes.dart';
 import 'package:places/ui/screen/filter_screen.dart';
+import 'package:places/ui/screen/settings.dart';
 import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/screen/sight_list_screen.dart';
 import 'package:places/ui/screen/visiting_screen.dart';
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
       // home: SightDetails(), // Детализация места
       // home: const SightListScreen(), //Список интересных мест
       // home: const VisitingScreen(), // посетил - хочу посетить
-      home: FilterScreen(),
+      // home: FilterScreen(),
+      home: const Settings(),
     );
   }
 }

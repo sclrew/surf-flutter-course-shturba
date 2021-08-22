@@ -21,6 +21,10 @@ Widget otstupH40 = const SizedBox(
   height: 40,
 );
 
+Widget otstupH36 = const SizedBox(
+  height: 36,
+);
+
 Widget otstupH24 = const SizedBox(
   height: 24,
 );
@@ -33,6 +37,12 @@ Widget calendarImg24 = Image.asset(
   'assets/img/calendar.png',
   width: 24,
   height: 24,
+);
+
+Widget hr08 = Container(
+  height: 0.8,
+  color: const Color(0xff7C7E92).withOpacity(0.56),
+  margin: const EdgeInsets.only(bottom: 14),
 );
 
 Widget shareImg24 = Image.asset(
@@ -94,6 +104,31 @@ class MenuElement extends StatelessWidget {
             ),
           ),
       ],
+    );
+  }
+}
+
+class SRichText extends StatelessWidget {
+  final String sText;
+  final TextStyle sTextStyle;
+
+  const SRichText({required this.sText, required this.sTextStyle, Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        style: sTextStyle,
+        children: <TextSpan>[
+          TextSpan(
+            text: sText,
+            style: TextStyle(
+              color: Theme.of(context).canvasColor,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
