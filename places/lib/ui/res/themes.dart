@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 final sLightTheme = ThemeData(
   secondaryHeaderColor: Colors.black,
@@ -78,6 +77,11 @@ final sLightTheme = ThemeData(
     unselectedIconTheme: IconThemeData(
       size: 26,
       color: Colors.grey,
+    ),
+  ),
+  textButtonTheme: TextButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      padding: EdgeInsets.zero,
     ),
   ),
 );
@@ -159,6 +163,11 @@ final sDarkTheme = ThemeData(
     unselectedIconTheme: IconThemeData(
       size: 26,
       color: Colors.white70,
+    ),
+  ),
+  textButtonTheme: TextButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      padding: EdgeInsets.zero,
     ),
   ),
 );

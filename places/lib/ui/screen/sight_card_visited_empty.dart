@@ -8,7 +8,7 @@ class VisitedSightEmpty extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      // crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Icon(
           Icons.add_location_alt_outlined,

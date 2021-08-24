@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/screen/sight_card.dart';
-import 'package:places/ui/screen/sight_card_visited_empty.dart';
+// import 'package:places/ui/screen/sight_card_visited_empty.dart';
 import 'package:places/ui/screen/sight_card_visited.dart';
 import 'package:places/ui/screen/sight_card_wish.dart';
-import 'package:places/ui/screen/sight_card_wish_empty.dart';
+// import 'package:places/ui/screen/sight_card_wish_empty.dart';
 
 class VisitingScreen extends StatefulWidget {
   const VisitingScreen({Key? key}) : super(key: key);

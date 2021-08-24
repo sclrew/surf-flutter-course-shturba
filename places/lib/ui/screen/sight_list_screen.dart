@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/mocks.dart';
+import 'package:places/ui/res/parts.dart';
 import 'package:places/ui/screen/sight_card.dart';
 
 class SightListScreen extends StatefulWidget {
@@ -24,8 +25,11 @@ class _SightListScreenState extends State<SightListScreen> {
           SingleChildScrollView(
             child: Column(
               children: [
+                otstupH30,
                 SightCard(sight: mocks[0]),
+                otstupH30,
                 SightCard(sight: mocks[1]),
+                otstupH30,
                 SightCard(sight: mocks[2]),
               ],
             ),
