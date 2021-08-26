@@ -10,7 +10,7 @@ final sLightTheme = ThemeData(
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: const AppBarTheme(
     backgroundColor: Colors.white,
-    brightness: Brightness.light,
+    // brightness: Brightness.light,
     elevation: 0,
     toolbarHeight: 0,
   ),
@@ -96,7 +96,7 @@ final sDarkTheme = ThemeData(
   scaffoldBackgroundColor: const Color(0xff21222C),
   appBarTheme: const AppBarTheme(
     backgroundColor: Color(0xff21222C),
-    brightness: Brightness.dark,
+    // brightness: Brightness.dark,
     elevation: 0,
     toolbarHeight: 0,
   ),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,6 +10,8 @@ TextStyle roboto16x500 = GoogleFonts.roboto(
     color: Color(0xff4CAF50),
   ),
 );
+
+Color greenColor = const Color(0xff4CAF50);
 
 TextStyle robotoHead400x12 = GoogleFonts.roboto(
   fontSize: 12,

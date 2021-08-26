@@ -96,6 +96,7 @@ class SightCard extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             onTap: () {},
+            borderRadius: BorderRadius.circular(20),
             splashColor: Color(0xffC4C4C480).withOpacity(0.5),
             // highlightColor: Colors.red,
             child: Container(

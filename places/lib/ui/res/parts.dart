@@ -13,6 +13,10 @@ Widget unionImg = Image.asset(
   height: 22,
 );
 
+Widget otstupW51 = const SizedBox(
+  width: 51,
+);
+
 Widget otstupW25 = const SizedBox(
   width: 25,
 );
@@ -33,8 +37,16 @@ Widget otstupH24 = const SizedBox(
   height: 24,
 );
 
+Widget otstupH14 = const SizedBox(
+  height: 14,
+);
+
 Widget otstupH12 = const SizedBox(
   height: 12,
+);
+
+Widget otstupW16 = const SizedBox(
+  width: 16,
 );
 
 Widget calendarImg24 = Image.asset(
