@@ -13,6 +13,10 @@ Widget unionImg = Image.asset(
   height: 22,
 );
 
+Widget otstupW51 = const SizedBox(
+  width: 51,
+);
+
 Widget otstupW25 = const SizedBox(
   width: 25,
 );
@@ -33,8 +37,20 @@ Widget otstupH24 = const SizedBox(
   height: 24,
 );
 
+Widget otstupH22 = const SizedBox(
+  height: 22,
+);
+
+Widget otstupH14 = const SizedBox(
+  height: 14,
+);
+
 Widget otstupH12 = const SizedBox(
   height: 12,
+);
+
+Widget otstupW16 = const SizedBox(
+  width: 16,
 );
 
 Widget calendarImg24 = Image.asset(
@@ -133,6 +149,57 @@ class SRichText extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class SBottomNavBar extends StatelessWidget {
+  final int currentIndex;
+  final void Function(int) onTap;
+  const SBottomNavBar({
+    required this.onTap,
+    required this.currentIndex,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      currentIndex: currentIndex,
+      selectedItemColor: Colors.black,
+      unselectedItemColor: Colors.grey,
+      type: BottomNavigationBarType.fixed,
+      selectedFontSize: 0,
+      unselectedFontSize: 0,
+      elevation: 10,
+      iconSize: 26,
+      onTap: onTap,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.article_outlined,
+          ),
+          label: '',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.map_outlined,
+          ),
+          label: '',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.favorite,
+          ),
+          label: '',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.settings,
+          ),
+          label: '',
+        ),
+      ],
     );
   }
 }

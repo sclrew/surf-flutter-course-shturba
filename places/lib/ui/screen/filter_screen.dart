@@ -1,6 +1,11 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:places/domain/data_range.dart';
+import 'package:places/mocks.dart';
 import 'package:places/ui/res/parts.dart';
 import 'package:places/ui/res/text_styles.dart';
+import 'package:places/ui/screen/sight_list_screen.dart';
 
 class FilterScreen extends StatefulWidget {
   const FilterScreen({Key? key}) : super(key: key);
@@ -10,13 +15,16 @@ class FilterScreen extends StatefulWidget {
 }
 
 class _FilterScreenState extends State<FilterScreen> {
+  // RangeValues _selectedRange = MyRangeCalc().myRange.value;
+
   bool isHotel = false;
   bool isRestaurant = false;
   bool isSpecial = false;
   bool isPark = false;
   bool isMuseum = false;
   bool isCafe = false;
-  var _selectedRange = RangeValues(1000, 10000);
+
+  var _selectedRange = RangeValues(100, 10000);
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +53,7 @@ class _FilterScreenState extends State<FilterScreen> {
                           ),
                         ),
                         onPressed: () {
-                          // ignore: avoid_print
-                          print('Назад');
+                          Navigator.of(context).pop();
                         },
                         child: Center(
                           child: Icon(
@@ -62,15 +69,17 @@ class _FilterScreenState extends State<FilterScreen> {
                 ),
                 TextButton(
                   onPressed: () {
-                    setState(() {
-                      isHotel = false;
-                      isRestaurant = false;
-                      isSpecial = false;
-                      isPark = false;
-                      isMuseum = false;
-                      isCafe = false;
-                      _selectedRange = RangeValues(1000, 10000);
-                    });
+                    setState(
+                      () {
+                        isHotel = false;
+                        isRestaurant = false;
+                        isSpecial = false;
+                        isPark = false;
+                        isMuseum = false;
+                        isCafe = false;
+                        _selectedRange = RangeValues(100, 10000);
+                      },
+                    );
                   },
                   child: Text(
                     'Очистить',
@@ -169,7 +178,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     style: roboto16x400,
                   ),
                   Text(
-                    'от 100 до 10000 км',
+                    'от ${_selectedRange.start.toStringAsFixed(0)} до ${_selectedRange.end.toStringAsFixed(0)} км',
                     style: roboto16x400,
                   ),
                 ],
@@ -179,13 +188,14 @@ class _FilterScreenState extends State<FilterScreen> {
               height: 32,
             ),
             RangeSlider(
-              min: 100,
+              min: 0,
               max: 10000,
               divisions: 100,
               values: _selectedRange,
               labels: RangeLabels(
-                _selectedRange.start.toString(),
-                _selectedRange.end.toString(),
+                // '1', '3',
+                _selectedRange.start.toStringAsFixed(2),
+                _selectedRange.end.toStringAsFixed(2),
               ),
               onChanged: (newRange) {
                 setState(() {
@@ -210,21 +220,32 @@ class _FilterScreenState extends State<FilterScreen> {
                       ),
                     ),
                     onPressed: () {
-                      // ignore: avoid_print
-                      print('Постройте маршрут');
+                      // Navigator.of(context).push<void>(
+                      //   MaterialPageRoute(
+                      //     builder: (context) => SightListScreen(
+                      //       startR: _selectedRange.start,
+                      //       endR: _selectedRange.end,
+                      //     ),
+                      //   ),
+                      // );
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (context) => SightListScreen(
+                            startR: _selectedRange.start,
+                            endR: _selectedRange.end,
+                          ),
+                        ),
+                        (route) => false,
+                      );
                     },
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children: [
                           Text(
-                            'ПОКАЗАТЬ (190)',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                              height: 1.3,
-                              color: Colors.white,
-                            ),
+                            'ПОКАЗАТЬ (${inMyRange(mocks, _selectedRange)})',
+                            style: roboto14x700xwhite,
                           ),
                         ],
                       ),
