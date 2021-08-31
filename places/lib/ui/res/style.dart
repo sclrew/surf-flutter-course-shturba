@@ -31,6 +31,15 @@ TextStyle roboto400x12 = GoogleFonts.roboto(
   ),
 );
 
+TextStyle roboto400x12x7C7E928F = GoogleFonts.roboto(
+  fontSize: 12,
+  fontWeight: FontWeight.w400,
+  textStyle: TextStyle(
+    color: const Color(0xff7C7E92).withOpacity(0.56),
+    height: 1.33,
+  ),
+);
+
 ButtonStyle buttonGreenCircle = ElevatedButton.styleFrom(
   elevation: 0,
   fixedSize: const Size(64, 64),

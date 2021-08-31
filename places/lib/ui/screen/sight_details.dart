@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/parts.dart';
 
-class SightDetails extends StatefulWidget {
-  const SightDetails({Key? key}) : super(key: key);
+class SightDetails extends StatelessWidget {
+  final Sight thisSight;
+  const SightDetails({
+    required this.thisSight,
+    Key? key,
+  }) : super(key: key);
 
-  @override
-  _SightDetailsState createState() => _SightDetailsState();
-}
-
-class _SightDetailsState extends State<SightDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Color(0xffffffff),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -22,7 +21,7 @@ class _SightDetailsState extends State<SightDetails> {
             child: Stack(
               children: [
                 Image.network(
-                  mocks[2].url,
+                  thisSight.url,
                   fit: BoxFit.fill,
                   height: 360,
                   loadingBuilder: (
@@ -56,8 +55,7 @@ class _SightDetailsState extends State<SightDetails> {
                         ),
                       ),
                       onPressed: () {
-                        // ignore: avoid_print
-                        print('Назад');
+                        Navigator.of(context).pop();
                       },
                       child: Center(
                         child: Icon(
@@ -83,27 +81,18 @@ class _SightDetailsState extends State<SightDetails> {
                     // height: MediaQuery.of(context).size.height * 0.5,
                   ),
                   child: Text(
-                    'Пряности и радости',
+                    thisSight.name,
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
                 ),
                 Row(
                   children: [
                     Text(
-                      'ресторан',
+                      thisSight.type,
                       style: Theme.of(context).textTheme.subtitle2,
                     ),
                     const SizedBox(
                       width: 16,
-                    ),
-                    Text(
-                      'закрыто до 09:00',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                        color: const Color(0xff7C7E92).withOpacity(0.56),
-                        height: 1.3,
-                      ),
                     ),
                   ],
                 ),
@@ -111,7 +100,7 @@ class _SightDetailsState extends State<SightDetails> {
                   height: 24,
                 ),
                 Text(
-                  'Пряный вкус радостной жизни вместе с шеф-поваром Изо Дзандзава, благодаря которой у гостей ресторана есть возможность выбирать из двух направлений: европейского и восточного',
+                  thisSight.details,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
                 const SizedBox(

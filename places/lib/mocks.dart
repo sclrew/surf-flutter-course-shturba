@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
+import 'dart:math';
 
 final List<Sight> mocks = <Sight>[
   Sight(
@@ -24,6 +26,14 @@ final List<Sight> mocks = <Sight>[
     'https://img4.goodfon.ru/wallpaper/nbig/c/87/parizh-frantsiia-rassvet-eifeleva-bashnia-panorama.jpg',
     'металлическая башня в центре Парижа',
     'Развлечение',
+  ),
+  Sight(
+    'Берлинская стена',
+    52.5065133,
+    13.389687,
+    'https://static.kulturologia.ru/files/u28343/283430541.jpg',
+    'Берлинская стена разделяла западную и восточную части города, отделяя Западный Берлин от территории ГДР.',
+    'История',
   ),
 ];
 
@@ -86,3 +96,34 @@ final List<WishSight> wishSights = <WishSight>[
     'Развлечение',
   ),
 ];
+
+// мои широта и долгота
+// double myLatitude = 44.9318866;
+// double myLongitude = 35.5726771;
+
+//москва координаты
+double myLatitude = 55.5815244;
+double myLongitude = 36.8251261;
+// 1 градус - 111 км или 111 000м
+
+double minDistanceSetting = 10;
+double maxDistanceSetting = 10000;
+
+num myDistance(Sight mySight) {
+  num distance = 0;
+  final kvadratLong = pow(myLongitude - mySight.lon, 2);
+  final kvadratLat = pow(myLatitude - mySight.lat, 2);
+  distance = sqrt(kvadratLat + kvadratLong) * 111;
+  return distance;
+}
+
+String inMyRange(List<Sight> mocks, RangeValues range) {
+  int inRange = 0;
+
+  mocks.forEach((element) {
+    var distance = myDistance(element);
+    if (range.start < distance && range.end > distance) inRange = inRange + 1;
+  });
+
+  return inRange.toString();
+}

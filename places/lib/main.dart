@@ -1,12 +1,15 @@
 // import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:places/mocks.dart';
+// import 'package:places/test.dart';
 import 'package:places/ui/res/themes.dart';
 import 'package:places/ui/screen/add_sight_screen.dart';
 import 'package:places/ui/screen/filter_screen.dart';
 import 'package:places/ui/screen/settings.dart';
 import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/screen/sight_list_screen.dart';
+import 'package:places/ui/screen/sight_search_screen.dart';
 import 'package:places/ui/screen/visiting_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -31,12 +34,13 @@ class MyApp extends StatelessWidget {
           Provider.of<SThemes>(context).isLightTheme ? sLightTheme : sDarkTheme,
       // theme: snapshot.data! ? sLightTheme : sDarkTheme,
       debugShowCheckedModeBanner: false,
-      // home: SightDetails(), // Детализация места
-      //home: const VisitingScreen(), // посетил - хочу посетить
-      // home: SightListScreen(), // список интересных мест
+      // home: SightDetails(thisSight: mocks[1]), // Детализация места
+      // home: const VisitingScreen(), // посетил - хочу посетить
+      home: SightListScreen(), // список интересных мест
       // home: FilterScreen(),
       // home: const Settings(),
-      home: const AddSightScreen(), // добавить новое место
+      // home: const AddSightScreen(), // добавить новое место
+      // home: SightSearchScreen(), // экран поиска мест
     );
   }
   // );

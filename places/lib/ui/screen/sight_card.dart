@@ -82,6 +82,7 @@ class SightCard extends StatelessWidget {
                         ),
                         Text(
                           sight.details,
+                          maxLines: 2,
                           style: Theme.of(context).textTheme.headline2,
                         ),
                       ],
