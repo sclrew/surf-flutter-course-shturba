@@ -35,8 +35,8 @@ class MyApp extends StatelessWidget {
       // theme: snapshot.data! ? sLightTheme : sDarkTheme,
       debugShowCheckedModeBanner: false,
       // home: SightDetails(thisSight: mocks[1]), // Детализация места
-      // home: const VisitingScreen(), // посетил - хочу посетить
-      home: SightListScreen(), // список интересных мест
+      home: const VisitingScreen(), // посетил - хочу посетить
+      // home: SightListScreen(), // список интересных мест
       // home: FilterScreen(),
       // home: const Settings(),
       // home: const AddSightScreen(), // добавить новое место

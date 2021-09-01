@@ -65,6 +65,15 @@ final List<CheckedSight> visitedSights = <CheckedSight>[
     'металлическая башня в центре Парижа',
     'Развлечение',
   ),
+  CheckedSight(
+    '02.01.2020',
+    'Берлинская стена',
+    52.5065133,
+    13.389687,
+    'https://static.kulturologia.ru/files/u28343/283430541.jpg',
+    'Берлинская стена разделяла западную и восточную части города, отделяя Западный Берлин от территории ГДР.',
+    'История',
+  ),
 ];
 
 final List<WishSight> wishSights = <WishSight>[
@@ -94,6 +103,15 @@ final List<WishSight> wishSights = <WishSight>[
     'https://img4.goodfon.ru/wallpaper/nbig/c/87/parizh-frantsiia-rassvet-eifeleva-bashnia-panorama.jpg',
     'металлическая башня в центре Парижа',
     'Развлечение',
+  ),
+  WishSight(
+    '02.01.2025',
+    'Берлинская стена',
+    52.5065133,
+    13.389687,
+    'https://static.kulturologia.ru/files/u28343/283430541.jpg',
+    'Берлинская стена разделяла западную и восточную части города, отделяя Западный Берлин от территории ГДР.',
+    'История',
   ),
 ];
 

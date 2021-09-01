@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/screen/sight_card.dart';
 // import 'package:places/ui/screen/sight_card_visited_empty.dart';
 import 'package:places/ui/screen/sight_card_visited.dart';
+import 'package:places/ui/screen/sight_card_visited_empty.dart';
 import 'package:places/ui/screen/sight_card_wish.dart';
+import 'package:places/ui/screen/sight_card_wish_empty.dart';
 // import 'package:places/ui/screen/sight_card_wish_empty.dart';
 
 class VisitingScreen extends StatefulWidget {
@@ -15,6 +18,9 @@ class VisitingScreen extends StatefulWidget {
 }
 
 class _VisitingScreenState extends State<VisitingScreen> {
+  final List<WishSight> _wishSights = wishSights;
+  final List<CheckedSight> _visitedSights = visitedSights;
+
   int _bottomNavIndex = 0;
 
   @override
@@ -77,51 +83,60 @@ class _VisitingScreenState extends State<VisitingScreen> {
           ),
         ),
         body: Padding(
-          padding: EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 16),
+          padding:
+              const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 16),
           child: TabBarView(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        WishSightCard(sight: wishSights[0]),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        WishSightCard(sight: wishSights[1]),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        WishSightCard(sight: wishSights[2]),
-                      ],
+                  if (_wishSights.isNotEmpty)
+                    SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          for (var i = 0; _wishSights.length > i; i++)
+                            WishSightCard(
+                              onCloseTap: () {
+                                setState(() {
+                                  _wishSights.remove(_wishSights[i]);
+                                });
+                              },
+                              sight: _wishSights[i],
+                              key: ValueKey(
+                                'wish_${_wishSights[i].lat}${_wishSights[i].lon}',
+                              ),
+                            ),
+                        ],
+                      ),
                     ),
-                  ),
+                  if (_wishSights.isEmpty) const WishSightEmpty(),
                 ],
               ),
-              // VisitedSightEmpty(),
-              // WishSightEmpty(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        VisitedSightCard(sight: visitedSights[0]),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        VisitedSightCard(sight: visitedSights[1]),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        VisitedSightCard(sight: visitedSights[2]),
-                      ],
+                  if (_visitedSights.isNotEmpty)
+                    SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          for (var i = 0; _visitedSights.length > i; i++)
+                            VisitedSightCard(
+                              onCloseTap: () {
+                                setState(() {
+                                  _visitedSights.remove(_visitedSights[i]);
+                                });
+                              },
+                              sight: _visitedSights[i],
+                              key: ValueKey(
+                                'visited${_visitedSights[i].lat}${_visitedSights[i].lon}',
+                              ),
+                            ),
+                        ],
+                      ),
                     ),
-                  ),
+                  if (_visitedSights.isEmpty) const VisitedSightEmpty(),
                 ],
               ),
             ],
