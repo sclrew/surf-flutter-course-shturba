@@ -101,7 +101,11 @@ class _AddSightScreenState extends State<AddSightScreen> {
               otstupH24,
               Row(
                 children: [
-                  AddImgBtn(onAdd: () {}),
+                  AddImgBtn(onAdd: () {
+                    setState(() {
+                      _imagesUrl.add(imagesUrl[1]);
+                    });
+                  }),
                   Expanded(
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
