@@ -115,6 +115,15 @@ final List<WishSight> wishSights = <WishSight>[
   ),
 ];
 
+final List<String> imagesUrl = [
+  'https://static.mk.ru/upload/iblock_mk/550/20/41/d6/DETAIL_PICTURE__29245716.jpg',
+  'http://ic.pics.livejournal.com/zina_korzina/4290981/814879/814879_original.jpg',
+  'https://i.pinimg.com/originals/78/95/ef/7895efcdc4d7cfa5abea273c818167f9.jpg',
+  'https://www.rubaltic.ru/upload/iblock/fe5/fe53ad3bd7bc18d4326f7b1cf47aef08.jpg',
+  'https://magazin-soldatikov.ru/upload/iblock/394/3948a85d42875ffc1e85e811cef4f80c.jpg',
+  'http://ugramegasport.ru/wp-content/uploads/2017/03/P3190072.jpg',
+];
+
 // мои широта и долгота
 // double myLatitude = 44.9318866;
 // double myLongitude = 35.5726771;

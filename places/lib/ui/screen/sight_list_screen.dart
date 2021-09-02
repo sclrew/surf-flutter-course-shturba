@@ -6,6 +6,7 @@ import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/parts.dart';
 import 'package:places/ui/res/text_styles.dart';
+import 'package:places/ui/screen/add_sight_screen.dart';
 import 'package:places/ui/screen/filter_screen.dart';
 import 'package:places/ui/screen/settings.dart';
 import 'package:places/ui/screen/sight_card.dart';
@@ -63,8 +64,11 @@ class _SightListScreenState extends State<SightListScreen> {
             ),
             AddBtn(
               onTap: () {
-                // ignore: avoid_print
-                print('КЛИКНУЛ');
+                Navigator.of(context).push<void>(
+                  MaterialPageRoute<void>(
+                    builder: (context) => const AddSightScreen(),
+                  ),
+                );
               },
               title: 'НОВОЕ МЕСТО',
             ),
