@@ -33,13 +33,13 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
     );
   }
 
-  @override
-  void dispose() {
-    // searchController.removeListener(() {
-    //   _filterSights;
-    // });
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // searchController.removeListener(() {
+  //   //   _filterSights;
+  //   // });
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {

@@ -104,7 +104,7 @@ class OneItem extends StatelessWidget {
       return Column(
         children: [
           SightCard(sight: mocks[nomer]),
-          Text('$showDistance км'),
+          // Text('$showDistance км'),
           if (mocks.length - 1 != nomer) otstupH30,
         ],
       );
