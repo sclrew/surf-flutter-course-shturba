@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:places/ui/res/style.dart';
 
 Widget heartImg = Image.asset(
@@ -201,5 +203,48 @@ class SBottomNavBar extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class RedTrashContainer extends StatelessWidget {
+  const RedTrashContainer({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.only(
+          right: 16,
+        ),
+        decoration: const BoxDecoration(
+          color: Color(0xffEF4343),
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          ),
+        ),
+        alignment: Alignment.centerRight,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              'assets/img/trashIcon.svg',
+              height: 22,
+              width: 20,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              'Удалить',
+              style: GoogleFonts.roboto(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                height: 1.33,
+              ),
+            ),
+          ],
+        ));
   }
 }

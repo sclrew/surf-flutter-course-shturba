@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/parser.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
@@ -25,6 +27,7 @@ class _VisitingScreenState extends State<VisitingScreen> {
 
   int _bottomNavIndex = 2;
   bool _isAbove = false;
+  bool _isVertical = true;
 
   @override
   Widget build(BuildContext context) {
@@ -139,30 +142,45 @@ class _VisitingScreenState extends State<VisitingScreen> {
                                   },
                                 ),
                                 Draggable<WishSight>(
+                                  axis: Axis.vertical,
                                   data: _wishSights[i],
                                   maxSimultaneousDrags: 1,
                                   // начальное отображение
-                                  child: WishSightCard(
-                                    onCloseTap: () {
+                                  child: Dismissible(
+                                    key: UniqueKey(),
+                                    direction: DismissDirection.endToStart,
+                                    onDismissed: (details) {
                                       setState(() {
                                         _wishSights.remove(_wishSights[i]);
                                       });
                                     },
-                                    sight: _wishSights[i],
-                                    key: ValueKey(
-                                      'wish_${_wishSights[i].lat}${_wishSights[i].lon}',
+                                    background: const RedTrashContainer(),
+                                    child: WishSightCard(
+                                      onCloseTap: () {
+                                        setState(() {
+                                          _wishSights.remove(_wishSights[i]);
+                                        });
+                                      },
+                                      sight: _wishSights[i],
+                                      key: ValueKey(
+                                        'wish${_wishSights[i].lat}${_wishSights[i].lon}',
+                                      ),
                                     ),
                                   ),
+
                                   // пока перетаскиваю
-                                  feedback: WishSightCard(
-                                    onCloseTap: () {
-                                      setState(() {
-                                        _wishSights.remove(_wishSights[i]);
-                                      });
-                                    },
-                                    sight: _wishSights[i],
-                                    key: ValueKey(
-                                      'wish_${_wishSights[i].lat}${_wishSights[i].lon}',
+                                  feedback: Opacity(
+                                    opacity: 0.7,
+                                    child: WishSightCard(
+                                      onCloseTap: () {
+                                        setState(() {
+                                          _wishSights.remove(_wishSights[i]);
+                                        });
+                                      },
+                                      sight: _wishSights[i],
+                                      key: ValueKey(
+                                        'wish_${_wishSights[i].lat}${_wishSights[i].lon}',
+                                      ),
                                     ),
                                   ),
                                   childWhenDragging: Opacity(
@@ -230,32 +248,47 @@ class _VisitingScreenState extends State<VisitingScreen> {
                                   },
                                 ),
                                 Draggable<VisitedSight>(
+                                  axis: Axis.vertical,
                                   data: _visitedSights[i],
                                   maxSimultaneousDrags: 1,
                                   // начальное отображение
-                                  child: VisitedSightCard(
-                                    onCloseTap: () {
+                                  child: Dismissible(
+                                    key: UniqueKey(),
+                                    direction: DismissDirection.endToStart,
+                                    onDismissed: (details) {
                                       setState(() {
                                         _visitedSights
                                             .remove(_visitedSights[i]);
                                       });
                                     },
-                                    sight: _visitedSights[i],
-                                    key: ValueKey(
-                                      'visited${_visitedSights[i].lat}${_visitedSights[i].lon}',
+                                    background: const RedTrashContainer(),
+                                    child: VisitedSightCard(
+                                      onCloseTap: () {
+                                        setState(() {
+                                          _visitedSights
+                                              .remove(_visitedSights[i]);
+                                        });
+                                      },
+                                      sight: _visitedSights[i],
+                                      key: ValueKey(
+                                        'visited${_visitedSights[i].lat}${_visitedSights[i].lon}',
+                                      ),
                                     ),
                                   ),
                                   // пока перетаскиваю
-                                  feedback: VisitedSightCard(
-                                    onCloseTap: () {
-                                      setState(() {
-                                        _visitedSights
-                                            .remove(_visitedSights[i]);
-                                      });
-                                    },
-                                    sight: _visitedSights[i],
-                                    key: ValueKey(
-                                      'visited${_visitedSights[i].lat}${_visitedSights[i].lon}',
+                                  feedback: Opacity(
+                                    opacity: 0.7,
+                                    child: VisitedSightCard(
+                                      onCloseTap: () {
+                                        setState(() {
+                                          _visitedSights
+                                              .remove(_visitedSights[i]);
+                                        });
+                                      },
+                                      sight: _visitedSights[i],
+                                      key: ValueKey(
+                                        'visited${_visitedSights[i].lat}${_visitedSights[i].lon}',
+                                      ),
                                     ),
                                   ),
                                   childWhenDragging: Opacity(
