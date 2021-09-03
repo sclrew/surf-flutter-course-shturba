@@ -27,10 +27,10 @@ class WishSight extends Sight {
 }
 
 // Уже посетил
-class CheckedSight extends Sight {
+class VisitedSight extends Sight {
   String visitTime;
 
-  CheckedSight(
+  VisitedSight(
     this.visitTime,
     String name,
     double lat,

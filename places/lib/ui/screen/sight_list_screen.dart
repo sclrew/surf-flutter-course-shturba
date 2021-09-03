@@ -11,6 +11,7 @@ import 'package:places/ui/screen/filter_screen.dart';
 import 'package:places/ui/screen/settings.dart';
 import 'package:places/ui/screen/sight_card.dart';
 import 'package:places/ui/screen/sight_search_screen.dart';
+import 'package:places/ui/screen/visiting_screen.dart';
 
 class SightListScreen extends StatefulWidget {
   final double startR;
@@ -79,7 +80,15 @@ class _SightListScreenState extends State<SightListScreen> {
         currentIndex: _bottomNavIndex,
         onTap: (index) {
           setState(() {
-            _bottomNavIndex = index;
+            if (index == 2) {
+              Navigator.of(context).push<void>(
+                MaterialPageRoute<void>(
+                  builder: (context) => const VisitingScreen(),
+                ),
+              );
+            } else {
+              _bottomNavIndex = index;
+            }
           });
         },
       ),

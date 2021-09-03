@@ -37,8 +37,8 @@ final List<Sight> mocks = <Sight>[
   ),
 ];
 
-final List<CheckedSight> visitedSights = <CheckedSight>[
-  CheckedSight(
+final List<VisitedSight> visitedSights = <VisitedSight>[
+  VisitedSight(
     '01.01.2018',
     'Байкал',
     53.662492,
@@ -47,7 +47,7 @@ final List<CheckedSight> visitedSights = <CheckedSight>[
     'озеро тектонического происхождения в южной части Восточной Сибири',
     'Природа',
   ),
-  CheckedSight(
+  VisitedSight(
     '01.01.2019',
     'Московский Кремль',
     55.7520263,
@@ -56,7 +56,7 @@ final List<CheckedSight> visitedSights = <CheckedSight>[
     'Государственный историко-культурный музей-заповедник «Московский Кремль»',
     'История',
   ),
-  CheckedSight(
+  VisitedSight(
     '01.01.2020',
     'Эйфелева башня',
     48.8583736,
@@ -65,7 +65,7 @@ final List<CheckedSight> visitedSights = <CheckedSight>[
     'металлическая башня в центре Парижа',
     'Развлечение',
   ),
-  CheckedSight(
+  VisitedSight(
     '02.01.2020',
     'Берлинская стена',
     52.5065133,
