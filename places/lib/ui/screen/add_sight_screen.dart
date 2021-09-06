@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
@@ -14,22 +15,25 @@ class AddSightScreen extends StatefulWidget {
   _AddSightScreenState createState() => _AddSightScreenState();
 }
 
-TextEditingController opisanie = TextEditingController();
-TextEditingController nazvanie = TextEditingController();
-TextEditingController latitude = TextEditingController(); // широта
-TextEditingController longitude = TextEditingController(); // долгота
-
 class _AddSightScreenState extends State<AddSightScreen> {
+  TextEditingController opisanie = TextEditingController();
+  TextEditingController nazvanie = TextEditingController();
+  TextEditingController latitude = TextEditingController(); // широта
+  TextEditingController longitude = TextEditingController(); // долгота
+
   bool isSaveBtn = false;
   late FocusNode opisanieFocus;
   late FocusNode nazvanieFocus;
   late FocusNode latitudeFocus;
   late FocusNode longitudeFocus;
 
+  late List<String> _imagesUrl;
+
   @override
   void initState() {
     super.initState();
 
+    _imagesUrl = imagesUrl;
     opisanieFocus = FocusNode();
     nazvanieFocus = FocusNode();
     latitudeFocus = FocusNode();
@@ -69,7 +73,9 @@ class _AddSightScreenState extends State<AddSightScreen> {
               Row(
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
                     child: Text(
                       'Отмена',
                       style: GoogleFonts.roboto(
@@ -82,12 +88,47 @@ class _AddSightScreenState extends State<AddSightScreen> {
                   ),
                   otstupW51,
                   Text(
-                    'Избранное',
+                    'Новое место',
                     style: GoogleFonts.roboto(
                       color: Theme.of(context).canvasColor,
                       fontWeight: FontWeight.w500,
                       height: 1.33,
                       fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+              otstupH24,
+              Row(
+                children: [
+                  AddImgBtn(onAdd: () {
+                    setState(() {
+                      _imagesUrl.add(imagesUrl[1]);
+                    });
+                  }),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          // нулевой элемент не удаляется
+                          RowImgItemNull(
+                            url: _imagesUrl[0],
+                          ),
+                          for (var i = 1; _imagesUrl.length > i; i++)
+                            RowImgItem(
+                              onCloseTap: () {
+                                _removeItem(i);
+                              },
+                              url: _imagesUrl[i],
+                            ),
+                          // ..._imagesUrl.map<Widget>((url) {
+                          //   return RowImgItem(
+                          //     url: url,
+                          //   );
+                          // }).toList(),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -263,6 +304,142 @@ class _AddSightScreenState extends State<AddSightScreen> {
         isSaveBtn = false;
       });
     }
+  }
+
+  void _removeItem(int nomer) {
+    setState(() {
+      _imagesUrl.remove(_imagesUrl[nomer]);
+    });
+  }
+}
+
+class RowImgItemNull extends StatelessWidget {
+  final String url;
+  const RowImgItemNull({
+    required this.url,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          margin: const EdgeInsets.only(left: 16),
+          width: 72,
+          height: 72,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.network(
+              url,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Positioned(
+          top: 6,
+          right: 6,
+          child: SvgPicture.asset(
+            'assets/img/closeRoundIcon.svg',
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class RowImgItem extends StatelessWidget {
+  final VoidCallback onCloseTap;
+  final String url;
+  const RowImgItem({
+    required this.onCloseTap,
+    required this.url,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Dismissible(
+      direction: DismissDirection.up,
+      key: ValueKey(
+        url.substring(9, 20) + DateTime.now().millisecond.toString(),
+      ),
+      movementDuration: const Duration(
+        seconds: 2,
+      ),
+      onDismissed: (direction) {},
+      background: Container(
+        margin: const EdgeInsets.only(left: 16),
+        width: 72,
+        height: 72,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: const [
+            Icon(Icons.keyboard_arrow_up),
+          ],
+        ),
+      ),
+      child: Stack(
+        children: [
+          Container(
+            margin: const EdgeInsets.only(left: 16),
+            width: 72,
+            height: 72,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.network(
+                url,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Positioned(
+            top: 6,
+            right: 6,
+            child: GestureDetector(
+              onTap: onCloseTap,
+              child: SvgPicture.asset(
+                'assets/img/closeRoundIcon.svg',
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AddImgBtn extends StatelessWidget {
+  final VoidCallback onAdd;
+  const AddImgBtn({
+    required this.onAdd,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onAdd,
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        width: 72,
+        height: 72,
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 2,
+            color: const Color(0xff4CAF50).withOpacity(0.48),
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: const Center(
+          child: Icon(
+            Icons.add_rounded,
+            color: Color(0xff4caf51),
+            size: 36,
+          ),
+        ),
+      ),
+    );
   }
 }
 

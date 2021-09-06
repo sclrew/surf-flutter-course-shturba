@@ -121,3 +121,10 @@ TextStyle roboto400x14x7C7E92 = GoogleFonts.roboto(
     color: const Color(0xff7C7E92).withOpacity(0.56),
   ),
 );
+
+TextStyle roboto400x16xwhite = GoogleFonts.roboto(
+  fontWeight: FontWeight.normal,
+  color: Colors.white,
+  fontSize: 16,
+  decoration: TextDecoration.none,
+);

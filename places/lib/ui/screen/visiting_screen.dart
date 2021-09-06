@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/parser.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
+import 'package:places/ui/res/parts.dart';
 import 'package:places/ui/screen/sight_card.dart';
 // import 'package:places/ui/screen/sight_card_visited_empty.dart';
 import 'package:places/ui/screen/sight_card_visited.dart';
 import 'package:places/ui/screen/sight_card_visited_empty.dart';
 import 'package:places/ui/screen/sight_card_wish.dart';
 import 'package:places/ui/screen/sight_card_wish_empty.dart';
+import 'package:places/ui/screen/sight_list_screen.dart';
 // import 'package:places/ui/screen/sight_card_wish_empty.dart';
 
 class VisitingScreen extends StatefulWidget {
@@ -19,9 +23,11 @@ class VisitingScreen extends StatefulWidget {
 
 class _VisitingScreenState extends State<VisitingScreen> {
   final List<WishSight> _wishSights = wishSights;
-  final List<CheckedSight> _visitedSights = visitedSights;
+  final List<VisitedSight> _visitedSights = visitedSights;
 
-  int _bottomNavIndex = 0;
+  int _bottomNavIndex = 2;
+  bool _isAbove = false;
+  bool _isVertical = true;
 
   @override
   Widget build(BuildContext context) {
@@ -96,16 +102,96 @@ class _VisitingScreenState extends State<VisitingScreen> {
                       child: Column(
                         children: [
                           for (var i = 0; _wishSights.length > i; i++)
-                            WishSightCard(
-                              onCloseTap: () {
-                                setState(() {
-                                  _wishSights.remove(_wishSights[i]);
-                                });
-                              },
-                              sight: _wishSights[i],
-                              key: ValueKey(
-                                'wish_${_wishSights[i].lat}${_wishSights[i].lon}',
-                              ),
+                            Column(
+                              children: [
+                                DragTarget<WishSight>(
+                                  builder:
+                                      (context, candidateDate, rejectDate) =>
+                                          AnimatedSwitcher(
+                                    child: _isAbove
+                                        ? const FillDragContainer()
+                                        : const EmptyDragContainer(),
+                                    duration: const Duration(seconds: 1),
+                                  ),
+                                  onMove: (data) {
+                                    if (_isAbove == false) {
+                                      setState(() {
+                                        _isAbove = true;
+                                      });
+                                    }
+                                  },
+                                  onLeave: (data) {
+                                    if (_isAbove) {
+                                      setState(() {
+                                        _isAbove = false;
+                                      });
+                                    }
+                                  },
+                                  onWillAccept: (data) {
+                                    if (data == _wishSights[i]) {
+                                      return false;
+                                    }
+                                    return true;
+                                  },
+                                  onAccept: (data) {
+                                    _wishSights.remove(data);
+                                    setState(() {
+                                      _wishSights.insert(i, data);
+                                      _isAbove = false;
+                                    });
+                                  },
+                                ),
+                                Draggable<WishSight>(
+                                  axis: Axis.vertical,
+                                  data: _wishSights[i],
+                                  maxSimultaneousDrags: 1,
+                                  // начальное отображение
+                                  child: Dismissible(
+                                    key: UniqueKey(),
+                                    direction: DismissDirection.endToStart,
+                                    onDismissed: (details) {
+                                      setState(() {
+                                        _wishSights.remove(_wishSights[i]);
+                                      });
+                                    },
+                                    background: const RedTrashContainer(),
+                                    child: WishSightCard(
+                                      onCloseTap: () {
+                                        setState(() {
+                                          _wishSights.remove(_wishSights[i]);
+                                        });
+                                      },
+                                      sight: _wishSights[i],
+                                      key: ValueKey(
+                                        'wish${_wishSights[i].lat}${_wishSights[i].lon}',
+                                      ),
+                                    ),
+                                  ),
+
+                                  // пока перетаскиваю
+                                  feedback: Opacity(
+                                    opacity: 0.7,
+                                    child: WishSightCard(
+                                      onCloseTap: () {
+                                        setState(() {
+                                          _wishSights.remove(_wishSights[i]);
+                                        });
+                                      },
+                                      sight: _wishSights[i],
+                                      key: ValueKey(
+                                        'wish_${_wishSights[i].lat}${_wishSights[i].lon}',
+                                      ),
+                                    ),
+                                  ),
+                                  childWhenDragging: Opacity(
+                                    opacity: 0.3,
+                                    child: WishSightCard(
+                                      onCloseTap: () {},
+                                      sight: _wishSights[i],
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                         ],
                       ),
@@ -122,16 +208,98 @@ class _VisitingScreenState extends State<VisitingScreen> {
                       child: Column(
                         children: [
                           for (var i = 0; _visitedSights.length > i; i++)
-                            VisitedSightCard(
-                              onCloseTap: () {
-                                setState(() {
-                                  _visitedSights.remove(_visitedSights[i]);
-                                });
-                              },
-                              sight: _visitedSights[i],
-                              key: ValueKey(
-                                'visited${_visitedSights[i].lat}${_visitedSights[i].lon}',
-                              ),
+                            Column(
+                              children: [
+                                DragTarget<VisitedSight>(
+                                  builder:
+                                      (context, candidateDate, rejectDate) =>
+                                          AnimatedSwitcher(
+                                    child: _isAbove
+                                        ? const FillDragContainer()
+                                        : const EmptyDragContainer(),
+                                    duration: const Duration(seconds: 1),
+                                  ),
+                                  onMove: (data) {
+                                    if (_isAbove == false) {
+                                      setState(() {
+                                        _isAbove = true;
+                                      });
+                                    }
+                                  },
+                                  onLeave: (data) {
+                                    if (_isAbove) {
+                                      setState(() {
+                                        _isAbove = false;
+                                      });
+                                    }
+                                  },
+                                  onWillAccept: (data) {
+                                    if (data == _visitedSights[i]) {
+                                      return false;
+                                    }
+                                    return true;
+                                  },
+                                  onAccept: (data) {
+                                    _visitedSights.remove(data);
+                                    setState(() {
+                                      _visitedSights.insert(i, data);
+                                      _isAbove = false;
+                                    });
+                                  },
+                                ),
+                                Draggable<VisitedSight>(
+                                  axis: Axis.vertical,
+                                  data: _visitedSights[i],
+                                  maxSimultaneousDrags: 1,
+                                  // начальное отображение
+                                  child: Dismissible(
+                                    key: UniqueKey(),
+                                    direction: DismissDirection.endToStart,
+                                    onDismissed: (details) {
+                                      setState(() {
+                                        _visitedSights
+                                            .remove(_visitedSights[i]);
+                                      });
+                                    },
+                                    background: const RedTrashContainer(),
+                                    child: VisitedSightCard(
+                                      onCloseTap: () {
+                                        setState(() {
+                                          _visitedSights
+                                              .remove(_visitedSights[i]);
+                                        });
+                                      },
+                                      sight: _visitedSights[i],
+                                      key: ValueKey(
+                                        'visited${_visitedSights[i].lat}${_visitedSights[i].lon}',
+                                      ),
+                                    ),
+                                  ),
+                                  // пока перетаскиваю
+                                  feedback: Opacity(
+                                    opacity: 0.7,
+                                    child: VisitedSightCard(
+                                      onCloseTap: () {
+                                        setState(() {
+                                          _visitedSights
+                                              .remove(_visitedSights[i]);
+                                        });
+                                      },
+                                      sight: _visitedSights[i],
+                                      key: ValueKey(
+                                        'visited${_visitedSights[i].lat}${_visitedSights[i].lon}',
+                                      ),
+                                    ),
+                                  ),
+                                  childWhenDragging: Opacity(
+                                    opacity: 0.3,
+                                    child: VisitedSightCard(
+                                      onCloseTap: () {},
+                                      sight: _visitedSights[i],
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                         ],
                       ),
@@ -142,42 +310,66 @@ class _VisitingScreenState extends State<VisitingScreen> {
             ],
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar: SBottomNavBar(
           currentIndex: _bottomNavIndex,
-          type: BottomNavigationBarType.fixed,
           onTap: (index) {
             setState(() {
-              _bottomNavIndex = index;
+              if (index == 0) {
+                Navigator.of(context).pushAndRemoveUntil<void>(
+                  MaterialPageRoute<void>(
+                    builder: (context) => const SightListScreen(),
+                  ),
+                  (route) => false,
+                );
+              } else {
+                _bottomNavIndex = index;
+              }
             });
           },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.article_outlined,
-              ),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.map_outlined,
-              ),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.favorite,
-              ),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.settings,
-              ),
-              label: '',
-            ),
-          ],
         ),
       ),
+    );
+  }
+}
+
+class FillDragContainer extends StatelessWidget {
+  const FillDragContainer({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.9,
+      height: 16,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        color: Theme.of(context).canvasColor,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: const [
+          Icon(Icons.arrow_forward, size: 16, color: Colors.white),
+          Icon(Icons.save_alt, size: 16, color: Colors.white),
+          Icon(Icons.arrow_back, size: 16, color: Colors.white),
+        ],
+      ),
+    );
+  }
+}
+
+class EmptyDragContainer extends StatelessWidget {
+  const EmptyDragContainer({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.9,
+      color: Colors.transparent,
+      height: 16,
     );
   }
 }

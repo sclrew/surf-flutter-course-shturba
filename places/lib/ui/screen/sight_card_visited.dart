@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/parts.dart';
+import 'package:places/ui/res/text_styles.dart';
 
 class VisitedSightCard extends StatelessWidget {
   final VoidCallback onCloseTap;
 
-  final CheckedSight sight;
+  final VisitedSight sight;
   const VisitedSightCard({
     required this.onCloseTap,
     required this.sight,
@@ -61,17 +63,14 @@ class VisitedSightCard extends StatelessWidget {
                           margin: const EdgeInsets.only(top: 16, left: 16),
                           child: Text(
                             sight.type.toString(),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
+                            style: roboto400x16xwhite,
                           ),
                         ),
                         Container(
                           margin: const EdgeInsets.only(top: 19, right: 18),
                           child: Row(
                             children: [
-                              InkWell(
+                              GestureDetector(
                                 onTap: () {
                                   // ignore: avoid_print
                                   print('Поделиться нажато');
@@ -79,7 +78,7 @@ class VisitedSightCard extends StatelessWidget {
                                 child: shareImg24,
                               ),
                               otstupW25,
-                              InkWell(
+                              GestureDetector(
                                 onTap: onCloseTap,
                                 child: closeIcon22,
                               ),
@@ -109,12 +108,14 @@ class VisitedSightCard extends StatelessWidget {
                       children: [
                         Text(
                           sight.name,
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            height: 1.25,
+                          style: GoogleFonts.roboto(
+                            textStyle: const TextStyle(
+                              height: 1.25,
+                            ),
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
                             color: Theme.of(context).primaryColorDark,
+                            decoration: TextDecoration.none,
                           ),
                         ),
                         RichText(
@@ -140,9 +141,6 @@ class VisitedSightCard extends StatelessWidget {
               ],
             ),
           ),
-        ),
-        const SizedBox(
-          height: 16,
         ),
       ],
     );

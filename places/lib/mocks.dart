@@ -37,8 +37,8 @@ final List<Sight> mocks = <Sight>[
   ),
 ];
 
-final List<CheckedSight> visitedSights = <CheckedSight>[
-  CheckedSight(
+final List<VisitedSight> visitedSights = <VisitedSight>[
+  VisitedSight(
     '01.01.2018',
     'Байкал',
     53.662492,
@@ -47,7 +47,7 @@ final List<CheckedSight> visitedSights = <CheckedSight>[
     'озеро тектонического происхождения в южной части Восточной Сибири',
     'Природа',
   ),
-  CheckedSight(
+  VisitedSight(
     '01.01.2019',
     'Московский Кремль',
     55.7520263,
@@ -56,7 +56,7 @@ final List<CheckedSight> visitedSights = <CheckedSight>[
     'Государственный историко-культурный музей-заповедник «Московский Кремль»',
     'История',
   ),
-  CheckedSight(
+  VisitedSight(
     '01.01.2020',
     'Эйфелева башня',
     48.8583736,
@@ -65,7 +65,7 @@ final List<CheckedSight> visitedSights = <CheckedSight>[
     'металлическая башня в центре Парижа',
     'Развлечение',
   ),
-  CheckedSight(
+  VisitedSight(
     '02.01.2020',
     'Берлинская стена',
     52.5065133,
@@ -113,6 +113,15 @@ final List<WishSight> wishSights = <WishSight>[
     'Берлинская стена разделяла западную и восточную части города, отделяя Западный Берлин от территории ГДР.',
     'История',
   ),
+];
+
+final List<String> imagesUrl = [
+  'https://static.mk.ru/upload/iblock_mk/550/20/41/d6/DETAIL_PICTURE__29245716.jpg',
+  'http://ic.pics.livejournal.com/zina_korzina/4290981/814879/814879_original.jpg',
+  'https://i.pinimg.com/originals/78/95/ef/7895efcdc4d7cfa5abea273c818167f9.jpg',
+  'https://www.rubaltic.ru/upload/iblock/fe5/fe53ad3bd7bc18d4326f7b1cf47aef08.jpg',
+  'https://magazin-soldatikov.ru/upload/iblock/394/3948a85d42875ffc1e85e811cef4f80c.jpg',
+  'http://ugramegasport.ru/wp-content/uploads/2017/03/P3190072.jpg',
 ];
 
 // мои широта и долгота

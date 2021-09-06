@@ -6,10 +6,12 @@ import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/parts.dart';
 import 'package:places/ui/res/text_styles.dart';
+import 'package:places/ui/screen/add_sight_screen.dart';
 import 'package:places/ui/screen/filter_screen.dart';
 import 'package:places/ui/screen/settings.dart';
 import 'package:places/ui/screen/sight_card.dart';
 import 'package:places/ui/screen/sight_search_screen.dart';
+import 'package:places/ui/screen/visiting_screen.dart';
 
 class SightListScreen extends StatefulWidget {
   final double startR;
@@ -63,8 +65,11 @@ class _SightListScreenState extends State<SightListScreen> {
             ),
             AddBtn(
               onTap: () {
-                // ignore: avoid_print
-                print('КЛИКНУЛ');
+                Navigator.of(context).push<void>(
+                  MaterialPageRoute<void>(
+                    builder: (context) => const AddSightScreen(),
+                  ),
+                );
               },
               title: 'НОВОЕ МЕСТО',
             ),
@@ -75,7 +80,15 @@ class _SightListScreenState extends State<SightListScreen> {
         currentIndex: _bottomNavIndex,
         onTap: (index) {
           setState(() {
-            _bottomNavIndex = index;
+            if (index == 2) {
+              Navigator.of(context).push<void>(
+                MaterialPageRoute<void>(
+                  builder: (context) => const VisitingScreen(),
+                ),
+              );
+            } else {
+              _bottomNavIndex = index;
+            }
           });
         },
       ),
