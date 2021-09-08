@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -43,25 +44,20 @@ class _SightListScreenState extends State<SightListScreen> {
         height: double.infinity,
         child: Stack(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      for (var i = 0; mocks.length > i; i++)
-                        OneItem(
-                          startR: widget.startR,
-                          endR: widget.endR,
-                          mocks: mocks,
-                          nomer: i,
-                        ),
-                      otstupH12,
-                    ],
-                  ),
-                ),
-              ],
+            ListView.builder(
+              physics: Platform.isAndroid
+                  ? const ClampingScrollPhysics() // Android физика скрола
+                  : const BouncingScrollPhysics(), // IOS физика скрола
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              itemCount: mocks.length,
+              itemBuilder: (context, index) {
+                return OneItem(
+                  startR: widget.startR,
+                  endR: widget.endR,
+                  mocks: mocks,
+                  nomer: index,
+                );
+              },
             ),
             AddBtn(
               onTap: () {
@@ -112,7 +108,7 @@ class OneItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final distance = myDistance(mocks[nomer]);
-    final showDistance = distance.toStringAsFixed(2);
+    // final showDistance = distance.toStringAsFixed(2);
     if (startR < distance && endR > distance) {
       return Column(
         children: [

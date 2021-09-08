@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/parser.dart';
 import 'package:flutter_svg/svg.dart';
@@ -93,220 +95,319 @@ class _VisitingScreenState extends State<VisitingScreen> {
               const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 16),
           child: TabBarView(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (_wishSights.isNotEmpty)
-                    SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          for (var i = 0; _wishSights.length > i; i++)
-                            Column(
-                              children: [
-                                DragTarget<WishSight>(
-                                  builder:
-                                      (context, candidateDate, rejectDate) =>
-                                          AnimatedSwitcher(
-                                    child: _isAbove
-                                        ? const FillDragContainer()
-                                        : const EmptyDragContainer(),
-                                    duration: const Duration(seconds: 1),
-                                  ),
-                                  onMove: (data) {
-                                    if (_isAbove == false) {
-                                      setState(() {
-                                        _isAbove = true;
-                                      });
-                                    }
-                                  },
-                                  onLeave: (data) {
-                                    if (_isAbove) {
-                                      setState(() {
-                                        _isAbove = false;
-                                      });
-                                    }
-                                  },
-                                  onWillAccept: (data) {
-                                    if (data == _wishSights[i]) {
-                                      return false;
-                                    }
-                                    return true;
-                                  },
-                                  onAccept: (data) {
-                                    _wishSights.remove(data);
-                                    setState(() {
-                                      _wishSights.insert(i, data);
-                                      _isAbove = false;
-                                    });
-                                  },
-                                ),
-                                Draggable<WishSight>(
-                                  axis: Axis.vertical,
-                                  data: _wishSights[i],
-                                  maxSimultaneousDrags: 1,
-                                  // начальное отображение
-                                  child: Dismissible(
-                                    key: UniqueKey(),
-                                    direction: DismissDirection.endToStart,
-                                    onDismissed: (details) {
-                                      setState(() {
-                                        _wishSights.remove(_wishSights[i]);
-                                      });
-                                    },
-                                    background: const RedTrashContainer(),
-                                    child: WishSightCard(
-                                      onCloseTap: () {
-                                        setState(() {
-                                          _wishSights.remove(_wishSights[i]);
-                                        });
-                                      },
-                                      sight: _wishSights[i],
-                                      key: ValueKey(
-                                        'wish${_wishSights[i].lat}${_wishSights[i].lon}',
-                                      ),
-                                    ),
-                                  ),
+              if (_wishSights.isEmpty)
+                const WishSightEmpty()
+              else
+                ListView.builder(
+                  physics: Platform.isAndroid
+                      ? const ClampingScrollPhysics() // Android физика скрола
+                      : const BouncingScrollPhysics(), // IOS физика скрола
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
+                  itemCount: _wishSights.length,
+                  itemBuilder: (context, i) {
+                    return Column(
+                      children: [
+                        DragTarget<WishSight>(
+                          builder: (context, candidateDate, rejectDate) =>
+                              AnimatedSwitcher(
+                            child: _isAbove
+                                ? const FillDragContainer()
+                                : const EmptyDragContainer(),
+                            duration: const Duration(seconds: 1),
+                          ),
+                          onMove: (data) {
+                            if (_isAbove == false) {
+                              setState(() {
+                                _isAbove = true;
+                              });
+                            }
+                          },
+                          onLeave: (data) {
+                            if (_isAbove) {
+                              setState(() {
+                                _isAbove = false;
+                              });
+                            }
+                          },
+                          onWillAccept: (data) {
+                            if (data == _wishSights[i]) {
+                              return false;
+                            }
+                            return true;
+                          },
+                          onAccept: (data) {
+                            _wishSights.remove(data);
+                            setState(() {
+                              _wishSights.insert(i, data);
+                              _isAbove = false;
+                            });
+                          },
+                        ),
+                        Draggable<WishSight>(
+                          axis: Axis.vertical,
+                          data: _wishSights[i],
+                          maxSimultaneousDrags: 1,
+                          // начальное отображение
+                          child: Dismissible(
+                            key: UniqueKey(),
+                            direction: DismissDirection.endToStart,
+                            onDismissed: (details) {
+                              setState(() {
+                                _wishSights.remove(_wishSights[i]);
+                              });
+                            },
+                            background: const RedTrashContainer(),
+                            child: WishSightCard(
+                              onCloseTap: () {
+                                setState(() {
+                                  _wishSights.remove(_wishSights[i]);
+                                });
+                              },
+                              sight: _wishSights[i],
+                              key: ValueKey(
+                                'wish${_wishSights[i].lat}${_wishSights[i].lon}',
+                              ),
+                            ),
+                          ),
 
-                                  // пока перетаскиваю
-                                  feedback: Opacity(
-                                    opacity: 0.7,
-                                    child: WishSightCard(
-                                      onCloseTap: () {
-                                        setState(() {
-                                          _wishSights.remove(_wishSights[i]);
-                                        });
-                                      },
-                                      sight: _wishSights[i],
-                                      key: ValueKey(
-                                        'wish_${_wishSights[i].lat}${_wishSights[i].lon}',
-                                      ),
-                                    ),
-                                  ),
-                                  childWhenDragging: Opacity(
-                                    opacity: 0.3,
-                                    child: WishSightCard(
-                                      onCloseTap: () {},
-                                      sight: _wishSights[i],
-                                    ),
-                                  ),
-                                ),
-                              ],
+                          // пока перетаскиваю
+                          feedback: Opacity(
+                            opacity: 0.7,
+                            child: WishSightCard(
+                              onCloseTap: () {
+                                setState(() {
+                                  _wishSights.remove(_wishSights[i]);
+                                });
+                              },
+                              sight: _wishSights[i],
+                              key: ValueKey(
+                                'wish_${_wishSights[i].lat}${_wishSights[i].lon}',
+                              ),
                             ),
-                        ],
-                      ),
-                    ),
-                  if (_wishSights.isEmpty) const WishSightEmpty(),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (_visitedSights.isNotEmpty)
-                    SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          for (var i = 0; _visitedSights.length > i; i++)
-                            Column(
-                              children: [
-                                DragTarget<VisitedSight>(
-                                  builder:
-                                      (context, candidateDate, rejectDate) =>
-                                          AnimatedSwitcher(
-                                    child: _isAbove
-                                        ? const FillDragContainer()
-                                        : const EmptyDragContainer(),
-                                    duration: const Duration(seconds: 1),
-                                  ),
-                                  onMove: (data) {
-                                    if (_isAbove == false) {
-                                      setState(() {
-                                        _isAbove = true;
-                                      });
-                                    }
-                                  },
-                                  onLeave: (data) {
-                                    if (_isAbove) {
-                                      setState(() {
-                                        _isAbove = false;
-                                      });
-                                    }
-                                  },
-                                  onWillAccept: (data) {
-                                    if (data == _visitedSights[i]) {
-                                      return false;
-                                    }
-                                    return true;
-                                  },
-                                  onAccept: (data) {
-                                    _visitedSights.remove(data);
-                                    setState(() {
-                                      _visitedSights.insert(i, data);
-                                      _isAbove = false;
-                                    });
-                                  },
-                                ),
-                                Draggable<VisitedSight>(
-                                  axis: Axis.vertical,
-                                  data: _visitedSights[i],
-                                  maxSimultaneousDrags: 1,
-                                  // начальное отображение
-                                  child: Dismissible(
-                                    key: UniqueKey(),
-                                    direction: DismissDirection.endToStart,
-                                    onDismissed: (details) {
-                                      setState(() {
-                                        _visitedSights
-                                            .remove(_visitedSights[i]);
-                                      });
-                                    },
-                                    background: const RedTrashContainer(),
-                                    child: VisitedSightCard(
-                                      onCloseTap: () {
-                                        setState(() {
-                                          _visitedSights
-                                              .remove(_visitedSights[i]);
-                                        });
-                                      },
-                                      sight: _visitedSights[i],
-                                      key: ValueKey(
-                                        'visited${_visitedSights[i].lat}${_visitedSights[i].lon}',
-                                      ),
-                                    ),
-                                  ),
-                                  // пока перетаскиваю
-                                  feedback: Opacity(
-                                    opacity: 0.7,
-                                    child: VisitedSightCard(
-                                      onCloseTap: () {
-                                        setState(() {
-                                          _visitedSights
-                                              .remove(_visitedSights[i]);
-                                        });
-                                      },
-                                      sight: _visitedSights[i],
-                                      key: ValueKey(
-                                        'visited${_visitedSights[i].lat}${_visitedSights[i].lon}',
-                                      ),
-                                    ),
-                                  ),
-                                  childWhenDragging: Opacity(
-                                    opacity: 0.3,
-                                    child: VisitedSightCard(
-                                      onCloseTap: () {},
-                                      sight: _visitedSights[i],
-                                    ),
-                                  ),
-                                ),
-                              ],
+                          ),
+                          childWhenDragging: Opacity(
+                            opacity: 0.3,
+                            child: WishSightCard(
+                              onCloseTap: () {},
+                              sight: _wishSights[i],
                             ),
-                        ],
-                      ),
-                    ),
-                  if (_visitedSights.isEmpty) const VisitedSightEmpty(),
-                ],
-              ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              if (_visitedSights.isEmpty)
+                const VisitedSightEmpty()
+              else
+                ListView.builder(
+                  physics: Platform.isAndroid
+                      ? const ClampingScrollPhysics() // Android физика скрола
+                      : const BouncingScrollPhysics(), // IOS физика скрола
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
+                  itemCount: _visitedSights.length,
+                  itemBuilder: (context, i) {
+                    return Column(
+                      children: [
+                        DragTarget<VisitedSight>(
+                          builder: (context, candidateDate, rejectDate) =>
+                              AnimatedSwitcher(
+                            child: _isAbove
+                                ? const FillDragContainer()
+                                : const EmptyDragContainer(),
+                            duration: const Duration(seconds: 1),
+                          ),
+                          onMove: (data) {
+                            if (_isAbove == false) {
+                              setState(() {
+                                _isAbove = true;
+                              });
+                            }
+                          },
+                          onLeave: (data) {
+                            if (_isAbove) {
+                              setState(() {
+                                _isAbove = false;
+                              });
+                            }
+                          },
+                          onWillAccept: (data) {
+                            if (data == _visitedSights[i]) {
+                              return false;
+                            }
+                            return true;
+                          },
+                          onAccept: (data) {
+                            _visitedSights.remove(data);
+                            setState(() {
+                              _visitedSights.insert(i, data);
+                              _isAbove = false;
+                            });
+                          },
+                        ),
+                        Draggable<VisitedSight>(
+                          axis: Axis.vertical,
+                          data: _visitedSights[i],
+                          maxSimultaneousDrags: 1,
+                          // начальное отображение
+                          child: Dismissible(
+                            key: UniqueKey(),
+                            direction: DismissDirection.endToStart,
+                            onDismissed: (details) {
+                              setState(() {
+                                _visitedSights.remove(_visitedSights[i]);
+                              });
+                            },
+                            background: const RedTrashContainer(),
+                            child: VisitedSightCard(
+                              onCloseTap: () {
+                                setState(() {
+                                  _visitedSights.remove(_visitedSights[i]);
+                                });
+                              },
+                              sight: _visitedSights[i],
+                              key: ValueKey(
+                                'visited${_visitedSights[i].lat}${_visitedSights[i].lon}',
+                              ),
+                            ),
+                          ),
+                          // пока перетаскиваю
+                          feedback: Opacity(
+                            opacity: 0.7,
+                            child: VisitedSightCard(
+                              onCloseTap: () {
+                                setState(() {
+                                  _visitedSights.remove(_visitedSights[i]);
+                                });
+                              },
+                              sight: _visitedSights[i],
+                              key: ValueKey(
+                                'visited${_visitedSights[i].lat}${_visitedSights[i].lon}',
+                              ),
+                            ),
+                          ),
+                          childWhenDragging: Opacity(
+                            opacity: 0.3,
+                            child: VisitedSightCard(
+                              onCloseTap: () {},
+                              sight: _visitedSights[i],
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //   children: [
+              //     if (_visitedSights.isNotEmpty)
+              //       SingleChildScrollView(
+              //         child: Column(
+              //           children: [
+              //             for (var i = 0; _visitedSights.length > i; i++)
+              //               Column(
+              //                 children: [
+              //                   DragTarget<VisitedSight>(
+              //                     builder:
+              //                         (context, candidateDate, rejectDate) =>
+              //                             AnimatedSwitcher(
+              //                       child: _isAbove
+              //                           ? const FillDragContainer()
+              //                           : const EmptyDragContainer(),
+              //                       duration: const Duration(seconds: 1),
+              //                     ),
+              //                     onMove: (data) {
+              //                       if (_isAbove == false) {
+              //                         setState(() {
+              //                           _isAbove = true;
+              //                         });
+              //                       }
+              //                     },
+              //                     onLeave: (data) {
+              //                       if (_isAbove) {
+              //                         setState(() {
+              //                           _isAbove = false;
+              //                         });
+              //                       }
+              //                     },
+              //                     onWillAccept: (data) {
+              //                       if (data == _visitedSights[i]) {
+              //                         return false;
+              //                       }
+              //                       return true;
+              //                     },
+              //                     onAccept: (data) {
+              //                       _visitedSights.remove(data);
+              //                       setState(() {
+              //                         _visitedSights.insert(i, data);
+              //                         _isAbove = false;
+              //                       });
+              //                     },
+              //                   ),
+              //                   Draggable<VisitedSight>(
+              //                     axis: Axis.vertical,
+              //                     data: _visitedSights[i],
+              //                     maxSimultaneousDrags: 1,
+              //                     // начальное отображение
+              //                     child: Dismissible(
+              //                       key: UniqueKey(),
+              //                       direction: DismissDirection.endToStart,
+              //                       onDismissed: (details) {
+              //                         setState(() {
+              //                           _visitedSights
+              //                               .remove(_visitedSights[i]);
+              //                         });
+              //                       },
+              //                       background: const RedTrashContainer(),
+              //                       child: VisitedSightCard(
+              //                         onCloseTap: () {
+              //                           setState(() {
+              //                             _visitedSights
+              //                                 .remove(_visitedSights[i]);
+              //                           });
+              //                         },
+              //                         sight: _visitedSights[i],
+              //                         key: ValueKey(
+              //                           'visited${_visitedSights[i].lat}${_visitedSights[i].lon}',
+              //                         ),
+              //                       ),
+              //                     ),
+              //                     // пока перетаскиваю
+              //                     feedback: Opacity(
+              //                       opacity: 0.7,
+              //                       child: VisitedSightCard(
+              //                         onCloseTap: () {
+              //                           setState(() {
+              //                             _visitedSights
+              //                                 .remove(_visitedSights[i]);
+              //                           });
+              //                         },
+              //                         sight: _visitedSights[i],
+              //                         key: ValueKey(
+              //                           'visited${_visitedSights[i].lat}${_visitedSights[i].lon}',
+              //                         ),
+              //                       ),
+              //                     ),
+              //                     childWhenDragging: Opacity(
+              //                       opacity: 0.3,
+              //                       child: VisitedSightCard(
+              //                         onCloseTap: () {},
+              //                         sight: _visitedSights[i],
+              //                       ),
+              //                     ),
+              //                   ),
+              //                 ],
+              //               ),
+              //           ],
+              //         ),
+              //       ),
+              //     if (_visitedSights.isEmpty) const VisitedSightEmpty(),
+              //   ],
+              // ),
             ],
           ),
         ),

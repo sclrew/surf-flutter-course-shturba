@@ -107,27 +107,24 @@ class _AddSightScreenState extends State<AddSightScreen> {
                     });
                   }),
                   Expanded(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          // нулевой элемент не удаляется
-                          RowImgItemNull(
-                            url: _imagesUrl[0],
-                          ),
-                          for (var i = 1; _imagesUrl.length > i; i++)
-                            RowImgItem(
-                              onCloseTap: () {
-                                _removeItem(i);
-                              },
-                              url: _imagesUrl[i],
-                            ),
-                          // ..._imagesUrl.map<Widget>((url) {
-                          //   return RowImgItem(
-                          //     url: url,
-                          //   );
-                          // }).toList(),
-                        ],
+                    child: SizedBox(
+                      height: 72,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _imagesUrl.length,
+                        itemBuilder: (context, index) {
+                          return RowImgItem(
+                            index: index,
+                            onCloseTap: () {
+                              // нулевой элемент не удаляется
+                              if (index != 0) {
+                                _removeItem(index);
+                              }
+                            },
+                            url: _imagesUrl[index],
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -313,45 +310,12 @@ class _AddSightScreenState extends State<AddSightScreen> {
   }
 }
 
-class RowImgItemNull extends StatelessWidget {
-  final String url;
-  const RowImgItemNull({
-    required this.url,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          margin: const EdgeInsets.only(left: 16),
-          width: 72,
-          height: 72,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Image.network(
-              url,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        Positioned(
-          top: 6,
-          right: 6,
-          child: SvgPicture.asset(
-            'assets/img/closeRoundIcon.svg',
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class RowImgItem extends StatelessWidget {
+  final int index;
   final VoidCallback onCloseTap;
   final String url;
   const RowImgItem({
+    required this.index,
     required this.onCloseTap,
     required this.url,
     Key? key,
@@ -362,12 +326,18 @@ class RowImgItem extends StatelessWidget {
     return Dismissible(
       direction: DismissDirection.up,
       key: ValueKey(
-        url.substring(9, 20) + DateTime.now().millisecond.toString(),
+        url.substring(9, 20),
       ),
       movementDuration: const Duration(
-        seconds: 2,
+        milliseconds: 300,
       ),
-      onDismissed: (direction) {},
+      confirmDismiss: (direction) async {
+        if (index == 0) {
+          return false;
+        }
+        return true;
+      },
+      // onDismissed: (direction) {},
       background: Container(
         margin: const EdgeInsets.only(left: 16),
         width: 72,
