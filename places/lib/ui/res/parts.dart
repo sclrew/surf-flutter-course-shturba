@@ -95,11 +95,10 @@ class MenuElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SizedBox(
-          height: 92,
-          child: Column(
+    return Center(
+      child: Stack(
+        children: [
+          Column(
             children: [
               ElevatedButton(
                 style: buttonGreenCircle,
@@ -113,19 +112,19 @@ class MenuElement extends StatelessWidget {
               ),
             ],
           ),
-        ),
-        if (isActive == true)
-          Container(
-            height: 16,
-            width: 16,
-            margin: const EdgeInsets.only(left: 48, top: 48),
-            child: Image.asset('assets/img/checked.png'),
-            decoration: const BoxDecoration(
-              color: Color(0xff252849),
-              shape: BoxShape.circle,
+          if (isActive == true)
+            Container(
+              height: 16,
+              width: 16,
+              margin: const EdgeInsets.only(left: 48, top: 48),
+              child: Image.asset('assets/img/checked.png'),
+              decoration: const BoxDecoration(
+                color: Color(0xff252849),
+                shape: BoxShape.circle,
+              ),
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -214,37 +213,44 @@ class RedTrashContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.only(
-          right: 16,
+      padding: const EdgeInsets.only(
+        right: 16,
+      ),
+      decoration: const BoxDecoration(
+        color: Color(0xffEF4343),
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
         ),
-        decoration: const BoxDecoration(
-          color: Color(0xffEF4343),
-          borderRadius: BorderRadius.all(
-            Radius.circular(20),
+      ),
+      alignment: Alignment.centerRight,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            'assets/img/trashIcon.svg',
+            height: 22,
+            width: 20,
           ),
-        ),
-        alignment: Alignment.centerRight,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              'assets/img/trashIcon.svg',
-              height: 22,
-              width: 20,
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            'Удалить',
+            style: GoogleFonts.roboto(
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              height: 1.33,
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              'Удалить',
-              style: GoogleFonts.roboto(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                height: 1.33,
-              ),
-            ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }
+
+ // ..._imagesUrl.map<Widget>((url) {
+                          //   return RowImgItem(
+                          //     url: url,
+                          //   );
+                          // }).toList(),

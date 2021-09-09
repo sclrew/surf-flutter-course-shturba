@@ -94,8 +94,10 @@ class _FilterScreenState extends State<FilterScreen> {
               style: robotohead400x12,
             ),
             otstupH24,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            GridView.count(
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              crossAxisCount: 3,
               children: [
                 MenuElement(
                   isActive: isHotel,
@@ -127,12 +129,6 @@ class _FilterScreenState extends State<FilterScreen> {
                     });
                   },
                 ),
-              ],
-            ),
-            otstupH40,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
                 MenuElement(
                   isActive: isPark,
                   imgUrl: 'assets/img/park.png',
