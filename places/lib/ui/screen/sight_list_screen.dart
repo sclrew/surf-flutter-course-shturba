@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
+import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/parts.dart';
+import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/add_sight_screen.dart';
 import 'package:places/ui/screen/filter_screen.dart';
@@ -45,9 +47,6 @@ class _SightListScreenState extends State<SightListScreen> {
         child: Stack(
           children: [
             ListView.builder(
-              physics: Platform.isAndroid
-                  ? const ClampingScrollPhysics() // Android физика скрола
-                  : const BouncingScrollPhysics(), // IOS физика скрола
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               itemCount: mocks.length,
               itemBuilder: (context, index) {
@@ -67,7 +66,7 @@ class _SightListScreenState extends State<SightListScreen> {
                   ),
                 );
               },
-              title: 'НОВОЕ МЕСТО',
+              title: words['NewPlace']!.toUpperCase(),
             ),
           ],
         ),
@@ -75,17 +74,23 @@ class _SightListScreenState extends State<SightListScreen> {
       bottomNavigationBar: SBottomNavBar(
         currentIndex: _bottomNavIndex,
         onTap: (index) {
-          setState(() {
-            if (index == 2) {
-              Navigator.of(context).push<void>(
-                MaterialPageRoute<void>(
-                  builder: (context) => const VisitingScreen(),
-                ),
-              );
-            } else {
+          if (index == 2) {
+            Navigator.of(context).push<void>(
+              MaterialPageRoute<void>(
+                builder: (context) => const VisitingScreen(),
+              ),
+            );
+          } else if (index == 3) {
+            Navigator.of(context).push<void>(
+              MaterialPageRoute<void>(
+                builder: (context) => const Settings(),
+              ),
+            );
+          } else {
+            setState(() {
               _bottomNavIndex = index;
-            }
-          });
+            });
+          }
         },
       ),
     );
@@ -132,34 +137,16 @@ class Title extends StatelessWidget {
       children: [
         Row(
           children: [
-            const SizedBox(
-              width: 16,
-            ),
-            RichText(
-              text: TextSpan(
-                style: Theme.of(context).textTheme.headline3,
-                children: <TextSpan>[
-                  TextSpan(
-                    text: 'C',
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
-                  const TextSpan(text: 'писок\n'),
-                  TextSpan(
-                    text: 'и',
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                  const TextSpan(text: 'нтересных мест'),
-                ],
-              ),
-            ),
+            otstupW16,
+            const MainTitle(),
           ],
         ),
-        otstupH22,
+        otstupH18,
         Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 16,
           ),
-          child: Container(
+          child: SizedBox(
             height: 40,
             width: MediaQuery.of(context).size.width * 0.9,
             child: Stack(
@@ -167,7 +154,7 @@ class Title extends StatelessWidget {
                 TextButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                      (states) => Color(0xffF5F5F5),
+                      (states) => const Color(0xffF5F5F5),
                     ),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
@@ -184,7 +171,6 @@ class Title extends StatelessWidget {
                     );
                   },
                   child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
@@ -192,7 +178,7 @@ class Title extends StatelessWidget {
                             width: 16,
                           ),
                           SvgPicture.asset(
-                            'assets/img/searchIconSettings.svg',
+                            assetsUrl['searchSSvg']!,
                             width: 24,
                             height: 24,
                           ),
@@ -221,7 +207,7 @@ class Title extends StatelessWidget {
                       );
                     },
                     child: Image.asset(
-                      'assets/img/searchSettings.png',
+                      assetsUrl['searchS']!,
                       width: 18,
                       height: 14,
                     ),
@@ -267,7 +253,6 @@ class AddBtn extends StatelessWidget {
                   right: 22,
                 ),
                 decoration: BoxDecoration(
-                  // shape: BoxShape.circle,
                   borderRadius: BorderRadius.circular(24.0),
                   gradient: const LinearGradient(colors: [
                     Color(0xffFCDD3D),
@@ -297,7 +282,7 @@ class AddBtn extends StatelessWidget {
                   borderRadius: BorderRadius.circular(24),
                   splashColor: Colors.green.withOpacity(0.7),
                   onTap: onTap,
-                  child: Container(
+                  child: const SizedBox(
                     width: 178,
                     height: 49,
                   ),

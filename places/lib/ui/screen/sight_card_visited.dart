@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/parts.dart';
+import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 
 class VisitedSightCard extends StatelessWidget {
@@ -125,8 +126,8 @@ class VisitedSightCard extends StatelessWidget {
                               color: Color(0xff7C7E92),
                             ),
                             children: <TextSpan>[
-                              const TextSpan(
-                                text: 'Цель достигнута ',
+                              TextSpan(
+                                text: words['goalIsAchieved'],
                               ),
                               TextSpan(
                                 text: sight.visitTime,

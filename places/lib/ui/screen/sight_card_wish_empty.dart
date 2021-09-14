@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 
 class WishSightEmpty extends StatelessWidget {
@@ -16,14 +17,14 @@ class WishSightEmpty extends StatelessWidget {
         ),
         const SizedBox(height: 32),
         Text(
-          'Пусто',
+          words['Empty']!,
           style: roboto500x18x7C7E92,
         ),
         const SizedBox(
           height: 8,
         ),
         Text(
-          'Отмечайте понравившиеся\n места и они появятся здесь.',
+          words['MarkPlacesYouLike']!,
           style: GoogleFonts.roboto(
             color: const Color(0xff7C7E92).withOpacity(0.56),
             fontSize: 14,

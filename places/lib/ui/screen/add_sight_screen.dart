@@ -4,7 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
+import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/parts.dart';
+import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/style.dart';
 import 'package:places/ui/res/text_styles.dart';
 
@@ -77,7 +79,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                       Navigator.of(context).pop();
                     },
                     child: Text(
-                      'Отмена',
+                      words['cancel']!,
                       style: GoogleFonts.roboto(
                         color: const Color(0xff7c7e92),
                         fontWeight: FontWeight.w500,
@@ -88,7 +90,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                   ),
                   otstupW51,
                   Text(
-                    'Новое место',
+                    words['newPlace']!,
                     style: GoogleFonts.roboto(
                       color: Theme.of(context).canvasColor,
                       fontWeight: FontWeight.w500,
@@ -132,7 +134,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
               ),
               otstupH24,
               Text(
-                'КАТЕГОРИЯ',
+                words['category']!.toUpperCase(),
                 style: robotohead400x12,
               ),
               otstupH14,
@@ -140,7 +142,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Не выбрано',
+                    words['noChoose']!,
                     style: roboto400x16,
                   ),
                   TextButton(
@@ -156,7 +158,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
               hr08,
               otstupH24,
               Text(
-                'НАЗВАНИЕ',
+                words['namePlace']!.toUpperCase(),
                 style: robotohead400x12,
               ),
               otstupH12,
@@ -183,7 +185,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                         latitude.text = '';
                       });
                     },
-                    title: 'ШИРОТА',
+                    title: words['latitude']!.toUpperCase(),
                     textController: latitude,
                   ),
                   otstupW16,
@@ -197,7 +199,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                         longitude.clear();
                       });
                     },
-                    title: 'ДОЛГОТА',
+                    title: words['longitude']!.toUpperCase(),
                     textController: longitude,
                   ),
                 ],
@@ -210,13 +212,13 @@ class _AddSightScreenState extends State<AddSightScreen> {
                 onPressed: () {
                   longitudeFocus.requestFocus();
                 },
-                child: Text('Указать на карте', style: roboto500x16xgreen),
+                child: Text(words['pointOnMap']!, style: roboto500x16xgreen),
               ),
               const SizedBox(
                 height: 27,
               ),
               Text(
-                'ОПИСАНИЕ',
+                words['description']!.toUpperCase(),
                 style: robotohead400x12,
               ),
               otstupH12,
@@ -271,6 +273,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
       opisanie.text,
       'Природа', // допилю, когда начну передавать данные между экранами
       '',
+      [],
     );
 
     mocks.add(newSight);
@@ -337,7 +340,6 @@ class RowImgItem extends StatelessWidget {
         }
         return true;
       },
-      // onDismissed: (direction) {},
       background: Container(
         margin: const EdgeInsets.only(left: 16),
         width: 72,
@@ -369,7 +371,7 @@ class RowImgItem extends StatelessWidget {
             child: GestureDetector(
               onTap: onCloseTap,
               child: SvgPicture.asset(
-                'assets/img/closeRoundIcon.svg',
+                assetsUrl['closeRSvg']!,
               ),
             ),
           ),

@@ -3,7 +3,9 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:places/domain/data_range.dart';
 import 'package:places/mocks.dart';
+import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/parts.dart';
+import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/sight_list_screen.dart';
 
@@ -24,7 +26,7 @@ class _FilterScreenState extends State<FilterScreen> {
   bool isMuseum = false;
   bool isCafe = false;
 
-  var _selectedRange = RangeValues(100, 10000);
+  var _selectedRange = const RangeValues(100, 10000);
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +84,8 @@ class _FilterScreenState extends State<FilterScreen> {
                     );
                   },
                   child: Text(
-                    'Очистить',
+                    words['clear']!,
+                    // 'Очистить',
                     style: roboto500x16,
                   ),
                 ),
@@ -90,7 +93,7 @@ class _FilterScreenState extends State<FilterScreen> {
             ),
             otstupH24,
             Text(
-              'КАТЕГОРИИ',
+              words['categories']!.toUpperCase(),
               style: robotohead400x12,
             ),
             otstupH24,
@@ -101,8 +104,8 @@ class _FilterScreenState extends State<FilterScreen> {
               children: [
                 MenuElement(
                   isActive: isHotel,
-                  imgUrl: 'assets/img/hotel.png',
-                  nazvanie: 'Отель',
+                  imgUrl: assetsUrl['hotel']!,
+                  nazvanie: words['Hotel']!,
                   onTap: () {
                     setState(() {
                       isHotel = !isHotel;
@@ -111,8 +114,8 @@ class _FilterScreenState extends State<FilterScreen> {
                 ),
                 MenuElement(
                   isActive: isRestaurant,
-                  imgUrl: 'assets/img/restaurant.png',
-                  nazvanie: 'Ресторан',
+                  imgUrl: assetsUrl['restaurant']!,
+                  nazvanie: words['Restaurant']!,
                   onTap: () {
                     setState(() {
                       isRestaurant = !isRestaurant;
@@ -121,8 +124,8 @@ class _FilterScreenState extends State<FilterScreen> {
                 ),
                 MenuElement(
                   isActive: isSpecial,
-                  imgUrl: 'assets/img/special.png',
-                  nazvanie: 'Особое место',
+                  imgUrl: assetsUrl['special']!,
+                  nazvanie: words['specialPlace']!,
                   onTap: () {
                     setState(() {
                       isSpecial = !isSpecial;
@@ -131,8 +134,8 @@ class _FilterScreenState extends State<FilterScreen> {
                 ),
                 MenuElement(
                   isActive: isPark,
-                  imgUrl: 'assets/img/park.png',
-                  nazvanie: 'Парк',
+                  imgUrl: assetsUrl['park']!,
+                  nazvanie: words['Park']!,
                   onTap: () {
                     setState(() {
                       isPark = !isPark;
@@ -141,8 +144,8 @@ class _FilterScreenState extends State<FilterScreen> {
                 ),
                 MenuElement(
                   isActive: isMuseum,
-                  imgUrl: 'assets/img/museum.png',
-                  nazvanie: 'Музей',
+                  imgUrl: assetsUrl['museum']!,
+                  nazvanie: words['Museum']!,
                   onTap: () {
                     setState(() {
                       isMuseum = !isMuseum;
@@ -151,8 +154,8 @@ class _FilterScreenState extends State<FilterScreen> {
                 ),
                 MenuElement(
                   isActive: isCafe,
-                  imgUrl: 'assets/img/cafe.png',
-                  nazvanie: 'Кафе',
+                  imgUrl: assetsUrl['cafe']!,
+                  nazvanie: words['Cafe']!,
                   onTap: () {
                     setState(() {
                       isCafe = !isCafe;
@@ -170,11 +173,11 @@ class _FilterScreenState extends State<FilterScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Расстояние',
+                    words['Distance']!,
                     style: roboto16x400,
                   ),
                   Text(
-                    'от ${_selectedRange.start.toStringAsFixed(0)} до ${_selectedRange.end.toStringAsFixed(0)} км',
+                    '${words["from"]!} ${_selectedRange.start.toStringAsFixed(0)} ${words["to"]!} ${_selectedRange.end.toStringAsFixed(0)} ${words['km']!}',
                     style: roboto16x400,
                   ),
                 ],
@@ -240,7 +243,7 @@ class _FilterScreenState extends State<FilterScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'ПОКАЗАТЬ (${inMyRange(mocks, _selectedRange)})',
+                            '${words["showD"]!.toUpperCase()} (${inMyRange(mocks, _selectedRange)})',
                             style: roboto14x700xwhite,
                           ),
                         ],

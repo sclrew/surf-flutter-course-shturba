@@ -5,7 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
+import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/parts.dart';
+import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/style.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/sight_details.dart';
@@ -33,13 +35,11 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
     );
   }
 
-  // @override
-  // void dispose() {
-  //   // searchController.removeListener(() {
-  //   //   _filterSights;
-  //   // });
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    searchController.removeListener(_filterSights);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +175,6 @@ class Slovo extends StatelessWidget {
 
     return RichText(
       text: TextSpan(
-        // style: roboto500x16x252849,
         children: [
           for (var i = 0; text.length > i; i++)
             if (text[i].isSovpadaet)
@@ -295,26 +294,8 @@ class Title extends StatelessWidget {
       children: [
         Row(
           children: [
-            const SizedBox(
-              width: 16,
-            ),
-            RichText(
-              text: TextSpan(
-                style: Theme.of(context).textTheme.headline3,
-                children: <TextSpan>[
-                  TextSpan(
-                    text: 'C',
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
-                  const TextSpan(text: 'писок\n'),
-                  TextSpan(
-                    text: 'и',
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                  const TextSpan(text: 'нтересных мест'),
-                ],
-              ),
-            ),
+            otstupW16,
+            const MainTitle(),
           ],
         ),
         otstupH22,
@@ -340,15 +321,15 @@ class Title extends StatelessWidget {
                   horizontal: 15,
                 ),
                 isDense: true,
-                hintText: 'Поиск',
+                hintText: words['Search'],
                 hintStyle: roboto400x16x7c7e92x056,
                 prefixIcon: SvgPicture.asset(
-                  'assets/img/searchIconSettings.svg',
+                  assetsUrl['searchSSvg']!,
                   width: 19,
                   height: 18,
                   fit: BoxFit.none,
                 ),
-                suffix: Container(
+                suffix: SizedBox(
                   height: 24,
                   width: 24,
                   child: TextButton(
@@ -357,9 +338,8 @@ class Title extends StatelessWidget {
                     ),
                     onPressed: onCancelTap,
                     child: Image.asset(
-                      'assets/img/cancel2.png',
+                      assetsUrl['cancel2']!,
                       width: 24,
-                      // height: 24,
                     ),
                   ),
                 ),
@@ -401,7 +381,8 @@ class EmptySearch extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
-                'assets/img/searchIconSettings.svg',
+                assetsUrl['searchSSvg']!,
+                // 'assets/img/searchIconSettings.svg',
                 width: 50,
                 height: 48,
               ),
@@ -409,12 +390,12 @@ class EmptySearch extends StatelessWidget {
                 width: double.infinity,
                 height: 32,
               ),
-              Text('Ничего не найдено', style: roboto500x18x7C7E92),
+              Text(words['NothingFound']!, style: roboto500x18x7C7E92),
               const SizedBox(
                 height: 8,
               ),
               Text(
-                'Попробуйте изменить параметы \nпоиска',
+                words['TryToChangeTheParameters']!,
                 style: roboto400x14x7C7E92,
                 textAlign: TextAlign.center,
               ),
@@ -430,7 +411,7 @@ class EmptySearch extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'ВЫ ИСКАЛИ',
+                    words['YouWereLookingFor']!.toUpperCase(),
                     style: roboto400x12x7C7E928F,
                   ),
                   const SizedBox(
@@ -476,7 +457,7 @@ class EmptySearch extends StatelessWidget {
                   InkWell(
                     onTap: onEmptyTap,
                     child: Text(
-                      'Очистить историю',
+                      words['ClearHistory']!,
                       style: roboto500x16xgreen,
                     ),
                   ),

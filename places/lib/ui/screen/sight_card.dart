@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/parts.dart';
+import 'package:places/ui/screen/sight_details.dart';
 
 class SightCard extends StatelessWidget {
   final Sight sight;
@@ -96,11 +97,17 @@ class SightCard extends StatelessWidget {
         Material(
           color: Colors.transparent,
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push<void>(
+                MaterialPageRoute(
+                  builder: (context) => SightDetails(thisSight: sight),
+                ),
+              );
+            },
             borderRadius: BorderRadius.circular(20),
-            splashColor: Color(0xffC4C4C480).withOpacity(0.5),
+            splashColor: const Color(0xffC4C480).withOpacity(0.5),
             // highlightColor: Colors.red,
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width * 0.9,
               height: MediaQuery.of(context).size.width * 0.6,
               // color: Colors.red,
