@@ -269,8 +269,8 @@ class CustomSliderThumbRect extends SliderComponentShape {
 
     final paint = Paint()
       ..color = const Color(0xff4CAF50)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 8.0;
+      ..style = PaintingStyle.fill;
+    // ..strokeWidth = 2.0;
 
     final path = Path();
     final myRect = Rect.fromLTWH(center.dx - 12, center.dy - 4, thumbRadius, 8);
