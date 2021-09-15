@@ -44,6 +44,16 @@ const Map<String, String> words = {
   'Favorites': 'Избранное',
   'WantToVisit': 'Хочу посетить',
   'Visited': 'Посетил',
+  'Skip': 'Пропустить',
+  'WelcomeToGuide': 'Добро пожаловать\nв путеводитель',
+  'FindNewLocationAndSave': 'Ищи новые локации и сохраняй\nсамые любимые',
+  'BuildARouteAndGo': 'Построй маршрут\nи отправляйся в путь',
+  'ReachYourGoalAsPossibleFastAnd':
+      'Достигай цели максимально\nбыстро и комфортно.',
+  'AddPlacesWhichIFoundMyself': 'Добавляй места,\nкоторые нашёл сам',
+  'ShareTheMostInterestingAndHelpUsBecomeBetter':
+      'Делись самыми интересными\nи помоги нам стать лучше!',
+  'onYourMarks': 'на старт',
 };
 
-// words['Visited']!
+// words['onYourMarks']!

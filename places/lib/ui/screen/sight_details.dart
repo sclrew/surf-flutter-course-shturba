@@ -53,7 +53,7 @@ class _SightDetailsState extends State<SightDetails> {
                     });
                   },
                 ),
-                BackButton(),
+                const BackButton(),
               ],
             ),
           ),
