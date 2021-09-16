@@ -57,18 +57,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 left: MediaQuery.of(context).size.width / 2 - 28,
                 child: SliderTheme(
                   data: SliderTheme.of(context).copyWith(
-                    // tickMarkShape: MySliderTickMarkShape(),
                     trackShape: CustomTrackShape(),
                     inactiveTickMarkColor: const Color(0xff7b7d92),
                     activeTickMarkColor: const Color(0xff7b7d92),
-
                     activeTrackColor: Colors.transparent,
                     trackHeight: 12,
                     disabledActiveTickMarkColor: const Color(0xff7b7d92),
                     disabledInactiveTickMarkColor: const Color(0xff7b7d92),
-                    // tickMarkShape: const RoundSliderTickMarkShape(
-                    //   tickMarkRadius: 10,
-                    // ),
                     inactiveTrackColor: Colors.transparent,
                     thumbColor: Theme.of(context).canvasColor,
                     thumbShape: const CustomSliderThumbRect(
@@ -118,7 +113,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             );
                           },
                           child: const StartBtn(),
-                        )
+                        ),
                     ],
                   ),
                 ),
@@ -282,41 +277,6 @@ class CustomSliderThumbRect extends SliderComponentShape {
     );
 
     canvas.drawPath(path, paint);
-  }
-}
-
-class MySliderTickMarkShape extends SliderTickMarkShape {
-  @override
-  Size getPreferredSize({
-    required SliderThemeData sliderTheme,
-    required bool isEnabled,
-  }) {
-    return const Size(8, 8);
-  }
-
-  @override
-  void paint(
-    PaintingContext context,
-    Offset center, {
-    required RenderBox parentBox,
-    required SliderThemeData sliderTheme,
-    required Animation<double> enableAnimation,
-    required Offset thumbCenter,
-    required bool isEnabled,
-    required TextDirection textDirection,
-  }) {
-    Color? color;
-    color = const Color(0xff7b7d92);
-
-    final paint = Paint()
-      ..color = color
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 4;
-
-    const tickMarkRadius = 8;
-
-    context.canvas.drawCircle(
-        Offset(center.dx, center.dy), tickMarkRadius.toDouble(), paint);
   }
 }
 
