@@ -100,9 +100,7 @@ TextStyle roboto500x18 = GoogleFonts.roboto(
   fontSize: 18,
   fontWeight: FontWeight.w500,
   height: 1.33,
-  textStyle: const TextStyle(
-    color: Color(0xff252849),
-  ),
+  color: const Color(0xff252849),
 );
 TextStyle roboto500x18x7C7E92 = GoogleFonts.roboto(
   fontSize: 18,
