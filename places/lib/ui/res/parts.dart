@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:places/ui/res/assets.dart';
+import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/style.dart';
 
 Widget heartImg = Image.asset(
@@ -10,7 +12,7 @@ Widget heartImg = Image.asset(
 );
 
 Widget unionImg = Image.asset(
-  'assets/img/union.png',
+  assetsUrl['union']!,
   width: 20,
   height: 22,
 );
@@ -51,12 +53,16 @@ Widget otstupH12 = const SizedBox(
   height: 12,
 );
 
+Widget otstupH18 = const SizedBox(
+  height: 18,
+);
+
 Widget otstupW16 = const SizedBox(
   width: 16,
 );
 
 Widget calendarImg24 = Image.asset(
-  'assets/img/calendar.png',
+  assetsUrl['calendar']!,
   width: 24,
   height: 24,
 );
@@ -249,8 +255,28 @@ class RedTrashContainer extends StatelessWidget {
   }
 }
 
- // ..._imagesUrl.map<Widget>((url) {
-                          //   return RowImgItem(
-                          //     url: url,
-                          //   );
-                          // }).toList(),
+class MainTitle extends StatelessWidget {
+  const MainTitle({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        style: Theme.of(context).textTheme.headline3,
+        children: <TextSpan>[
+          TextSpan(
+            text: words['List']![0],
+            style: Theme.of(context).textTheme.headline4,
+          ),
+          TextSpan(text: words['List']!.substring(1)),
+          const TextSpan(text: '\n'),
+          TextSpan(
+            text: words['interestingPlaces']![0],
+            style: Theme.of(context).textTheme.headline5,
+          ),
+          TextSpan(text: words['interestingPlaces']!.substring(1)),
+        ],
+      ),
+    );
+  }
+}

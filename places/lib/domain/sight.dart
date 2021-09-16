@@ -7,8 +7,17 @@ class Sight {
   String url;
   String details;
   String type;
+  List<String> urls;
 
-  Sight(this.name, this.lat, this.lon, this.url, this.details, this.type);
+  Sight(
+    this.name,
+    this.lat,
+    this.lon,
+    this.url,
+    this.details,
+    this.type,
+    this.urls,
+  );
 }
 
 // Хочу посетить
@@ -23,7 +32,16 @@ class WishSight extends Sight {
     String url,
     String details,
     String type,
-  ) : super(name, lat, lon, url, details, type);
+    List<String> urls,
+  ) : super(
+          name,
+          lat,
+          lon,
+          url,
+          details,
+          type,
+          urls,
+        );
 }
 
 // Уже посетил
@@ -38,5 +56,14 @@ class VisitedSight extends Sight {
     String url,
     String details,
     String type,
-  ) : super(name, lat, lon, url, details, type);
+    List<String> urls,
+  ) : super(
+          name,
+          lat,
+          lon,
+          url,
+          details,
+          type,
+          urls,
+        );
 }

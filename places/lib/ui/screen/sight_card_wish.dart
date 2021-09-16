@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/parts.dart';
+import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 
 class WishSightCard extends StatelessWidget {
@@ -123,8 +124,8 @@ class WishSightCard extends StatelessWidget {
                           text: TextSpan(
                             style: Theme.of(context).textTheme.headline6,
                             children: <TextSpan>[
-                              const TextSpan(
-                                text: 'Запланировано на ',
+                              TextSpan(
+                                text: words['ScheduledFor'],
                               ),
                               TextSpan(
                                 text: sight.visitTime,

@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/parts.dart';
+import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/screen/sight_card.dart';
 // import 'package:places/ui/screen/sight_card_visited_empty.dart';
 import 'package:places/ui/screen/sight_card_visited.dart';
@@ -29,7 +30,6 @@ class _VisitingScreenState extends State<VisitingScreen> {
 
   int _bottomNavIndex = 2;
   bool _isAbove = false;
-  bool _isVertical = true;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class _VisitingScreenState extends State<VisitingScreen> {
           toolbarHeight: 108,
           // backgroundColor: Colors.white,
           title: Text(
-            'Избранное',
+            words['Favorites']!,
             style: GoogleFonts.roboto(
               color: Theme.of(context).canvasColor,
               fontWeight: FontWeight.w500,
@@ -81,9 +81,9 @@ class _VisitingScreenState extends State<VisitingScreen> {
                   height: 1.33,
                   fontSize: 16,
                 ),
-                tabs: const [
-                  Tab(text: 'Хочу посетить'),
-                  Tab(text: 'Посетил'),
+                tabs: [
+                  Tab(text: words['WantToVisit']),
+                  Tab(text: words['Visited']),
                 ],
               ),
             ),
@@ -116,33 +116,10 @@ class _VisitingScreenState extends State<VisitingScreen> {
                                 : const EmptyDragContainer(),
                             duration: const Duration(seconds: 1),
                           ),
-                          onMove: (data) {
-                            if (_isAbove == false) {
-                              setState(() {
-                                _isAbove = true;
-                              });
-                            }
-                          },
-                          onLeave: (data) {
-                            if (_isAbove) {
-                              setState(() {
-                                _isAbove = false;
-                              });
-                            }
-                          },
-                          onWillAccept: (data) {
-                            if (data == _wishSights[i]) {
-                              return false;
-                            }
-                            return true;
-                          },
-                          onAccept: (data) {
-                            _wishSights.remove(data);
-                            setState(() {
-                              _wishSights.insert(i, data);
-                              _isAbove = false;
-                            });
-                          },
+                          onMove: _onMoveWish,
+                          onLeave: (data) => _onLeaveWish(data!),
+                          onWillAccept: (data) => _onWillAcceptWish(data!, i),
+                          onAccept: (data) => _onAcceptWish(data, i),
                         ),
                         Draggable<WishSight>(
                           axis: Axis.vertical,
@@ -202,9 +179,9 @@ class _VisitingScreenState extends State<VisitingScreen> {
                 const VisitedSightEmpty()
               else
                 ListView.builder(
-                  physics: Platform.isAndroid
-                      ? const ClampingScrollPhysics() // Android физика скрола
-                      : const BouncingScrollPhysics(), // IOS физика скрола
+                  // physics: Platform.isAndroid
+                  //     ? const ClampingScrollPhysics() // Android физика скрола
+                  //     : const BouncingScrollPhysics(), // IOS физика скрола
                   keyboardDismissBehavior:
                       ScrollViewKeyboardDismissBehavior.onDrag,
                   itemCount: _visitedSights.length,
@@ -219,33 +196,11 @@ class _VisitingScreenState extends State<VisitingScreen> {
                                 : const EmptyDragContainer(),
                             duration: const Duration(seconds: 1),
                           ),
-                          onMove: (data) {
-                            if (_isAbove == false) {
-                              setState(() {
-                                _isAbove = true;
-                              });
-                            }
-                          },
-                          onLeave: (data) {
-                            if (_isAbove) {
-                              setState(() {
-                                _isAbove = false;
-                              });
-                            }
-                          },
-                          onWillAccept: (data) {
-                            if (data == _visitedSights[i]) {
-                              return false;
-                            }
-                            return true;
-                          },
-                          onAccept: (data) {
-                            _visitedSights.remove(data);
-                            setState(() {
-                              _visitedSights.insert(i, data);
-                              _isAbove = false;
-                            });
-                          },
+                          onMove: _onMoveVisited,
+                          onLeave: (data) => _onLeaveVisited(data!),
+                          onWillAccept: (data) =>
+                              _onWillAcceptVisited(data!, i),
+                          onAccept: (data) => _onAcceptVisited(data, i),
                         ),
                         Draggable<VisitedSight>(
                           axis: Axis.vertical,
@@ -300,114 +255,6 @@ class _VisitingScreenState extends State<VisitingScreen> {
                     );
                   },
                 ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   crossAxisAlignment: CrossAxisAlignment.start,
-              //   children: [
-              //     if (_visitedSights.isNotEmpty)
-              //       SingleChildScrollView(
-              //         child: Column(
-              //           children: [
-              //             for (var i = 0; _visitedSights.length > i; i++)
-              //               Column(
-              //                 children: [
-              //                   DragTarget<VisitedSight>(
-              //                     builder:
-              //                         (context, candidateDate, rejectDate) =>
-              //                             AnimatedSwitcher(
-              //                       child: _isAbove
-              //                           ? const FillDragContainer()
-              //                           : const EmptyDragContainer(),
-              //                       duration: const Duration(seconds: 1),
-              //                     ),
-              //                     onMove: (data) {
-              //                       if (_isAbove == false) {
-              //                         setState(() {
-              //                           _isAbove = true;
-              //                         });
-              //                       }
-              //                     },
-              //                     onLeave: (data) {
-              //                       if (_isAbove) {
-              //                         setState(() {
-              //                           _isAbove = false;
-              //                         });
-              //                       }
-              //                     },
-              //                     onWillAccept: (data) {
-              //                       if (data == _visitedSights[i]) {
-              //                         return false;
-              //                       }
-              //                       return true;
-              //                     },
-              //                     onAccept: (data) {
-              //                       _visitedSights.remove(data);
-              //                       setState(() {
-              //                         _visitedSights.insert(i, data);
-              //                         _isAbove = false;
-              //                       });
-              //                     },
-              //                   ),
-              //                   Draggable<VisitedSight>(
-              //                     axis: Axis.vertical,
-              //                     data: _visitedSights[i],
-              //                     maxSimultaneousDrags: 1,
-              //                     // начальное отображение
-              //                     child: Dismissible(
-              //                       key: UniqueKey(),
-              //                       direction: DismissDirection.endToStart,
-              //                       onDismissed: (details) {
-              //                         setState(() {
-              //                           _visitedSights
-              //                               .remove(_visitedSights[i]);
-              //                         });
-              //                       },
-              //                       background: const RedTrashContainer(),
-              //                       child: VisitedSightCard(
-              //                         onCloseTap: () {
-              //                           setState(() {
-              //                             _visitedSights
-              //                                 .remove(_visitedSights[i]);
-              //                           });
-              //                         },
-              //                         sight: _visitedSights[i],
-              //                         key: ValueKey(
-              //                           'visited${_visitedSights[i].lat}${_visitedSights[i].lon}',
-              //                         ),
-              //                       ),
-              //                     ),
-              //                     // пока перетаскиваю
-              //                     feedback: Opacity(
-              //                       opacity: 0.7,
-              //                       child: VisitedSightCard(
-              //                         onCloseTap: () {
-              //                           setState(() {
-              //                             _visitedSights
-              //                                 .remove(_visitedSights[i]);
-              //                           });
-              //                         },
-              //                         sight: _visitedSights[i],
-              //                         key: ValueKey(
-              //                           'visited${_visitedSights[i].lat}${_visitedSights[i].lon}',
-              //                         ),
-              //                       ),
-              //                     ),
-              //                     childWhenDragging: Opacity(
-              //                       opacity: 0.3,
-              //                       child: VisitedSightCard(
-              //                         onCloseTap: () {},
-              //                         sight: _visitedSights[i],
-              //                       ),
-              //                     ),
-              //                   ),
-              //                 ],
-              //               ),
-              //           ],
-              //         ),
-              //       ),
-              //     if (_visitedSights.isEmpty) const VisitedSightEmpty(),
-              //   ],
-              // ),
             ],
           ),
         ),
@@ -430,6 +277,68 @@ class _VisitingScreenState extends State<VisitingScreen> {
         ),
       ),
     );
+  }
+
+  bool _onWillAcceptWish(WishSight data, int i) {
+    if (data == _wishSights[i]) {
+      return false;
+    }
+    return true;
+  }
+
+  void _onMoveWish(DragTargetDetails<WishSight> data) {
+    if (_isAbove == false) {
+      setState(() {
+        _isAbove = true;
+      });
+    }
+  }
+
+  void _onLeaveWish(WishSight data) {
+    if (_isAbove) {
+      setState(() {
+        _isAbove = false;
+      });
+    }
+  }
+
+  void _onAcceptWish(WishSight data, int i) {
+    _wishSights.remove(data);
+    setState(() {
+      _wishSights.insert(i, data);
+      _isAbove = false;
+    });
+  }
+
+  void _onMoveVisited(DragTargetDetails<VisitedSight> data) {
+    if (_isAbove == false) {
+      setState(() {
+        _isAbove = true;
+      });
+    }
+  }
+
+  void _onLeaveVisited(VisitedSight data) {
+    if (_isAbove) {
+      setState(() {
+        _isAbove = false;
+      });
+    }
+  }
+
+  void _onAcceptVisited(VisitedSight data, int i) {
+    _visitedSights.remove(data);
+    setState(() {
+      _visitedSights.insert(i, data);
+      _isAbove = false;
+    });
+  }
+
+  bool _onWillAcceptVisited(VisitedSight data, int i) {
+    if (data == _visitedSights[i]) {
+      return false;
+    }
+    return true;
   }
 }
 

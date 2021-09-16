@@ -3,8 +3,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:places/main.dart';
+import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/parts.dart';
+import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
+import 'package:places/ui/screen/sight_list_screen.dart';
+import 'package:places/ui/screen/visiting_screen.dart';
 import 'package:provider/provider.dart';
 
 class Settings extends StatefulWidget {
@@ -15,7 +19,7 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  bool isChecked = false;
+  bool isChecked = true;
 
   int _bottomNavIndex = 3;
 
@@ -33,7 +37,7 @@ class _SettingsState extends State<Settings> {
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: SRichText(
-                    sText: 'Настройки',
+                    sText: words['Settings']!,
                     sTextStyle: roboto500x18,
                   ),
                 ),
@@ -45,12 +49,12 @@ class _SettingsState extends State<Settings> {
               children: [
                 if (isChecked)
                   SRichText(
-                    sText: 'Светлая тема',
+                    sText: words['lightThemes']!,
                     sTextStyle: roboto16x400,
                   ),
                 if (isChecked == false)
                   SRichText(
-                    sText: 'Тёмная тема',
+                    sText: words['darkThemes']!,
                     sTextStyle: roboto16x400,
                   ),
                 Switch.adaptive(
@@ -70,13 +74,14 @@ class _SettingsState extends State<Settings> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SRichText(
-                  sText: 'Смотреть туториал',
+                  sText: words['watchTutorial']!,
                   sTextStyle: roboto16x400,
                 ),
                 Row(
                   children: [
                     Image.asset(
-                      'assets/img/info.png',
+                      assetsUrl['info']!,
+                      // 'assets/img/info.png',
                       width: 20,
                       height: 20,
                     ),
@@ -92,40 +97,27 @@ class _SettingsState extends State<Settings> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _bottomNavIndex,
-        type: BottomNavigationBarType.fixed,
+      bottomNavigationBar: SBottomNavBar(
         onTap: (index) {
-          setState(() {
-            _bottomNavIndex = index;
-          });
+          if (index == 2) {
+            Navigator.of(context).push<void>(
+              MaterialPageRoute<void>(
+                builder: (context) => const VisitingScreen(),
+              ),
+            );
+          } else if (index == 0) {
+            Navigator.of(context).push<void>(
+              MaterialPageRoute<void>(
+                builder: (context) => const SightListScreen(),
+              ),
+            );
+          } else {
+            setState(() {
+              _bottomNavIndex = index;
+            });
+          }
         },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.article_outlined,
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.map_outlined,
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.favorite,
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.settings,
-            ),
-            label: '',
-          ),
-        ],
+        currentIndex: _bottomNavIndex,
       ),
     );
   }

@@ -122,9 +122,23 @@ TextStyle roboto400x14x7C7E92 = GoogleFonts.roboto(
   ),
 );
 
+TextStyle roboto400x14x7C7E92x1 = GoogleFonts.roboto(
+  fontSize: 14,
+  fontWeight: FontWeight.w400,
+  height: 1.285,
+  color: const Color(0xff7C7E92),
+);
+
 TextStyle roboto400x16xwhite = GoogleFonts.roboto(
   fontWeight: FontWeight.normal,
   color: Colors.white,
   fontSize: 16,
   decoration: TextDecoration.none,
+);
+
+TextStyle roboto700x24x252849 = GoogleFonts.roboto(
+  fontSize: 24,
+  fontWeight: FontWeight.w700,
+  height: 1.2,
+  color: const Color(0xff252849),
 );

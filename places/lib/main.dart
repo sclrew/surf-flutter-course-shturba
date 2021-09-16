@@ -6,6 +6,7 @@ import 'package:places/mocks.dart';
 import 'package:places/ui/res/themes.dart';
 import 'package:places/ui/screen/add_sight_screen.dart';
 import 'package:places/ui/screen/filter_screen.dart';
+import 'package:places/ui/screen/onboardingScreen.dart';
 import 'package:places/ui/screen/settings.dart';
 import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/screen/sight_list_screen.dart';
@@ -36,11 +37,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // home: SightDetails(thisSight: mocks[1]), // Детализация места
       // home: const VisitingScreen(), // посетил - хочу посетить
-      home: SightListScreen(), // список интересных мест
+      // home: const SightListScreen(), // список интересных мест
       // home: FilterScreen(),
       // home: const Settings(),
       // home: const AddSightScreen(), // добавить новое место
       // home: SightSearchScreen(), // экран поиска мест
+      home: const OnboardingScreen(),
     );
   }
   // );
