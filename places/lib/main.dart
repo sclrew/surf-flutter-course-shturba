@@ -11,6 +11,7 @@ import 'package:places/ui/screen/settings.dart';
 import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/screen/sight_list_screen.dart';
 import 'package:places/ui/screen/sight_search_screen.dart';
+import 'package:places/ui/screen/splash_screen.dart';
 import 'package:places/ui/screen/visiting_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -42,12 +43,24 @@ class MyApp extends StatelessWidget {
       // home: const Settings(),
       // home: const AddSightScreen(), // добавить новое место
       // home: SightSearchScreen(), // экран поиска мест
-      home: const OnboardingScreen(),
+      // home: const OnboardingScreen(),
+      home: SplashScreen(
+        isInitialized: _initializing(),
+      ),
     );
   }
-  // );
 }
-// }
+
+Future<String> _initializing() async {
+  await Future.delayed(
+    const Duration(seconds: 2),
+    () => {
+      // ignore: avoid_print
+      print('2 секунды прошло - пора переходить '),
+    },
+  );
+  return 'gotovo';
+}
 
 class SThemes extends ChangeNotifier {
   bool isLightTheme = true;
