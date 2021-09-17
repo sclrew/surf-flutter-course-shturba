@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/assets.dart';
@@ -31,45 +32,95 @@ class SightListScreen extends StatefulWidget {
 }
 
 class _SightListScreenState extends State<SightListScreen> {
+  late ScrollController _scrollController;
   int _bottomNavIndex = 0;
+  bool _isScrolled = false;
+
+  bool get _isSilverAppBarScrolled {
+    return _scrollController.hasClients && _scrollController.offset > 80;
+  }
+
+  @override
+  void initState() {
+    _scrollController = ScrollController()
+      ..addListener(() {
+        setState(() {
+          _isScrolled = _isSilverAppBarScrolled;
+        });
+      });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(140),
-          child: Title(),
-        ),
-      ),
-      body: SizedBox(
-        height: double.infinity,
-        child: Stack(
-          children: [
-            ListView.builder(
-              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              itemCount: mocks.length,
-              itemBuilder: (context, index) {
-                return OneItem(
-                  startR: widget.startR,
-                  endR: widget.endR,
-                  mocks: mocks,
-                  nomer: index,
-                );
-              },
+      body: SafeArea(
+        child: CustomScrollView(
+          controller: _scrollController,
+          slivers: [
+            SliverAppBar(
+              pinned: true,
+              title: Column(
+                children: [
+                  if (_isScrolled)
+                    Text(
+                      'Список интересных мест',
+                      style: GoogleFonts.roboto(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        height: 1.33,
+                        color: Theme.of(context).canvasColor,
+                      ),
+                    )
+                  else
+                    Container(),
+                ],
+              ),
+              collapsedHeight: 72,
+              expandedHeight: 140,
+              flexibleSpace: const FlexibleSpaceBar(
+                background: Title(),
+              ),
             ),
-            AddBtn(
-              onTap: () {
-                Navigator.of(context).push<void>(
-                  MaterialPageRoute<void>(
-                    builder: (context) => const AddSightScreen(),
-                  ),
-                );
-              },
-              title: words['NewPlace']!.toUpperCase(),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  for (int i = 0; i < mocks.length; i++)
+                    OneItem(
+                      startR: widget.startR,
+                      endR: widget.endR,
+                      mocks: mocks,
+                      nomer: i,
+                    ),
+                ],
+              ),
             ),
           ],
         ),
+      ),
+
+      // ListView.builder(
+      //   keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+      //   itemCount: mocks.length,
+      //   itemBuilder: (context, index) {
+      //     return OneItem(
+      //       startR: widget.startR,
+      //       endR: widget.endR,
+      //       mocks: mocks,
+      //       nomer: index,
+      //     );
+      //   },
+      // ),
+      floatingActionButton: AddBtn(
+        onTap: () {
+          Navigator.of(context).push<void>(
+            MaterialPageRoute<void>(
+              builder: (context) => const AddSightScreen(),
+            ),
+          );
+        },
+        title: words['NewPlace']!.toUpperCase(),
       ),
       bottomNavigationBar: SBottomNavBar(
         currentIndex: _bottomNavIndex,

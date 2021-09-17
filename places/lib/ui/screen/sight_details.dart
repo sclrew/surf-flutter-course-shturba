@@ -24,194 +24,200 @@ class _SightDetailsState extends State<SightDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(
-            height: 360,
-            child: Stack(
-              children: [
-                ShowImages(
-                  controller: _pageController,
-                  sight: widget.thisSight,
-                  thePage: (number) {
-                    setState(() {
-                      _indicatorValue = number.toDouble();
-                    });
-                  },
-                ),
-                Indicatorchik(
-                  sight: widget.thisSight,
-                  onChanged: (newValue) {
-                    _pageController.animateToPage(
-                      newValue.toInt(),
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.linear,
-                    );
-                    setState(() {
-                      _indicatorValue = newValue;
-                    });
-                  },
-                ),
-                const BackButton(),
-              ],
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Container(
+              height: 360,
+              child: Stack(
+                children: [
+                  ShowImages(
+                    controller: _pageController,
+                    sight: widget.thisSight,
+                    thePage: (number) {
+                      setState(() {
+                        _indicatorValue = number.toDouble();
+                      });
+                    },
+                  ),
+                  Indicatorchik(
+                    sight: widget.thisSight,
+                    onChanged: (newValue) {
+                      _pageController.animateToPage(
+                        newValue.toInt(),
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.linear,
+                      );
+                      setState(() {
+                        _indicatorValue = newValue;
+                      });
+                    },
+                  ),
+                  const BackButton(),
+                ],
+              ),
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(left: 16, top: 24, right: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ConstrainedBox(
-                  constraints: BoxConstraints.tightFor(
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    // height: MediaQuery.of(context).size.height * 0.5,
-                  ),
-                  child: Text(
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16, top: 24, right: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
                     widget.thisSight.name,
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
-                ),
-                Row(
-                  children: [
-                    Text(
-                      widget.thisSight.type,
-                      style: Theme.of(context).textTheme.subtitle2,
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                Text(
-                  widget.thisSight.details,
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    minimumSize: const Size(328, 48),
-                    backgroundColor: const Color(0xff4CAF50),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
-                  ),
-                  onPressed: () {
-                    // ignore: avoid_print
-                    print('Постройте маршрут');
-                  },
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        unionImg,
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          words['BuildARoute']!.toUpperCase(),
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            height: 1.3,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                Container(
-                  height: 0.8,
-                  color: const Color(0xFF7C7E92).withOpacity(0.24),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Container(
-                  height: 40,
-                  child: Row(
+                  Row(
                     children: [
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          child: Center(
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.calendar_today,
-                                    color: const Color(0xff7C7E92)
-                                        .withOpacity(0.56),
-                                    size: 20,
-                                  ),
-                                  const SizedBox(
-                                    width: 9,
-                                  ),
-                                  Text(
-                                    words['ToSchedule']!,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      height: 1.3,
-                                      color: const Color(0xff7C7E92)
-                                          .withOpacity(0.56),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                      Text(
+                        widget.thisSight.type,
+                        style: Theme.of(context).textTheme.subtitle2,
                       ),
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          child: Center(
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.favorite,
-                                    color: Theme.of(context).primaryColorDark,
-                                    size: 20,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    words['ToFavorites']!,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      height: 1.3,
-                                      color: Theme.of(context).primaryColorDark,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                    ],
+                  ),
+                  otstupH24,
+                  Text(
+                    widget.thisSight.details,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  otstupH24,
+                  const RouteBtn(),
+                  otstupH24,
+                  Container(
+                    height: 0.8,
+                    color: const Color(0xFF7C7E92).withOpacity(0.24),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  const ScheduleAndFavoriteBtn(),
+                  otstupH24,
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ScheduleAndFavoriteBtn extends StatelessWidget {
+  const ScheduleAndFavoriteBtn({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 40,
+      child: Row(
+        children: [
+          Flexible(
+            flex: 1,
+            child: Container(
+              child: Center(
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.calendar_today,
+                        color: const Color(0xff7C7E92).withOpacity(0.56),
+                        size: 20,
+                      ),
+                      const SizedBox(
+                        width: 9,
+                      ),
+                      Text(
+                        words['ToSchedule']!,
+                        style: TextStyle(
+                          fontSize: 14,
+                          height: 1.3,
+                          color: const Color(0xff7C7E92).withOpacity(0.56),
                         ),
                       ),
                     ],
                   ),
                 ),
-              ],
+              ),
+            ),
+          ),
+          Flexible(
+            flex: 1,
+            child: Container(
+              child: Center(
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.favorite,
+                        color: Theme.of(context).primaryColorDark,
+                        size: 20,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        words['ToFavorites']!,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          height: 1.3,
+                          color: Theme.of(context).primaryColorDark,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class RouteBtn extends StatelessWidget {
+  const RouteBtn({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+      style: OutlinedButton.styleFrom(
+        minimumSize: const Size(328, 48),
+        backgroundColor: const Color(0xff4CAF50),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+        ),
+      ),
+      onPressed: () {},
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            unionImg,
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              words['BuildARoute']!.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
+                height: 1.3,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
