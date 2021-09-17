@@ -57,6 +57,9 @@ Future<String> _initializing() async {
     () => {
       // ignore: avoid_print
       print('2 секунды прошло - пора переходить '),
+
+      // ignore: avoid_print
+      print('Переход на следующий экран'),
     },
   );
   return 'gotovo';
