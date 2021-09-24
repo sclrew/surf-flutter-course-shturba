@@ -52,11 +52,8 @@ Future<String> _initializing() async {
   await Future.delayed(
     const Duration(seconds: 2),
     () => {
-      // ignore: avoid_print
-      print('2 секунды прошло - пора переходить '),
-
-      // ignore: avoid_print
-      print('Переход на следующий экран'),
+      debugPrint('2 секунды прошло - пора переходить '),
+      debugPrint('Переход на следующий экран'),
     },
   );
   return 'gotovo';
