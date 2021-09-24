@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/style.dart';
+import 'package:places/ui/screen/onboardingscreen.dart';
 
 Widget heartImg = Image.asset(
   'assets/img/heart.png',
@@ -279,4 +280,14 @@ class MainTitle extends StatelessWidget {
       ),
     );
   }
+}
+
+dynamic toPageOneWay(BuildContext context, Widget widget) {
+  Navigator.pushAndRemoveUntil(
+    context,
+    MaterialPageRoute<void>(
+      builder: (context) => widget,
+    ),
+    (route) => false,
+  );
 }
