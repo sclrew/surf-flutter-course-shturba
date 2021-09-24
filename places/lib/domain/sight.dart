@@ -1,6 +1,7 @@
 // enum MyTypes { nature, history, interes }
 
 class Sight {
+  int id;
   String name;
   double lat;
   double lon;
@@ -10,6 +11,7 @@ class Sight {
   List<String> urls;
 
   Sight(
+    this.id,
     this.name,
     this.lat,
     this.lon,
@@ -26,6 +28,7 @@ class WishSight extends Sight {
 
   WishSight(
     this.visitTime,
+    int id,
     String name,
     double lat,
     double lon,
@@ -34,6 +37,7 @@ class WishSight extends Sight {
     String type,
     List<String> urls,
   ) : super(
+          id,
           name,
           lat,
           lon,
@@ -50,6 +54,7 @@ class VisitedSight extends Sight {
 
   VisitedSight(
     this.visitTime,
+    int id,
     String name,
     double lat,
     double lon,
@@ -58,6 +63,7 @@ class VisitedSight extends Sight {
     String type,
     List<String> urls,
   ) : super(
+          id,
           name,
           lat,
           lon,

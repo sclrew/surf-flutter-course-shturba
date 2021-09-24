@@ -179,9 +179,6 @@ class _VisitingScreenState extends State<VisitingScreen> {
                 const VisitedSightEmpty()
               else
                 ListView.builder(
-                  // physics: Platform.isAndroid
-                  //     ? const ClampingScrollPhysics() // Android физика скрола
-                  //     : const BouncingScrollPhysics(), // IOS физика скрола
                   keyboardDismissBehavior:
                       ScrollViewKeyboardDismissBehavior.onDrag,
                   itemCount: _visitedSights.length,
@@ -259,20 +256,13 @@ class _VisitingScreenState extends State<VisitingScreen> {
           ),
         ),
         bottomNavigationBar: SBottomNavBar(
-          currentIndex: _bottomNavIndex,
+          currentIndex: 2,
           onTap: (index) {
-            setState(() {
-              if (index == 0) {
-                Navigator.of(context).pushAndRemoveUntil<void>(
-                  MaterialPageRoute<void>(
-                    builder: (context) => const SightListScreen(),
-                  ),
-                  (route) => false,
-                );
-              } else {
-                _bottomNavIndex = index;
-              }
-            });
+            if (index == 0) {
+              Navigator.of(context).pushNamed('SightListScreen');
+            } else if (index == 3) {
+              Navigator.of(context).pushNamed('Settings');
+            }
           },
         ),
       ),

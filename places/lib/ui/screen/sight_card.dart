@@ -100,7 +100,7 @@ class SightCard extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push<void>(
                 MaterialPageRoute(
-                  builder: (context) => SightDetails(thisSight: sight),
+                  builder: (context) => SightDetails(sightId: sight.id),
                 ),
               );
             },
