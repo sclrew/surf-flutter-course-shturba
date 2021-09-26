@@ -37,13 +37,6 @@ class _SightDetailsState extends State<SightDetails> {
       backgroundColor: Colors.transparent,
       body: Container(
         margin: const EdgeInsets.only(top: 64.0),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16.0),
-            topRight: Radius.circular(16.0),
-          ),
-        ),
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
@@ -82,7 +75,8 @@ class _SightDetailsState extends State<SightDetails> {
               ),
             ),
             SliverToBoxAdapter(
-              child: Padding(
+              child: Container(
+                color: Theme.of(context).primaryColor,
                 padding: const EdgeInsets.only(left: 16, top: 24, right: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
