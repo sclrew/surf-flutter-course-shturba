@@ -74,20 +74,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
             children: [
               Row(
                 children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(
-                      words['cancel']!,
-                      style: GoogleFonts.roboto(
-                        color: const Color(0xff7c7e92),
-                        fontWeight: FontWeight.w500,
-                        height: 1.25,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
+                  const CancelBtnRound(),
                   otstupW51,
                   Text(
                     words['newPlace']!,
@@ -104,9 +91,12 @@ class _AddSightScreenState extends State<AddSightScreen> {
               Row(
                 children: [
                   AddImgBtn(onAdd: () {
-                    setState(() {
-                      _imagesUrl.add(imagesUrl[1]);
-                    });
+                    // setState(() {
+                    //   _imagesUrl.add(imagesUrl[1]);
+                    // });
+                    debugPrint('выбор фото');
+
+                    _choosePhotoDialog();
                   }),
                   Expanded(
                     child: SizedBox(
@@ -243,8 +233,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                         btnTextStyle: roboto14x700x7c7e92,
                         btnColor: const Color(0xffF5F5F5),
                         btnFunc: () {
-                          // ignore: avoid_print
-                          print(
+                          debugPrint(
                             'Нужно хотя бы по 4 символа в каждом поле для сохранения',
                           );
                         },
@@ -311,6 +300,166 @@ class _AddSightScreenState extends State<AddSightScreen> {
     setState(() {
       _imagesUrl.remove(_imagesUrl[nomer]);
     });
+  }
+
+  // ignore: avoid_void_async
+  void _choosePhotoDialog() async {
+    await showDialog<Widget>(
+      context: context,
+      builder: (_) {
+        return Align(
+          alignment: Alignment.bottomCenter,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxHeight: 216.0,
+            ),
+            child: Material(
+              color: Colors.transparent,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  children: [
+                    Container(
+                      height: 152,
+                      width: double.infinity,
+                      padding: const EdgeInsets.only(
+                        left: 17,
+                        top: 19,
+                        right: 17,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(12.0),
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          OneCameraItem(
+                            photo: assetsUrl['camera']!,
+                            text: words['Camera']!,
+                          ),
+                          otstupH13,
+                          Divider(
+                            height: 0.8,
+                            color: const Color(0xff7C7E92).withOpacity(0.56),
+                          ),
+                          otstupH13,
+                          OneCameraItem(
+                            photo: assetsUrl['photo']!,
+                            text: words['Photo']!,
+                          ),
+                          otstupH13,
+                          Divider(
+                            height: 0.8,
+                            color: const Color(0xff7C7E92).withOpacity(0.56),
+                          ),
+                          otstupH13,
+                          OneCameraItem(
+                            photo: assetsUrl['file']!,
+                            text: words['File']!,
+                          ),
+                        ],
+                      ),
+                    ),
+                    otstupH8,
+                    InkWell(
+                      child: choosePhotoCancelBtn(context: context),
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class OneCameraItem extends StatelessWidget {
+  final String photo;
+  final String text;
+  const OneCameraItem({
+    required this.photo,
+    required this.text,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SvgPicture.asset(
+          photo,
+          width: 22,
+          height: 20,
+        ),
+        const SizedBox(
+          width: 13,
+        ),
+        Text(
+          text,
+          style: roboto400x16,
+        ),
+      ],
+    );
+  }
+}
+
+class choosePhotoCancelBtn extends StatelessWidget {
+  const choosePhotoCancelBtn({required this.context, Key? key})
+      : super(key: key);
+
+  final BuildContext context;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 48,
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(12.0),
+        ),
+      ),
+      child: Center(
+        child: Text(
+          words['cancel']!.toUpperCase(),
+          style: roboto14x700x7c7e92.copyWith(
+            color: const Color(0xff4CAF50),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CancelBtnRound extends StatelessWidget {
+  const CancelBtnRound({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+      child: Text(
+        words['cancel']!,
+        style: GoogleFonts.roboto(
+          color: const Color(0xff7c7e92),
+          fontWeight: FontWeight.w500,
+          height: 1.25,
+          fontSize: 16,
+        ),
+      ),
+    );
   }
 }
 

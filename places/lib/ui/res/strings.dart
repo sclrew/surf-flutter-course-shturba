@@ -54,6 +54,9 @@ const Map<String, String> words = {
   'ShareTheMostInterestingAndHelpUsBecomeBetter':
       'Делись самыми интересными\nи помоги нам стать лучше!',
   'onYourMarks': 'на старт',
+  'Camera': 'Камера',
+  'Photo': 'Фотография',
+  'File': 'Файл',
 };
 
-// words['onYourMarks']!
+// words['Camera']!

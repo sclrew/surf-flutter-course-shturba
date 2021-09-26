@@ -46,12 +46,20 @@ Widget otstupH22 = const SizedBox(
   height: 22,
 );
 
+Widget otstupH13 = const SizedBox(
+  height: 13,
+);
+
 Widget otstupH14 = const SizedBox(
   height: 14,
 );
 
 Widget otstupH12 = const SizedBox(
   height: 12,
+);
+
+Widget otstupH8 = const SizedBox(
+  height: 8,
 );
 
 Widget otstupH18 = const SizedBox(
