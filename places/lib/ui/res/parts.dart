@@ -83,7 +83,7 @@ Widget hr08 = Container(
 );
 
 Widget shareImg24 = Image.asset(
-  'assets/img/share.png',
+  assetsUrl['share']!,
   width: 24,
   height: 24,
 );

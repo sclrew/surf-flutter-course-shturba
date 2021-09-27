@@ -6,7 +6,7 @@ import 'package:places/ui/res/parts.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 
-class WishSightCard extends StatelessWidget {
+class WishSightCard extends StatefulWidget {
   final VoidCallback onCloseTap;
   final WishSight sight;
 
@@ -15,6 +15,13 @@ class WishSightCard extends StatelessWidget {
     required this.sight,
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<WishSightCard> createState() => _WishSightCardState();
+}
+
+class _WishSightCardState extends State<WishSightCard> {
+  DateTime _data = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +42,14 @@ class WishSightCard extends StatelessWidget {
                 Expanded(
                   child: Stack(children: [
                     Image.network(
-                      sight.url,
+                      widget.sight.url,
                       width: MediaQuery.of(context).size.width * 0.9,
                       alignment: Alignment.topLeft,
                       fit: BoxFit.fitWidth,
                       loadingBuilder: (
-                        BuildContext context,
-                        Widget child,
-                        ImageChunkEvent? loadingProgress,
+                        context,
+                        child,
+                        loadingProgress,
                       ) {
                         if (loadingProgress == null) {
                           return child;
@@ -64,7 +71,7 @@ class WishSightCard extends StatelessWidget {
                         Container(
                           margin: const EdgeInsets.only(top: 16, left: 16),
                           child: Text(
-                            sight.type.toString(),
+                            widget.sight.type.toString(),
                             style: roboto400x16xwhite,
                           ),
                         ),
@@ -73,15 +80,20 @@ class WishSightCard extends StatelessWidget {
                           child: Row(
                             children: [
                               GestureDetector(
-                                onTap: () {
-                                  // ignore: avoid_print
-                                  print('Календарик');
+                                onTap: () async {
+                                  final res = await wishDatePicker(context);
+                                  if (res != null) {
+                                    setState(() {
+                                      _data = res;
+                                      debugPrint(_data.toString());
+                                    });
+                                  }
                                 },
                                 child: calendarImg24,
                               ),
                               otstupW25,
                               GestureDetector(
-                                onTap: onCloseTap,
+                                onTap: widget.onCloseTap,
                                 child: closeIcon22,
                               ),
                             ],
@@ -109,7 +121,7 @@ class WishSightCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          sight.name,
+                          widget.sight.name,
                           style: GoogleFonts.roboto(
                             textStyle: const TextStyle(
                               height: 1.25,
@@ -128,7 +140,7 @@ class WishSightCard extends StatelessWidget {
                                 text: words['ScheduledFor'],
                               ),
                               TextSpan(
-                                text: sight.visitTime,
+                                text: widget.sight.visitTime,
                               ),
                             ],
                           ),
@@ -146,5 +158,31 @@ class WishSightCard extends StatelessWidget {
         // ),
       ],
     );
+  }
+
+  Future<DateTime?> wishDatePicker(BuildContext context) {
+    return showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        lastDate: DateTime(2100),
+        firstDate: DateTime.now().subtract(
+          const Duration(days: 15),
+        ),
+        cancelText: words['cancel'],
+        confirmText: words['confirm'],
+        helpText: words['chooseDate'],
+        builder: (context, child) {
+          return Theme(
+            data: ThemeData.light().copyWith(
+              primaryColor: const Color(0xff252849),
+              colorScheme: const ColorScheme.light(
+                primary: Color(0xff252849),
+              ),
+            ),
+            child: Container(
+              child: child,
+            ),
+          );
+        });
   }
 }
