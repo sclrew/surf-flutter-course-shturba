@@ -110,7 +110,13 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
       bottomNavigationBar: SBottomNavBar(
         currentIndex: 0,
         onTap: (index) {
-          setState(() {});
+          if (index == 0) {
+            Navigator.of(context).pop();
+          } else if (index == 2) {
+            Navigator.of(context).pushNamed('VisitingScreen');
+          } else if (index == 3) {
+            Navigator.of(context).pushNamed('Settings');
+          }
         },
       ),
     );
@@ -210,7 +216,7 @@ class FoundItems extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        SightDetails(thisSight: filteredSight[i]),
+                        SightDetails(sightId: filteredSight[i].id),
                   ),
                 );
               },
@@ -429,7 +435,7 @@ class EmptySearch extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => SightDetails(
-                                      thisSight: searchHistory[i],
+                                      sightId: searchHistory[i].id,
                                     ),
                                   ),
                                 );

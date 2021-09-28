@@ -6,9 +6,9 @@ import 'package:places/ui/res/parts.dart';
 import 'package:places/ui/res/strings.dart';
 
 class SightDetails extends StatefulWidget {
-  final Sight thisSight;
+  final int sightId;
   const SightDetails({
-    required this.thisSight,
+    required this.sightId,
     Key? key,
   }) : super(key: key);
 
@@ -17,12 +17,16 @@ class SightDetails extends StatefulWidget {
 }
 
 PageController _pageController = PageController();
-
+late Sight thisSight;
 double _indicatorValue = 0;
 
 class _SightDetailsState extends State<SightDetails> {
   @override
   Widget build(BuildContext context) {
+    for (var element in mocks) {
+      if (element.id == widget.sightId) thisSight = element;
+    }
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -33,7 +37,7 @@ class _SightDetailsState extends State<SightDetails> {
                 children: [
                   ShowImages(
                     controller: _pageController,
-                    sight: widget.thisSight,
+                    sight: thisSight,
                     thePage: (number) {
                       setState(() {
                         _indicatorValue = number.toDouble();
@@ -41,7 +45,7 @@ class _SightDetailsState extends State<SightDetails> {
                     },
                   ),
                   Indicatorchik(
-                    sight: widget.thisSight,
+                    sight: thisSight,
                     onChanged: (newValue) {
                       _pageController.animateToPage(
                         newValue.toInt(),
@@ -65,20 +69,20 @@ class _SightDetailsState extends State<SightDetails> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.thisSight.name,
+                    thisSight.name,
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
                   Row(
                     children: [
                       Text(
-                        widget.thisSight.type,
+                        thisSight.type,
                         style: Theme.of(context).textTheme.subtitle2,
                       ),
                     ],
                   ),
                   otstupH24,
                   Text(
-                    widget.thisSight.details,
+                    thisSight.details,
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   otstupH24,

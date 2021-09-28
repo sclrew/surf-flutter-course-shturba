@@ -1,5 +1,5 @@
-import 'dart:io';
-import 'dart:math';
+// import 'dart:io';
+// import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -99,19 +99,6 @@ class _SightListScreenState extends State<SightListScreen> {
           ],
         ),
       ),
-
-      // ListView.builder(
-      //   keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-      //   itemCount: mocks.length,
-      //   itemBuilder: (context, index) {
-      //     return OneItem(
-      //       startR: widget.startR,
-      //       endR: widget.endR,
-      //       mocks: mocks,
-      //       nomer: index,
-      //     );
-      //   },
-      // ),
       floatingActionButton: AddBtn(
         onTap: () {
           Navigator.of(context).push<void>(
@@ -126,21 +113,9 @@ class _SightListScreenState extends State<SightListScreen> {
         currentIndex: _bottomNavIndex,
         onTap: (index) {
           if (index == 2) {
-            Navigator.of(context).push<void>(
-              MaterialPageRoute<void>(
-                builder: (context) => const VisitingScreen(),
-              ),
-            );
+            Navigator.of(context).pushNamed('VisitingScreen');
           } else if (index == 3) {
-            Navigator.of(context).push<void>(
-              MaterialPageRoute<void>(
-                builder: (context) => const Settings(),
-              ),
-            );
-          } else {
-            setState(() {
-              _bottomNavIndex = index;
-            });
+            Navigator.of(context).pushNamed('Settings');
           }
         },
       ),
@@ -214,12 +189,7 @@ class Title extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.push<Object>(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SightSearchScreen(),
-                      ),
-                    );
+                    Navigator.of(context).pushNamed('SightSearchScreen');
                   },
                   child: Row(
                     children: [
@@ -250,12 +220,7 @@ class Title extends StatelessWidget {
                   bottom: 13,
                   child: InkWell(
                     onTap: () {
-                      Navigator.push<Object>(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const FilterScreen(),
-                        ),
-                      );
+                      Navigator.of(context).pushNamed('FilterScreen');
                     },
                     child: Image.asset(
                       assetsUrl['searchS']!,

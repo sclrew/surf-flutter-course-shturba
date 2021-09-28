@@ -4,6 +4,7 @@ import 'dart:math';
 
 final List<Sight> mocks = <Sight>[
   Sight(
+    0,
     'Байкал',
     53.662492,
     104.5868627,
@@ -17,6 +18,7 @@ final List<Sight> mocks = <Sight>[
     ],
   ),
   Sight(
+    1,
     'Московский Кремль',
     55.7520263,
     37.6153107,
@@ -30,6 +32,7 @@ final List<Sight> mocks = <Sight>[
     ],
   ),
   Sight(
+    2,
     'Эйфелева башня',
     48.8583736,
     2.2922926,
@@ -43,6 +46,7 @@ final List<Sight> mocks = <Sight>[
     ],
   ),
   Sight(
+    3,
     'Берлинская стена',
     52.5065133,
     13.389687,
@@ -60,6 +64,7 @@ final List<Sight> mocks = <Sight>[
 final List<VisitedSight> visitedSights = <VisitedSight>[
   VisitedSight(
     '01.01.2018',
+    0,
     'Байкал',
     53.662492,
     104.5868627,
@@ -70,6 +75,7 @@ final List<VisitedSight> visitedSights = <VisitedSight>[
   ),
   VisitedSight(
     '01.01.2019',
+    1,
     'Московский Кремль',
     55.7520263,
     37.6153107,
@@ -80,6 +86,7 @@ final List<VisitedSight> visitedSights = <VisitedSight>[
   ),
   VisitedSight(
     '01.01.2020',
+    2,
     'Эйфелева башня',
     48.8583736,
     2.2922926,
@@ -90,6 +97,7 @@ final List<VisitedSight> visitedSights = <VisitedSight>[
   ),
   VisitedSight(
     '02.01.2020',
+    3,
     'Берлинская стена',
     52.5065133,
     13.389687,
@@ -103,6 +111,7 @@ final List<VisitedSight> visitedSights = <VisitedSight>[
 final List<WishSight> wishSights = <WishSight>[
   WishSight(
     '01.01.2022',
+    0,
     'Байкал',
     53.662492,
     104.5868627,
@@ -113,6 +122,7 @@ final List<WishSight> wishSights = <WishSight>[
   ),
   WishSight(
     '01.01.2023',
+    1,
     'Московский Кремль',
     55.7520263,
     37.6153107,
@@ -123,6 +133,7 @@ final List<WishSight> wishSights = <WishSight>[
   ),
   WishSight(
     '01.01.2024',
+    2,
     'Эйфелева башня',
     48.8583736,
     2.2922926,
@@ -133,6 +144,7 @@ final List<WishSight> wishSights = <WishSight>[
   ),
   WishSight(
     '02.01.2025',
+    3,
     'Берлинская стена',
     52.5065133,
     13.389687,

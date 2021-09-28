@@ -30,20 +30,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // theme: sDarkTheme,
-      // theme: sLightTheme,
+      routes: {
+        'Settings': (context) => const Settings(),
+        'FilterScreen': (context) => const FilterScreen(),
+        'VisitingScreen': (context) => const VisitingScreen(),
+        'AddSightScreen': (context) => const AddSightScreen(),
+        'SightSearchScreen': (context) => const SightSearchScreen(),
+        'SightListScreen': (context) => SightListScreen(),
+      },
       theme:
           Provider.of<SThemes>(context).isLightTheme ? sLightTheme : sDarkTheme,
-      // theme: snapshot.data! ? sLightTheme : sDarkTheme,
       debugShowCheckedModeBanner: false,
-      // home: SightDetails(thisSight: mocks[1]), // Детализация места
-      // home: const VisitingScreen(), // посетил - хочу посетить
-      // home: const SightListScreen(), // список интересных мест
-      // home: FilterScreen(),
-      // home: const Settings(),
-      // home: const AddSightScreen(), // добавить новое место
-      // home: SightSearchScreen(), // экран поиска мест
-      // home: const OnboardingScreen(),
       home: SplashScreen(
         isInitialized: _initializing(),
       ),
@@ -55,11 +52,8 @@ Future<String> _initializing() async {
   await Future.delayed(
     const Duration(seconds: 2),
     () => {
-      // ignore: avoid_print
-      print('2 секунды прошло - пора переходить '),
-
-      // ignore: avoid_print
-      print('Переход на следующий экран'),
+      debugPrint('2 секунды прошло - пора переходить '),
+      debugPrint('Переход на следующий экран'),
     },
   );
   return 'gotovo';

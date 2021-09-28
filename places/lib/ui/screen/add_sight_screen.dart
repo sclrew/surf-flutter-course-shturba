@@ -267,6 +267,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
 
   void _saveNewSight() {
     final newSight = Sight(
+      1,
       nazvanie.text,
       double.parse(latitude.text),
       double.parse(longitude.text),
