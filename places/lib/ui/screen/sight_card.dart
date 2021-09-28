@@ -10,7 +10,6 @@ class SightCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      // alignment: Alignment.topRight,
       children: [
         Container(
           width: MediaQuery.of(context).size.width * 0.9,
@@ -32,9 +31,9 @@ class SightCard extends StatelessWidget {
                       alignment: Alignment.topLeft,
                       fit: BoxFit.fitWidth,
                       loadingBuilder: (
-                        BuildContext context,
-                        Widget child,
-                        ImageChunkEvent? loadingProgress,
+                        context,
+                        child,
+                        loadingProgress,
                       ) {
                         if (loadingProgress == null) {
                           return child;

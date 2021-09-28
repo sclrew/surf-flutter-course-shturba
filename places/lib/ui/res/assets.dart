@@ -23,4 +23,7 @@ const Map<String, String> assetsUrl = {
   'logo': '${d}logo.png',
   'cardClose': '${d}cardClose.svg',
   'chelka40': '${d}chelka40.svg',
+  'camera': '${d}camera.svg',
+  'photo': '${d}photo.svg',
+  'file': '${d}file.svg',
 };
