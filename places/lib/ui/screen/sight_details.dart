@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
+import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/parts.dart';
 import 'package:places/ui/res/strings.dart';
 
@@ -22,87 +24,133 @@ double _indicatorValue = 0;
 
 class _SightDetailsState extends State<SightDetails> {
   @override
-  Widget build(BuildContext context) {
-    for (var element in mocks) {
+  void initState() {
+    for (final element in mocks) {
       if (element.id == widget.sightId) thisSight = element;
     }
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Container(
-              height: 360,
-              child: Stack(
-                children: [
-                  ShowImages(
-                    controller: _pageController,
-                    sight: thisSight,
-                    thePage: (number) {
-                      setState(() {
-                        _indicatorValue = number.toDouble();
-                      });
-                    },
-                  ),
-                  Indicatorchik(
-                    sight: thisSight,
-                    onChanged: (newValue) {
-                      _pageController.animateToPage(
-                        newValue.toInt(),
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.linear,
-                      );
-                      setState(() {
-                        _indicatorValue = newValue;
-                      });
-                    },
-                  ),
-                  const BackButton(),
-                ],
+      backgroundColor: Colors.transparent,
+      body: Container(
+        margin: const EdgeInsets.only(top: 64.0),
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 360,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    ShowImages(
+                      controller: _pageController,
+                      sight: thisSight,
+                      thePage: (number) {
+                        setState(() {
+                          _indicatorValue = number.toDouble();
+                        });
+                      },
+                    ),
+                    Indicatorchik(
+                      sight: thisSight,
+                      onChanged: (newValue) {
+                        _pageController.animateToPage(
+                          newValue.toInt(),
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.linear,
+                        );
+                        setState(() {
+                          _indicatorValue = newValue;
+                        });
+                      },
+                    ),
+                    // const BackButton(),
+                    const Chelka(),
+                    const CloseBtn(),
+                  ],
+                ),
               ),
             ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 16, top: 24, right: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    thisSight.name,
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        thisSight.type,
-                        style: Theme.of(context).textTheme.subtitle2,
-                      ),
-                    ],
-                  ),
-                  otstupH24,
-                  Text(
-                    thisSight.details,
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                  otstupH24,
-                  const RouteBtn(),
-                  otstupH24,
-                  Container(
-                    height: 0.8,
-                    color: const Color(0xFF7C7E92).withOpacity(0.24),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  const ScheduleAndFavoriteBtn(),
-                  otstupH24,
-                ],
+            SliverToBoxAdapter(
+              child: Container(
+                color: Theme.of(context).primaryColor,
+                padding: const EdgeInsets.only(left: 16, top: 24, right: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      thisSight.name,
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          thisSight.type,
+                          style: Theme.of(context).textTheme.subtitle2,
+                        ),
+                      ],
+                    ),
+                    otstupH24,
+                    Text(
+                      thisSight.details,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    otstupH24,
+                    const RouteBtn(),
+                    otstupH24,
+                    Container(
+                      height: 0.8,
+                      color: const Color(0xFF7C7E92).withOpacity(0.24),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    const ScheduleAndFavoriteBtn(),
+                    otstupH24,
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
+    );
+  }
+}
+
+class CloseBtn extends StatelessWidget {
+  const CloseBtn({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: 16,
+      right: 16,
+      child: InkWell(
+        onTap: () {
+          Navigator.of(context).pop();
+        },
+        child: SvgPicture.asset(assetsUrl['cardClose']!),
+      ),
+    );
+  }
+}
+
+class Chelka extends StatelessWidget {
+  const Chelka({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: 12,
+      child: SvgPicture.asset(assetsUrl['chelka40']!),
     );
   }
 }
@@ -114,12 +162,12 @@ class ScheduleAndFavoriteBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 40,
       child: Row(
         children: [
           Flexible(
-            flex: 1,
+            // flex: 1,
             child: Container(
               child: Center(
                 child: GestureDetector(
@@ -302,27 +350,33 @@ class ShowImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(
-      url,
-      fit: BoxFit.fill,
-      height: 360,
-      loadingBuilder: (
-        BuildContext context,
-        Widget child,
-        ImageChunkEvent? loadingProgress,
-      ) {
-        if (loadingProgress == null) {
-          return child;
-        }
-        return Center(
-          child: CircularProgressIndicator(
-            value: loadingProgress.expectedTotalBytes != null
-                ? loadingProgress.cumulativeBytesLoaded /
-                    loadingProgress.expectedTotalBytes!
-                : null,
-          ),
-        );
-      },
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(16),
+        topRight: Radius.circular(16),
+      ),
+      child: Image.network(
+        url,
+        fit: BoxFit.fill,
+        height: 360,
+        loadingBuilder: (
+          context,
+          child,
+          loadingProgress,
+        ) {
+          if (loadingProgress == null) {
+            return child;
+          }
+          return Center(
+            child: CircularProgressIndicator(
+              value: loadingProgress.expectedTotalBytes != null
+                  ? loadingProgress.cumulativeBytesLoaded /
+                      loadingProgress.expectedTotalBytes!
+                  : null,
+            ),
+          );
+        },
+      ),
     );
   }
 }

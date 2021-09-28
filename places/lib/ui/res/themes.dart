@@ -84,6 +84,9 @@ final sLightTheme = ThemeData(
       padding: EdgeInsets.zero,
     ),
   ),
+  bottomSheetTheme: const BottomSheetThemeData(
+    backgroundColor: Colors.transparent,
+  ),
 );
 
 final sDarkTheme = ThemeData(
@@ -169,5 +172,8 @@ final sDarkTheme = ThemeData(
     style: OutlinedButton.styleFrom(
       padding: EdgeInsets.zero,
     ),
+  ),
+  bottomSheetTheme: const BottomSheetThemeData(
+    backgroundColor: Colors.transparent,
   ),
 );

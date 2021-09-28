@@ -98,11 +98,7 @@ class SightCard extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             onTap: () {
-              Navigator.of(context).push<void>(
-                MaterialPageRoute(
-                  builder: (context) => SightDetails(sightId: sight.id),
-                ),
-              );
+              _showDetailed(context, sight.id);
             },
             borderRadius: BorderRadius.circular(20),
             splashColor: const Color(0xffC4C480).withOpacity(0.5),
@@ -126,6 +122,16 @@ class SightCard extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  void _showDetailed(BuildContext context, int sightId) async {
+    await showModalBottomSheet<Widget>(
+      context: context,
+      builder: (_) {
+        return SightDetails(sightId: sightId);
+      },
+      isScrollControlled: true,
     );
   }
 }

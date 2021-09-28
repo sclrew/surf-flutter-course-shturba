@@ -21,4 +21,6 @@ const Map<String, String> assetsUrl = {
   'backpack': '${d}backpack.png',
   'fingerTap': '${d}fingerTap.png',
   'logo': '${d}logo.png',
+  'cardClose': '${d}cardClose.svg',
+  'chelka40': '${d}chelka40.svg',
 };

@@ -14,6 +14,7 @@ import 'package:places/ui/screen/add_sight_screen.dart';
 import 'package:places/ui/screen/filter_screen.dart';
 import 'package:places/ui/screen/settings.dart';
 import 'package:places/ui/screen/sight_card.dart';
+import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/screen/sight_search_screen.dart';
 import 'package:places/ui/screen/visiting_screen.dart';
 
@@ -55,6 +56,7 @@ class _SightListScreenState extends State<SightListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         child: CustomScrollView(
           controller: _scrollController,
@@ -253,60 +255,39 @@ class AddBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 16,
-      width: MediaQuery.of(context).size.width,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Stack(
-            children: [
-              Container(
-                padding: const EdgeInsets.only(
-                  top: 15,
-                  bottom: 15,
-                  left: 26,
-                  right: 22,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24.0),
-                  gradient: const LinearGradient(colors: [
-                    Color(0xffFCDD3D),
-                    Color(0xff4CAF50),
-                  ]),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.add,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                    const SizedBox(
-                      width: 13,
-                    ),
-                    Text(
-                      title,
-                      style: roboto14x700xwhite,
-                    ),
-                  ],
-                ),
-              ),
-              Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(24),
-                  splashColor: Colors.green.withOpacity(0.7),
-                  onTap: onTap,
-                  child: const SizedBox(
-                    width: 178,
-                    height: 49,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
+    return TextButton(
+      onPressed: onTap,
+      child: Container(
+        width: 178,
+        padding: const EdgeInsets.only(
+          top: 15,
+          bottom: 15,
+          left: 26,
+          right: 22,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24.0),
+          gradient: const LinearGradient(colors: [
+            Color(0xffFCDD3D),
+            Color(0xff4CAF50),
+          ]),
+        ),
+        child: Row(
+          children: [
+            const Icon(
+              Icons.add,
+              color: Colors.white,
+              size: 20,
+            ),
+            const SizedBox(
+              width: 13,
+            ),
+            Text(
+              title,
+              style: roboto14x700xwhite,
+            ),
+          ],
+        ),
       ),
     );
   }
