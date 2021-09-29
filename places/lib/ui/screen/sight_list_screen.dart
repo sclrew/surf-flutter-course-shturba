@@ -11,12 +11,7 @@ import 'package:places/ui/res/parts.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/add_sight_screen.dart';
-import 'package:places/ui/screen/filter_screen.dart';
-import 'package:places/ui/screen/settings.dart';
 import 'package:places/ui/screen/sight_card.dart';
-import 'package:places/ui/screen/sight_details.dart';
-import 'package:places/ui/screen/sight_search_screen.dart';
-import 'package:places/ui/screen/visiting_screen.dart';
 
 class SightListScreen extends StatefulWidget {
   final double startR;
@@ -85,19 +80,35 @@ class _SightListScreenState extends State<SightListScreen> {
                 background: Title(),
               ),
             ),
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  for (int i = 0; i < mocks.length; i++)
-                    OneItem(
-                      startR: widget.startR,
-                      endR: widget.endR,
-                      mocks: mocks,
-                      nomer: i,
-                    ),
-                ],
+            if (MediaQuery.of(context).orientation == Orientation.portrait)
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => OnePortraitItem(
+                    startR: widget.startR,
+                    endR: widget.endR,
+                    mocks: mocks,
+                    nomer: index,
+                  ),
+                  childCount: mocks.length,
+                ),
               ),
-            ),
+            if (MediaQuery.of(context).orientation == Orientation.landscape)
+              SliverGrid(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => OneLandscapeItem(
+                    startR: widget.startR,
+                    endR: widget.endR,
+                    mocks: mocks,
+                    nomer: index,
+                  ),
+                  childCount: mocks.length,
+                ),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 36.0,
+                  mainAxisSpacing: 32.0,
+                ),
+              ),
           ],
         ),
       ),
@@ -125,12 +136,12 @@ class _SightListScreenState extends State<SightListScreen> {
   }
 }
 
-class OneItem extends StatelessWidget {
+class OnePortraitItem extends StatelessWidget {
   final double startR;
   final double endR;
   final List<Sight> mocks;
   final int nomer;
-  const OneItem({
+  const OnePortraitItem({
     required this.startR,
     required this.endR,
     required this.mocks,
@@ -150,6 +161,30 @@ class OneItem extends StatelessWidget {
           if (mocks.length - 1 != nomer) otstupH30,
         ],
       );
+    } else {
+      return Container();
+    }
+  }
+}
+
+class OneLandscapeItem extends StatelessWidget {
+  final double startR;
+  final double endR;
+  final List<Sight> mocks;
+  final int nomer;
+  const OneLandscapeItem({
+    required this.startR,
+    required this.endR,
+    required this.mocks,
+    required this.nomer,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final distance = myDistance(mocks[nomer]);
+    if (startR < distance && endR > distance) {
+      return SightCard(sight: mocks[nomer]);
     } else {
       return Container();
     }

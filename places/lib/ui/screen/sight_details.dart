@@ -25,10 +25,6 @@ double _indicatorValue = 0;
 class _SightDetailsState extends State<SightDetails> {
   @override
   void initState() {
-    // for (final element in mocks) {
-    //   if (element.id == widget.sightId) thisSight = element;
-    // }
-
     thisSight = mocks.firstWhere((element) => element.id == widget.sightId);
     super.initState();
   }
