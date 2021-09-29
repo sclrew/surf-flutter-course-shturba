@@ -25,9 +25,11 @@ double _indicatorValue = 0;
 class _SightDetailsState extends State<SightDetails> {
   @override
   void initState() {
-    for (final element in mocks) {
-      if (element.id == widget.sightId) thisSight = element;
-    }
+    // for (final element in mocks) {
+    //   if (element.id == widget.sightId) thisSight = element;
+    // }
+
+    thisSight = mocks.firstWhere((element) => element.id == widget.sightId);
     super.initState();
   }
 
@@ -329,14 +331,20 @@ class ShowImages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PageView(
-      controller: controller,
-      pageSnapping: false,
-      onPageChanged: thePage,
-      children: [
-        for (int i = 0; sight.urls.length > i; i++)
-          ShowImage(url: sight.urls[i]),
-      ],
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(16),
+        topRight: Radius.circular(16),
+      ),
+      child: PageView(
+        controller: controller,
+        pageSnapping: false,
+        onPageChanged: thePage,
+        children: [
+          for (int i = 0; sight.urls.length > i; i++)
+            ShowImage(url: sight.urls[i]),
+        ],
+      ),
     );
   }
 }
@@ -350,33 +358,35 @@ class ShowImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(16),
-        topRight: Radius.circular(16),
-      ),
-      child: Image.network(
-        url,
-        fit: BoxFit.fill,
-        height: 360,
-        loadingBuilder: (
-          context,
-          child,
-          loadingProgress,
-        ) {
-          if (loadingProgress == null) {
-            return child;
-          }
-          return Center(
-            child: CircularProgressIndicator(
-              value: loadingProgress.expectedTotalBytes != null
-                  ? loadingProgress.cumulativeBytesLoaded /
-                      loadingProgress.expectedTotalBytes!
-                  : null,
-            ),
-          );
-        },
-      ),
+    return
+        // ClipRRect(
+        //   borderRadius: const BorderRadius.only(
+        //     topLeft: Radius.circular(16),
+        //     topRight: Radius.circular(16),
+        //   ),
+        //   child:
+        Image.network(
+      url,
+      fit: BoxFit.fill,
+      height: 360,
+      loadingBuilder: (
+        context,
+        child,
+        loadingProgress,
+      ) {
+        if (loadingProgress == null) {
+          return child;
+        }
+        return Center(
+          child: CircularProgressIndicator(
+            value: loadingProgress.expectedTotalBytes != null
+                ? loadingProgress.cumulativeBytesLoaded /
+                    loadingProgress.expectedTotalBytes!
+                : null,
+          ),
+        );
+      },
+      // ),
     );
   }
 }

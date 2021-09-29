@@ -153,36 +153,34 @@ class _WishSightCardState extends State<WishSightCard> {
             ),
           ),
         ),
-        // const SizedBox(
-        //   height: 16,
-        // ),
       ],
     );
   }
 
   Future<DateTime?> wishDatePicker(BuildContext context) {
     return showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        lastDate: DateTime(2100),
-        firstDate: DateTime.now().subtract(
-          const Duration(days: 15),
-        ),
-        cancelText: words['cancel'],
-        confirmText: words['confirm'],
-        helpText: words['chooseDate'],
-        builder: (context, child) {
-          return Theme(
-            data: ThemeData.light().copyWith(
-              primaryColor: const Color(0xff252849),
-              colorScheme: const ColorScheme.light(
-                primary: Color(0xff252849),
-              ),
+      context: context,
+      initialDate: DateTime.now(),
+      lastDate: DateTime(2100),
+      firstDate: DateTime.now().subtract(
+        const Duration(days: 15),
+      ),
+      cancelText: words['cancel'],
+      confirmText: words['confirm'],
+      helpText: words['chooseDate'],
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: const Color(0xff252849),
+            colorScheme: const ColorScheme.light(
+              primary: Color(0xff252849),
             ),
-            child: Container(
-              child: child,
-            ),
-          );
-        });
+          ),
+          child: Container(
+            child: child,
+          ),
+        );
+      },
+    );
   }
 }
