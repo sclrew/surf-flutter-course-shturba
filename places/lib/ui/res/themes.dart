@@ -1,6 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 final sLightTheme = ThemeData(
+  timePickerTheme: const TimePickerThemeData(
+    dialHandColor: Color(0xff6a9e3f),
+    dayPeriodTextStyle: TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w700,
+      height: 1.4,
+    ),
+    hourMinuteTextColor: Colors.white,
+    hourMinuteTextStyle: TextStyle(
+      height: 1.35,
+      fontSize: 22,
+      color: Colors.white,
+    ),
+    entryModeIconColor: Color.fromRGBO(1, 1, 1, 0), // toggle color
+    dayPeriodShape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(35.0),
+      ),
+      side: BorderSide(),
+    ),
+  ),
   secondaryHeaderColor: Colors.black,
   canvasColor: const Color(0xff252849),
   focusColor: Colors.white,
