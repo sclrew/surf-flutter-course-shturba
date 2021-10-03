@@ -1,7 +1,4 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:places/domain/data_range.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/parts.dart';
@@ -31,7 +28,13 @@ class _FilterScreenState extends State<FilterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (MediaQuery.of(context).size.width < 481) _isSmallScreen = true;
+    var logicalPixelWidth = MediaQuery.of(context).size.width;
+    var devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
+    var devicePixelWidth = logicalPixelWidth * devicePixelRatio;
+
+    if (devicePixelWidth < 481) _isSmallScreen = true;
+    debugPrint(_isSmallScreen.toString());
+    debugPrint(MediaQuery.of(context).size.width.toString());
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16),
