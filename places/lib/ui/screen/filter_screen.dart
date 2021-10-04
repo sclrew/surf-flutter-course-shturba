@@ -219,14 +219,6 @@ class _FilterScreenState extends State<FilterScreen> {
                       ),
                     ),
                     onPressed: () {
-                      // Navigator.of(context).push<void>(
-                      //   MaterialPageRoute(
-                      //     builder: (context) => SightListScreen(
-                      //       startR: _selectedRange.start,
-                      //       endR: _selectedRange.end,
-                      //     ),
-                      //   ),
-                      // );
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute<void>(

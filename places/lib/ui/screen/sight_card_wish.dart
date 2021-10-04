@@ -161,12 +161,10 @@ class _WishSightCardState extends State<WishSightCard> {
             ),
           ),
         ),
-        // const SizedBox(
-        //   height: 16,
-        // ),
       ],
     );
   }
+
 
   Future<void> _wishTimePickerIOS(BuildContext context) {
     return showModalBottomSheet<void>(
