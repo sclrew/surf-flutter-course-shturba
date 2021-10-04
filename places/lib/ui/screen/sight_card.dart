@@ -9,11 +9,14 @@ class SightCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var isPortrait = false;
+    if (MediaQuery.of(context).orientation == Orientation.portrait) {
+      isPortrait = true;
+    }
     return Container(
-      margin: MediaQuery.of(context).orientation == Orientation.portrait
+      margin: isPortrait
           ? const EdgeInsets.only(left: 18.0, right: 18.0)
           : EdgeInsets.zero,
-      // width: MediaQuery.of(context).size.width * 0.9,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(
           Radius.circular(20),
@@ -24,10 +27,7 @@ class SightCard extends StatelessWidget {
         children: [
           Align(
             child: AspectRatio(
-              aspectRatio:
-                  MediaQuery.of(context).orientation == Orientation.portrait
-                      ? 3 / 2
-                      : 2 / 2,
+              aspectRatio: isPortrait ? 3 / 2 : 2 / 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -146,7 +146,7 @@ class SightDescription extends StatelessWidget {
             ),
             Text(
               sight.details,
-              maxLines: 2,
+              maxLines: 1,
               style: Theme.of(context).textTheme.headline2,
             ),
           ],

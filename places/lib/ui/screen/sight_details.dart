@@ -65,7 +65,6 @@ class _SightDetailsState extends State<SightDetails> {
                         });
                       },
                     ),
-                    // const BackButton(),
                     const Chelka(),
                     const CloseBtn(),
                   ],
@@ -354,14 +353,7 @@ class ShowImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-        // ClipRRect(
-        //   borderRadius: const BorderRadius.only(
-        //     topLeft: Radius.circular(16),
-        //     topRight: Radius.circular(16),
-        //   ),
-        //   child:
-        Image.network(
+    return Image.network(
       url,
       fit: BoxFit.fill,
       height: 360,
@@ -383,39 +375,6 @@ class ShowImage extends StatelessWidget {
         );
       },
       // ),
-    );
-  }
-}
-
-class BackButton extends StatelessWidget {
-  const BackButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 36, left: 16),
-      child: SizedBox(
-        height: 32,
-        width: 32,
-        child: TextButton(
-          style: TextButton.styleFrom(
-            backgroundColor: Theme.of(context).primaryColor,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Center(
-            child: Icon(
-              Icons.arrow_back_ios_new_rounded,
-              size: 16,
-              color: Theme.of(context).secondaryHeaderColor,
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
