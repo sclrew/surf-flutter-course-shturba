@@ -1,7 +1,4 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:places/domain/data_range.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/parts.dart';
@@ -27,9 +24,17 @@ class _FilterScreenState extends State<FilterScreen> {
   bool isCafe = false;
 
   var _selectedRange = const RangeValues(100, 10000);
+  bool _isSmallScreen = false;
 
   @override
   Widget build(BuildContext context) {
+    var logicalPixelWidth = MediaQuery.of(context).size.width;
+    var devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
+    var devicePixelWidth = logicalPixelWidth * devicePixelRatio;
+
+    if (devicePixelWidth < 481) _isSmallScreen = true;
+    debugPrint(_isSmallScreen.toString());
+    debugPrint(MediaQuery.of(context).size.width.toString());
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -132,41 +137,16 @@ class _FilterScreenState extends State<FilterScreen> {
                     });
                   },
                 ),
-                MenuElement(
-                  isActive: isPark,
-                  imgUrl: assetsUrl['park']!,
-                  nazvanie: words['Park']!,
-                  onTap: () {
-                    setState(() {
-                      isPark = !isPark;
-                    });
-                  },
-                ),
-                MenuElement(
-                  isActive: isMuseum,
-                  imgUrl: assetsUrl['museum']!,
-                  nazvanie: words['Museum']!,
-                  onTap: () {
-                    setState(() {
-                      isMuseum = !isMuseum;
-                    });
-                  },
-                ),
-                MenuElement(
-                  isActive: isCafe,
-                  imgUrl: assetsUrl['cafe']!,
-                  nazvanie: words['Cafe']!,
-                  onTap: () {
-                    setState(() {
-                      isCafe = !isCafe;
-                    });
-                  },
-                ),
               ],
             ),
-            const SizedBox(
-              height: 56,
-            ),
+            if (_isSmallScreen)
+              const SizedBox(
+                height: 28,
+              )
+            else
+              const SizedBox(
+                height: 56,
+              ),
             Container(
               padding: const EdgeInsets.only(top: 4),
               child: Row(
@@ -183,9 +163,14 @@ class _FilterScreenState extends State<FilterScreen> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 32,
-            ),
+            if (_isSmallScreen)
+              const SizedBox(
+                height: 24,
+              )
+            else
+              const SizedBox(
+                height: 32,
+              ),
             RangeSlider(
               min: 0,
               max: 10000,
@@ -202,11 +187,18 @@ class _FilterScreenState extends State<FilterScreen> {
                 });
               },
             ),
-            Expanded(
-              child: Container(),
-            ),
+            if (_isSmallScreen)
+              const SizedBox(
+                height: 33,
+              )
+            else
+              Expanded(
+                child: Container(),
+              ),
             Container(
-              margin: const EdgeInsets.only(left: 16, top: 24, right: 16),
+              margin: _isSmallScreen
+                  ? const EdgeInsets.symmetric(horizontal: 16)
+                  : const EdgeInsets.only(left: 16, top: 24, right: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -242,9 +234,12 @@ class _FilterScreenState extends State<FilterScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 24,
-                  ),
+                  if (_isSmallScreen)
+                    Container()
+                  else
+                    const SizedBox(
+                      height: 24,
+                    ),
                 ],
               ),
             ),
