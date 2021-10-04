@@ -57,8 +57,8 @@ const Map<String, String> words = {
   'Camera': 'Камера',
   'Photo': 'Фотография',
   'File': 'Файл',
-  'confirm': 'Подтвердить',
-  'chooseDate': 'Выберите дату',
+  'confirm': 'OK',
+  'cancelPicker': 'CANCEL',
 };
 
 // words['confirm']!

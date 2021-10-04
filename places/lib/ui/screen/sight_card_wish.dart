@@ -1,10 +1,15 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/ui/res/my_material_picker.dart';
 import 'package:places/ui/res/parts.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';
+import 'package:places/ui/res/themes.dart';
 
 class WishSightCard extends StatefulWidget {
   final VoidCallback onCloseTap;
@@ -21,7 +26,13 @@ class WishSightCard extends StatefulWidget {
 }
 
 class _WishSightCardState extends State<WishSightCard> {
-  DateTime _data = DateTime.now();
+  late TimeOfDay _data;
+
+  @override
+  void initState() {
+    _data = TimeOfDay.now();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,14 +91,11 @@ class _WishSightCardState extends State<WishSightCard> {
                           child: Row(
                             children: [
                               GestureDetector(
-                                onTap: () async {
-                                  final res = await wishDatePicker(context);
-                                  if (res != null) {
-                                    setState(() {
-                                      _data = res;
-                                      debugPrint(_data.toString());
-                                    });
-                                  }
+                                onTap: () {
+                                  Platform.isAndroid
+                                      ? _wishTimePickerAndroid()
+                                      // : _wishTimePickerIOS(context);
+                                      : _wishTimePickerIOS(context);
                                 },
                                 child: calendarImg24,
                               ),
@@ -117,7 +125,6 @@ class _WishSightCardState extends State<WishSightCard> {
                   child: Container(
                     margin: const EdgeInsets.only(left: 16, top: 16, right: 16),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -140,7 +147,8 @@ class _WishSightCardState extends State<WishSightCard> {
                                 text: words['ScheduledFor'],
                               ),
                               TextSpan(
-                                text: widget.sight.visitTime,
+                                text: '${_data.hour}:${_data.minute}',
+                                // text: widget.sight.visitTime,
                               ),
                             ],
                           ),
@@ -157,30 +165,67 @@ class _WishSightCardState extends State<WishSightCard> {
     );
   }
 
-  Future<DateTime?> wishDatePicker(BuildContext context) {
-    return showDatePicker(
+
+  Future<void> _wishTimePickerIOS(BuildContext context) {
+    return showModalBottomSheet<void>(
       context: context,
-      initialDate: DateTime.now(),
-      lastDate: DateTime(2100),
-      firstDate: DateTime.now().subtract(
-        const Duration(days: 15),
-      ),
-      cancelText: words['cancel'],
-      confirmText: words['confirm'],
-      helpText: words['chooseDate'],
-      builder: (context, child) {
-        return Theme(
-          data: ThemeData.light().copyWith(
-            primaryColor: const Color(0xff252849),
-            colorScheme: const ColorScheme.light(
-              primary: Color(0xff252849),
-            ),
+      useRootNavigator: true,
+      builder: (_) {
+        return Container(
+          height: 180,
+          padding: const EdgeInsets.symmetric(
+            vertical: 30,
           ),
-          child: Container(
-            child: child,
+          color: Colors.white,
+          child: Center(
+            child: CupertinoDatePicker(
+              initialDateTime: DateTime.now(),
+              onDateTimeChanged: (val) {
+                setState(
+                  () {
+                    _data = TimeOfDay.fromDateTime(val);
+                  },
+                );
+              },
+            ),
           ),
         );
       },
     );
+  }
+
+  Future _wishTimePickerAndroid() async {
+    // final res = await showTimePicker(
+    final res = await showMyMaterialTimePicker(
+      initialTime: TimeOfDay.now(),
+      context: context,
+      cancelText: words['cancelPicker'],
+      confirmText: words['confirm'],
+      helpText: '',
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            alwaysUse24HourFormat: false,
+          ),
+          child: Theme(
+            // data: sLightTheme,
+            data: sLightTheme.copyWith(
+              colorScheme: const ColorScheme.light(
+                primary: Color(0xff493b30),
+              ),
+            ),
+            child: Container(
+              child: child,
+            ),
+          ),
+        );
+      },
+    );
+    if (res != null) {
+      debugPrint(res.toString());
+      setState(() {
+        _data = res;
+      });
+    }
   }
 }

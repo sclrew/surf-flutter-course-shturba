@@ -1,14 +1,10 @@
 // import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:places/mocks.dart';
-// import 'package:places/test.dart';
 import 'package:places/ui/res/themes.dart';
 import 'package:places/ui/screen/add_sight_screen.dart';
 import 'package:places/ui/screen/filter_screen.dart';
-import 'package:places/ui/screen/onboardingScreen.dart';
 import 'package:places/ui/screen/settings.dart';
-import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/screen/sight_list_screen.dart';
 import 'package:places/ui/screen/sight_search_screen.dart';
 import 'package:places/ui/screen/splash_screen.dart';
