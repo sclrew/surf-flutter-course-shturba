@@ -1,6 +1,6 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
-import 'dart:math';
 
 final List<Sight> mocks = <Sight>[
   Sight(
@@ -185,12 +185,12 @@ num myDistance(Sight mySight) {
 }
 
 String inMyRange(List<Sight> mocks, RangeValues range) {
-  int inRange = 0;
+  var inRange = 0;
 
-  mocks.forEach((element) {
-    var distance = myDistance(element);
+  for (final element in mocks) {
+    final distance = myDistance(element);
     if (range.start < distance && range.end > distance) inRange = inRange + 1;
-  });
+  }
 
   return inRange.toString();
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/domain/http.dart';
 import 'package:places/ui/res/assets.dart';
 import 'package:places/ui/res/strings.dart';
 import 'package:places/ui/res/text_styles.dart';

@@ -1,6 +1,9 @@
 // import 'dart:async';
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:places/domain/http.dart';
 import 'package:places/ui/res/themes.dart';
 import 'package:places/ui/screen/add_sight_screen.dart';
 import 'package:places/ui/screen/filter_screen.dart';
@@ -32,7 +35,7 @@ class MyApp extends StatelessWidget {
         'VisitingScreen': (context) => const VisitingScreen(),
         'AddSightScreen': (context) => const AddSightScreen(),
         'SightSearchScreen': (context) => const SightSearchScreen(),
-        'SightListScreen': (context) => SightListScreen(),
+        'SightListScreen': (context) => const SightListScreen(),
       },
       theme:
           Provider.of<SThemes>(context).isLightTheme ? sLightTheme : sDarkTheme,
@@ -45,6 +48,7 @@ class MyApp extends StatelessWidget {
 }
 
 Future<String> _initializing() async {
+  TestNetworkCall();
   await Future.delayed(
     const Duration(seconds: 2),
     () => {
@@ -52,7 +56,13 @@ Future<String> _initializing() async {
       debugPrint('Переход на следующий экран'),
     },
   );
+
   return 'gotovo';
+}
+
+void TestNetworkCall() async {
+  final dynamic response = await dioGetPosts();
+  debugPrint('Response http call $response');
 }
 
 class SThemes extends ChangeNotifier {
